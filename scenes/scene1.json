@@ -1,0 +1,8 @@
+{
+  "id": "scene1",
+  "dialog": "Zia duduk di taman...",
+  "choices": [
+    { "label": "Sapa Aira", "nextScene": "scene2A" },
+    { "label": "Abaikan", "nextScene": "scene2B" }
+  ]
+}
