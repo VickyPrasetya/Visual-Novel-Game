@@ -1,0 +1,5 @@
+{
+  "java.project.referencedLibraries": [
+    "C:DevTools/javafx-sdk-24.0.1lib/**/*.jar"
+  ]
+}
