@@ -1,5 +1,5 @@
 {
   "java.project.referencedLibraries": [
-    "E:/JavaFX/javafx-sdk-21/lib/**/*.jar"
+   "E:/VisualNovel-game/Libraries/javafx-sdk-24.0.1/lib/**/*.jar"
   ]
 }
