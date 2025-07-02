@@ -62,7 +62,7 @@ public class Main extends Application {
     }
 
     private void updateUI() {
-        SceneData currentScene = gameManager.getCurrentScene();
+        sceneData currentScene = gameManager.getCurrentScene();
 
         if (currentScene == null) {
             dialogueLabel.setText("TAMAT.\nTerima kasih telah bermain.");

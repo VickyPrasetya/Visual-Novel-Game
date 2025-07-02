@@ -1,27 +1,9 @@
 package ui.visualnovel.game.Model;
 
+/**
+ * Kelas ini merepresentasikan satu pilihan yang bisa diambil oleh pemain.
+ */
 public class choiceData {
-    private String text;
-    private String nextScene;
-
-    public choiceData(String text, String nextScene) {
-        this.text = text;
-        this.nextScene = nextScene;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public String getNextScene() {
-        return nextScene;
-    }
-
-    public void setNextScene(String nextScene) {
-        this.nextScene = nextScene;
-    }
+    public String label; // Teks yang muncul di tombol pilihan
+    public String nextScene; // ID adegan yang akan dituju jika pilihan ini diambil
 }
