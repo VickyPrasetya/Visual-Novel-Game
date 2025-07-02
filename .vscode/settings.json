@@ -1,5 +1,9 @@
 {
-  "java.project.referencedLibraries": [
-    "C:DevTools/javafx-sdk-24.0.1lib/**/*.jar"
-  ]
+    // 1. Memberitahu Java di mana folder sumber kode berada
+    "java.project.sourcePaths": ["src"],
+
+    // 2. Memberitahu Java untuk menyertakan SEMUA .jar di folder lib
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar"
+    ]
 }
