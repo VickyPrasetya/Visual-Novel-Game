@@ -1,10 +1,10 @@
 // File: src/ui/visualnovel/game/Main.java
 
-package ui.visualnovel.game;
+package game;
 
 import ui.visualnovel.game.manager.gameManager;
-import ui.visualnovel.game.Model.choiceData;
-import ui.visualnovel.game.Model.sceneData;
+import game.model.choiceData;
+import game.model.sceneData;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;

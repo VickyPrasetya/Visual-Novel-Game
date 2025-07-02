@@ -1,4 +1,4 @@
-package ui.visualnovel.game.Model;
+package game.model;
 
 /**
  * Kelas ini merepresentasikan satu pilihan yang bisa diambil oleh pemain.

@@ -1,4 +1,4 @@
-package ui.visualnovel.game.Model;
+package game.model;
 
 import java.util.List;
 

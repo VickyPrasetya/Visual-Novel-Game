@@ -1,4 +1,4 @@
-package game.manager;
+package ui.visualnovel.game.manager;
 
 
 import java.util.Map;
