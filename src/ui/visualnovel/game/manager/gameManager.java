@@ -1,12 +1,8 @@
 package ui.visualnovel.game.manager;
 
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.util.Arrays;
+
 import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
+
 
 import com.google.gson.Gson; // Import library untuk membaca JSON
 import ui.visualnovel.game.Model.sceneData; // Import kelas SceneData kita
@@ -27,30 +23,33 @@ public class gameManager {
         }
     }
 
-    private void loadStory() {
-        Gson gson = new Gson();
-        // Coba baca file JSON dari folder 'assets'
-        try (InputStream is = getClass().getResourceAsStream("/assets/scene1.json")) {
-            if (is == null) {
-                System.err.println("Error: Tidak bisa menemukan file /assets/scene1.json");
-                return;
-            }
-            Reader reader = new InputStreamReader(is);
+ // GANTI METODE loadStory() YANG LAMA DENGAN YANG INI:
+private void loadStory() {
+    Gson gson = new Gson();
+    String filePath = "assets/scene1.json"; // Path relatif dari root project
+    System.out.println("--- [METODE BARU] Mencoba membaca file langsung dari: " + filePath);
 
-            // Parsing JSON menjadi array objek SceneData
-            sceneData[] scenes = gson.fromJson(reader, sceneData[].class);
-            
-            // Ubah array menjadi Map untuk pencarian adegan berdasarkan ID yang lebih cepat
-            this.storyData = Arrays.stream(scenes)
-                    .collect(Collectors.toMap(scene -> scene.id, Function.identity()));
-            
-            System.out.println("Cerita berhasil dimuat. Total adegan: " + storyData.size());
+    try (java.io.Reader reader = new java.io.FileReader(filePath)) {
+        
+        System.out.println("--- [METODE BARU] BERHASIL! File ditemukan di " + filePath);
+        
+        sceneData[] scenes = gson.fromJson(reader, sceneData[].class);
+        this.storyData = java.util.Arrays.stream(scenes)
+                .collect(java.util.stream.Collectors.toMap(scene -> scene.id, java.util.function.Function.identity()));
+        
+        System.out.println("--- Cerita berhasil di-parsing. Total adegan: " + storyData.size());
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.err.println("Gagal memuat atau mem-parsing file cerita JSON.");
-        }
+    } catch (java.io.FileNotFoundException e) {
+        System.err.println("--- [METODE BARU] FATAL ERROR: File tidak ditemukan di path '" + filePath + "'");
+        System.err.println("--- Pastikan kamu menjalankan game dari folder root proyek (VISUAL-NOVEL-GAME).");
+        System.err.println("--- Cek lagi apakah nama folder 'assets' dan file 'scene1.json' sudah benar dan tidak ada salah ketik.");
+        this.storyData = null; // Pastikan storyData null jika gagal
+    } catch (Exception e) {
+        System.err.println("--- [METODE BARU] GAGAL mem-parsing file JSON.");
+        e.printStackTrace();
+        this.storyData = null; // Pastikan storyData null jika gagal
     }
+}
 
     /**
      * Mengambil data adegan yang sedang aktif saat ini.
