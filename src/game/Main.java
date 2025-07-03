@@ -2,7 +2,7 @@
 
 package game;
 
-import ui.visualnovel.game.manager.gameManager;
+import game.manager.gameManager;
 import game.model.choiceData;
 import game.model.sceneData;
 
