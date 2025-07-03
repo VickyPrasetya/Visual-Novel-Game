@@ -11,4 +11,7 @@ public class sceneData {
     public String dialog;
     public String nextScene;
     public List<choiceData> choices; // Akan bernilai null jika adegan tidak punya pilihan
+
+    public String backgroundImage; // Untuk menyimpan nama file gambar latar
+    public String characterImage;
 }
