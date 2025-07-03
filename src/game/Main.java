@@ -1,8 +1,7 @@
-// File: src/ui/visualnovel/game/Main.java
-
+// File: /game/Main.java
 package game;
 
-import ui.visualnovel.game.manager.gameManager;
+import game.manager.gameManager;
 import game.model.choiceData;
 import game.model.sceneData;
 
@@ -72,7 +71,7 @@ public class Main extends Application {
         // Scene adalah isi dari sebuah jendela. Ukurannya 1280x720 piksel.
         Scene scene = new Scene(rootLayout, 1280, 720);
         primaryStage.setScene(scene); // Pasang scene ke jendela utama (Stage)
-        
+
         // Panggil updateUI() untuk pertama kali agar adegan prolog muncul
         updateUI();
 
@@ -81,8 +80,8 @@ public class Main extends Application {
     }
 
     /**
-     * Metode ini adalah jantung dari UI. Ia akan memperbarui tampilan
-     * setiap kali kita pindah adegan.
+     * Metode ini adalah jantung dari UI. Ia akan memperbarui tampilan setiap
+     * kali kita pindah adegan.
      */
     private void updateUI() {
         // Ambil adegan yang sedang aktif dari gameManager
@@ -97,7 +96,7 @@ public class Main extends Application {
 
         // Tampilkan dialog dari adegan saat ini ke label
         dialogueLabel.setText(currentScene.dialog);
-        
+
         // Kosongkan wadah pilihan dari tombol-tombol sebelumnya
         choicesBox.getChildren().clear();
 
