@@ -1,8 +1,0 @@
-{
-  // 1. Memberitahu Java di mana folder sumber kode berada
-  "java.project.sourcePaths": ["src"],
-
-  // 2. Memberitahu Java untuk menyertakan SEMUA .jar di folder lib
-  "java.project.referencedLibraries": ["lib/gson-2.13.1.jar"],
-  "java.jdt.ls.vmargs": "--module-path \"C:\\DevTools\\javafx-sdk-24.0.1\\lib\" --add-modules javafx.controls,javafx.fxml"
-}
