@@ -163,9 +163,8 @@ public class Main extends Application {
             choicesBox.getChildren().add(nextButton); // Tambahkan tombol ke wadah
         }
     }
-}
 
-  // Metode updateImage tetap sama persis, tidak perlu diubah
+     // Metode updateImage tetap sama persis, tidak perlu diubah
     private void updateImage(ImageView view, String imagePath) {
         if (imagePath != null && !imagePath.isEmpty()) {
             try {
@@ -180,4 +179,7 @@ public class Main extends Application {
             view.setImage(null);
         }
     }
+    
 }
+
+ 
