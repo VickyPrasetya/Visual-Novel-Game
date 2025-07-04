@@ -114,7 +114,7 @@ public class Main extends Application {
         dialogueContainer.setCursor(Cursor.DEFAULT);
         nextIndicator.setVisible(false);
 
-        sceneData currentScene = gameManager.getCurrentScene();
+        SceneData currentScene = gameManager.getCurrentScene();
 
         if (currentScene == null) {
             if (dialogueContainer.getParent() != null) {
@@ -143,11 +143,13 @@ public class Main extends Application {
         updateImage(backgroundView, currentScene.backgroundImage);
         updateImage(characterView, currentScene.characterImage);
 
-        dialogueLabel.setText(currentScene.dialog);
-
+        DialogNode currentDialog = gameManager.getCurrentDialog();
+        if (currentDialog != null) {
+            dialogueLabel.setText(currentDialog.text);
+        }
         // Kosongkan wadah pilihan dari tombol-tombol sebelumnya
         choicesBox.getChildren().clear();
-        DialogNode currentDialog = gameManager.getCurrentDialog();
+
         if (currentDialog.choices != null && !currentDialog.choices.isEmpty()) {
             for (ChoiceData choice : currentDialog.choices) {
                 Button choiceButton = new Button(choice.text);
