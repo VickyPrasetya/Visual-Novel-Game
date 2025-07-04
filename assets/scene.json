@@ -1,8 +1,8 @@
 [
   {
     "id": "prolog_scene_1",
-    "backgroundImage": "assets/bg/Kamar_PersonalRooms1_1080p_PNG/pra_a1_day1.png",
-    "characterImage": "assets/sprite/Karakter_Pria/char_m_Kuliah_cry.png",
+    "backgroundImage": "assets/bg/KamarPersonalRooms1/Kamar1Day2.png",
+    "characterImage": "assets/sprite/Karakter_Pria/CharMKuliah2Cry.png",
     "dialogs": [
       { "text": "(Suara tawa anak-anak terdengar samar)" },
       {
