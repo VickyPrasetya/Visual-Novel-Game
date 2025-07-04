@@ -1,0 +1,124 @@
+[
+  {
+    "id": "prolog_scene_1",
+    "backgroundImage": "assets/bg/Kamar_PersonalRooms1_1080p_PNG/pra_a1_day1.png",
+    "characterImage": "assets/sprite/Karakter_Pria/char_m_Kuliah_cry.png",
+    "dialogs": [
+      { "text": "(Suara tawa anak-anak terdengar samar)" },
+      {
+        "text": "(Suara Zia Dewasa):\nDulu, duniaku penuh warna. Kanvas putih adalah sahabatku, dan kuas adalah caraku berbicara...",
+        "next": "prolog_scene_2"
+      }
+    ]
+  },
+  {
+    "id": "prolog_scene_2",
+    "backgroundImage": "assets/bg/Kamar_PersonalRooms1_1080p_PNG/pra_a2_day2.png",
+    "characterImage": "assets/sprite/Karakter_Pria/char_m_Kuliah_happy.png",
+    "dialogs": [
+      {
+        "text": "(Gambar berubah menjadi lebih jelas: Zia kecil sedang melukis di taman, Aira kecil memperhatikannya dari kejauhan...)",
+        "next": "prolog_scene_3"
+      }
+    ]
+  },
+  {
+    "id": "prolog_scene_3",
+    "dialogs": [
+      {
+        "text": "(Suara Zia Dewasa)\nAku juga ingat... ada sepasang mata yang selalu menatapku dengan kagum...",
+        "next": "prolog_scene_4"
+      }
+    ]
+  },
+  {
+    "id": "prolog_scene_4",
+    "dialogs": [
+      {
+        "text": "(Gambar tiba-tiba robek. Suara tawa berubah menjadi suara cemoohan dan tangisan. Gambar menjadi hitam.)",
+        "next": "prolog_scene_5"
+      }
+    ]
+  },
+  {
+    "id": "prolog_scene_5",
+    "dialogs": [
+      {
+        "text": "(Suara Zia Dewasa)\nNamun, satu hari yang kelam merenggut semua warna itu... Sejak saat itu, aku bersumpah untuk tidak akan pernah menyentuh kuas lagi...",
+        "next": "prolog_scene_6"
+      }
+    ]
+  },
+  {
+    "id": "prolog_scene_6",
+    "dialogs": [
+      {
+        "text": "(Layar menampilkan Zia dewasa, duduk di kamarnya yang monoton, menatap keluar jendela.)",
+        "next": "prolog_scene_7"
+      }
+    ]
+  },
+  {
+    "id": "prolog_scene_7",
+    "dialogs": [
+      {
+        "text": "(Suara Zia Dewasa):\nDan aku baik-baik saja dengan itu. Atau... setidaknya, begitulah yang kukatakan pada diriku sendiri.",
+        "next": "adegan1_scene_1"
+      }
+    ]
+  },
+  {
+    "id": "adegan1_scene_1",
+    "dialogs": [
+      {
+        "text": "(Taman kampus. Zia sedang duduk sendiri, melamun. Tiba-tiba Aira duduk di sebelahnya dengan senyum lebar.)",
+        "next": "adegan1_scene_2"
+      }
+    ]
+  },
+  {
+    "id": "adegan1_scene_2",
+    "dialogs": [
+      {
+        "text": "Aira: \"Permisi, kamu Zia, kan? Si pelukis cilik dari komplek Bekasi!\"",
+        "next": "adegan1_scene_3"
+      }
+    ]
+  },
+  {
+    "id": "adegan1_scene_3",
+    "dialogs": [
+      {
+        "text": "(Zia menoleh, kaget karena seseorang mengingat masa lalunya. Bagaimana ia harus merespon?)"
+      },
+      {
+        "label": "pilihan_sikap",
+        "choices": [
+          { "text": "\"Salah orang.\"", "nextScene": "adegan1_path_A" },
+          {
+            "text": "\"...Mungkin. Aku tidak ingat.\"",
+            "nextScene": "adegan1_path_B"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "adegan1_path_A",
+    "dialogs": [
+      {
+        "text": "Zia: (Menjawab dengan dingin) \"Salah orang.\"",
+        "nextScene": "adegan1_merge"
+      }
+    ]
+  },
+  {
+    "id": "adegan1_path_B",
+    "dialogs": [
+      {
+        "text": "Zia: (Menjawab dengan ragu) \"...Mungkin. Aku tidak ingat.\"",
+        "nextScene": "adegan1_merge"
+      }
+    ]
+  }
+]

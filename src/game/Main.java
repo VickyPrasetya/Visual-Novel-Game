@@ -2,8 +2,10 @@
 package game;
 
 import game.manager.gameManager;
-import game.model.choiceData;
-import game.model.sceneData;
+import game.model.ChoiceData;
+import game.model.SceneData;
+import game.model.DialogNode;
+
 
 import java.io.File;
 
@@ -105,7 +107,7 @@ public class Main extends Application {
      * kali kita pindah adegan.
      */
     private void updateUI() {
-        sceneData currentScene = gameManager.getCurrentScene();
+        SceneData currentScene = gameManager.getCurrentScene();
 
         // PERUBAHAN: Logika untuk menyembunyikan kotak dialog saat tamat
         if (currentScene == null) {
@@ -137,31 +139,35 @@ public class Main extends Application {
         updateImage(backgroundView, currentScene.backgroundImage);
         updateImage(characterView, currentScene.characterImage);
         
-        dialogueLabel.setText(currentScene.dialog);
+      
 
         // Kosongkan wadah pilihan dari tombol-tombol sebelumnya
         choicesBox.getChildren().clear();
 
-        if (currentScene.choices != null && !currentScene.choices.isEmpty()) {
-            for (choiceData choice : currentScene.choices) {
-                Button choiceButton = new Button(choice.label);
-                choiceButton.setStyle("-fx-font-size: 16px;");
-                choiceButton.setOnAction(_ -> {
-                    gameManager.goToScene(choice.nextScene);
-                    updateUI();
-                });
-                choicesBox.getChildren().add(choiceButton);
-            }
-        } else {
-            String buttonText = (currentScene.nextScene != null) ? "Lanjut ->" : "Tamat";
-            Button nextButton = new Button(buttonText);
-            nextButton.setStyle("-fx-font-size: 16px;");
-            nextButton.setOnAction(_ -> {
-                gameManager.goToScene(currentScene.nextScene);
+       DialogNode currentDialog = gameManager.getCurrentDialog();
+if (currentDialog != null) {
+    dialogueLabel.setText(currentDialog.text);
+
+
+    choicesBox.getChildren().clear();
+    if (currentDialog.choices != null && !currentDialog.choices.isEmpty()) {
+        for (ChoiceData choice : currentDialog.choices) {
+            Button choiceButton = new Button(choice.text);
+            choiceButton.setOnAction(_ -> {
+                gameManager.goToScene(choice.nextScene);
                 updateUI();
             });
-            choicesBox.getChildren().add(nextButton); // Tambahkan tombol ke wadah
+            choicesBox.getChildren().add(choiceButton);
         }
+    } else {
+        Button nextButton = new Button("Lanjut ->");
+        nextButton.setOnAction(_ -> {
+            gameManager.nextDialog();
+            updateUI();
+        });
+        choicesBox.getChildren().add(nextButton);
+    }
+}
     }
 
      // Metode updateImage tetap sama persis, tidak perlu diubah

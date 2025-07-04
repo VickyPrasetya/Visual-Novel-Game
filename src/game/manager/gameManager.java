@@ -1,74 +1,153 @@
 package game.manager;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import game.model.SceneData;
+import java.io.FileReader;
+import game.model.ChoiceData;
+import game.model.DialogNode;
+import java.util.*;
 
-import java.util.Map;
-
-
-import com.google.gson.Gson; // Import library untuk membaca JSON
-import game.model.sceneData; // Import kelas SceneData kita
-
-/**
- * Kelas ini mengelola logika inti dari game,
- * seperti memuat cerita dan melacak adegan saat ini.
- */
 public class gameManager {
-    private Map<String, sceneData> storyData; // Menyimpan semua adegan dari JSON
-    private sceneData currentScene; // Menyimpan adegan yang sedang aktif
+
+    private SceneData rootScene; // Akar tree
+    private SceneData currentScene;
+    private int currentDialogIndex;
+    private Stack<Integer> dialogStack = new Stack<>(); // Untuk undo dialog
+    private Map<String, SceneData> sceneIndex = new HashMap<>(); // Untuk lookup cepat
 
     public gameManager() {
         loadStory();
-        if (storyData != null && !storyData.isEmpty()) {
-            // Mulai cerita dari adegan pertama ("prolog_1")
-            this.currentScene = storyData.get("prolog_1"); 
+        this.currentScene = rootScene;
+        this.currentDialogIndex = 0;
+        dialogStack.clear();
+    }
+
+    public SceneData getCurrentScene() {
+        return currentScene;
+    }
+
+    private void loadStory() {
+        Gson gson = new Gson();
+        try (java.io.Reader reader = new java.io.FileReader("assets/scene.json")) {
+            SceneData[] scenes = gson.fromJson(reader, SceneData[].class);
+            for (SceneData s : scenes) {
+                sceneIndex.put(s.id, s);
+            }
+            // Hubungkan children dari nextScene dan choices
+            for (SceneData s : scenes) {
+                s.children = new ArrayList<>();
+                if (s.nextScene != null) {
+                    SceneData child = sceneIndex.get(s.nextScene);
+                    if (child != null) {
+                        s.children.add(child);
+                    }
+                }
+                if (s.choices != null) {
+                    for (ChoiceData c : s.choices) {
+                        SceneData child = sceneIndex.get(c.nextScene);
+                        if (child != null) {
+                            s.children.add(child);
+                        }
+                    }
+                }
+                // Tambahkan juga dari dialog yang punya "next" ke id scene lain
+                if (s.dialogs != null) {
+                    for (DialogNode d : s.dialogs) {
+                        if (d.next != null && sceneIndex.containsKey(d.next)) {
+                            SceneData child = sceneIndex.get(d.next);
+                            if (child != null && !s.children.contains(child)) {
+                                s.children.add(child);
+                            }
+                        }
+                    }
+                }
+            }
+            // Set root scene sesuai id di JSON
+            rootScene = sceneIndex.get("prolog_scene_1");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
- // GANTI METODE loadStory() YANG LAMA DENGAN YANG INI:
-private void loadStory() {
-    Gson gson = new Gson();
-    String filePath = "assets/scene1.json"; // Path relatif dari root project
-    System.out.println("--- [METODE BARU] Mencoba membaca file langsung dari: " + filePath);
-
-    try (java.io.Reader reader = new java.io.FileReader(filePath)) {
-        
-        System.out.println("--- [METODE BARU] BERHASIL! File ditemukan di " + filePath);
-        
-        sceneData[] scenes = gson.fromJson(reader, sceneData[].class);
-        this.storyData = java.util.Arrays.stream(scenes)
-                .collect(java.util.stream.Collectors.toMap(scene -> scene.id, java.util.function.Function.identity()));
-        
-        System.out.println("--- Cerita berhasil di-parsing. Total adegan: " + storyData.size());
-
-    } catch (java.io.FileNotFoundException e) {
-        System.err.println("--- [METODE BARU] FATAL ERROR: File tidak ditemukan di path '" + filePath + "'");
-        System.err.println("--- Pastikan kamu menjalankan game dari folder root proyek (VISUAL-NOVEL-GAME).");
-        System.err.println("--- Cek lagi apakah nama folder 'assets' dan file 'scene1.json' sudah benar dan tidak ada salah ketik.");
-        this.storyData = null; // Pastikan storyData null jika gagal
-    } catch (Exception e) {
-        System.err.println("--- [METODE BARU] GAGAL mem-parsing file JSON.");
-        e.printStackTrace();
-        this.storyData = null; // Pastikan storyData null jika gagal
-    }
-}
-
-    /**
-     * Mengambil data adegan yang sedang aktif saat ini.
-     * @return Objek SceneData dari adegan saat ini.
-     */
-    public sceneData getCurrentScene() {
-        return this.currentScene;
+    // Mendapatkan dialog saat ini (return DialogNode, bukan String)
+    public DialogNode getCurrentDialog() {
+        if (currentScene.dialogs == null || currentDialogIndex >= currentScene.dialogs.size()) {
+            return null;
+        }
+        return currentScene.dialogs.get(currentDialogIndex);
     }
 
-    /**
-     * Memindahkan game ke adegan berikutnya berdasarkan ID.
-     * @param sceneId ID dari adegan yang dituju.
-     */
+    private int minUndoIndex = 0; // index minimal undo di scene ini
+
+// Saat memilih pilihan:
+    public void choose(int choiceIndex) {
+        if (currentScene.children != null && choiceIndex < currentScene.children.size()) {
+            currentScene = currentScene.children.get(choiceIndex);
+            currentDialogIndex = 0;
+            dialogStack.clear();
+            minUndoIndex = 0; // reset batas undo di scene baru
+        }
+    }
+
+    // Lanjut ke dialog berikutnya, handle "next"
+    public boolean nextDialog() {
+        DialogNode dialog = getCurrentDialog();
+        if (dialog == null) {
+            return false;
+        }
+
+        dialogStack.push(currentDialogIndex);
+
+        if (dialog.next != null) {
+            // Cek apakah next adalah id scene
+            if (sceneIndex.containsKey(dialog.next)) {
+                currentScene = sceneIndex.get(dialog.next);
+                currentDialogIndex = 0;
+                dialogStack.clear();
+                return true;
+            } else {
+                // Cek apakah next adalah label dialog di scene yang sama
+                for (int i = 0; i < currentScene.dialogs.size(); i++) {
+                    DialogNode d = currentScene.dialogs.get(i);
+                    if (dialog.next.equals(d.label)) {
+                        currentDialogIndex = i;
+                        return true;
+                    }
+                }
+            }
+        } else if (currentDialogIndex < currentScene.dialogs.size() - 1) {
+            currentDialogIndex++;
+            return true;
+        }
+        return false;
+    }
+
+// Saat undoDialog:
+    public boolean undoDialog() {
+        if (!dialogStack.isEmpty() && dialogStack.peek() >= minUndoIndex) {
+            currentDialogIndex = dialogStack.pop();
+            return true;
+        }
+        return false; // Tidak bisa undo lagi
+    }
+
+    // Mendapatkan pilihan di scene saat ini
+    public List<ChoiceData> getChoices() {
+        return currentScene.choices;
+    }
+
     public void goToScene(String sceneId) {
-        if (sceneId != null && storyData.containsKey(sceneId)) {
-            this.currentScene = storyData.get(sceneId);
+        SceneData next = sceneIndex.get(sceneId);
+        if (next != null) {
+            currentScene = next;
+            currentDialogIndex = 0;
+            dialogStack.clear();
+            minUndoIndex = 0; // reset batas undo di scene baru
         } else {
-            // Jika sceneId null atau tidak ditemukan, berarti cerita tamat
-            this.currentScene = null; 
+            // Jika scene tidak ditemukan, anggap tamat
+            currentScene = null;
         }
     }
+
 }
