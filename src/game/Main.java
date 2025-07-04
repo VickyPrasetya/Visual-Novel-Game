@@ -30,7 +30,7 @@ public class Main extends Application {
     private VBox choicesBox;
     private ImageView backgroundView;
     private ImageView characterView;
-
+    private Button undoButton;
     private VBox dialogueContainer;
     private Label nextIndicator;
 
@@ -93,6 +93,22 @@ public class Main extends Application {
         StackPane.setAlignment(nextIndicator, Pos.BOTTOM_RIGHT);
         StackPane.setMargin(nextIndicator, new Insets(0, 25, 15, 0));
 
+        // --- INISIALISASI UNDO BUTTON ---
+        undoButton = new Button("⟲ Undo");
+        undoButton.setOpacity(0.4);
+        undoButton.setStyle("-fx-font-size: 14px; -fx-background-radius: 20; -fx-background-color: #222; -fx-text-fill: white;");
+        undoButton.setOnAction(e -> {
+            if (gameManager.undoDialog()) {
+                updateUI();
+            }
+        });
+        undoButton.setTooltip(new javafx.scene.control.Tooltip("Undo dialog (atau klik kanan di kotak dialog)"));
+        undoButton.setFocusTraversable(false);
+
+        uiOverlay.getChildren().add(undoButton);
+        StackPane.setAlignment(undoButton, Pos.BOTTOM_LEFT);
+        StackPane.setMargin(undoButton, new Insets(0, 0, 15, 25));
+
         // --- GABUNGKAN SEMUA LAPISAN KE LAYOUT UTAMA ---
         rootLayout.getChildren().addAll(imageContainer, uiOverlay);
 
@@ -105,6 +121,7 @@ public class Main extends Application {
 
         updateUI();
         primaryStage.show();
+
     }
 
     // Metode updateUI() dan updateImage() tidak perlu diubah.
@@ -149,28 +166,51 @@ public class Main extends Application {
         }
         choicesBox.getChildren().clear();
 
+        if (currentDialog.choices != null && !currentDialog.choices.isEmpty()) {
+            // Tampilkan tombol pilihan
+            for (ChoiceData choice : currentDialog.choices) {
+                Button choiceButton = new Button(choice.text);
+                choiceButton.setOnAction(e -> {
+                    gameManager.goToScene(choice.nextScene);
+                    updateUI();
+                });
+                choicesBox.getChildren().add(choiceButton);
+            }
+        }
+
         nextIndicator.setVisible(true);
         dialogueContainer.setCursor(Cursor.HAND);
 
+        // Handler untuk klik kiri dan kanan (next dialog/scene dan undo)
         dialogueContainer.setOnMouseClicked(event -> {
-            boolean hasNext = gameManager.nextDialog();
-            if (!hasNext) {
-                // Sudah di dialog terakhir, cek apakah ada nextScene/next di dialog terakhir
-                if (currentScene.dialogs != null && !currentScene.dialogs.isEmpty()) {
-                    DialogNode lastDialog = currentScene.dialogs.get(currentScene.dialogs.size() - 1);
-                    if (lastDialog.next != null) {
-                        gameManager.goToScene(lastDialog.next);
-                    } else if (currentScene.nextScene != null) {
-                        gameManager.goToScene(currentScene.nextScene);
+            if (event.getButton() == javafx.scene.input.MouseButton.PRIMARY) { // Klik kiri
+                boolean hasNext = gameManager.nextDialog();
+                if (!hasNext) {
+                    if (currentScene.dialogs != null && !currentScene.dialogs.isEmpty()) {
+                        DialogNode lastDialog = currentScene.dialogs.get(currentScene.dialogs.size() - 1);
+                        if (lastDialog.next != null) {
+                            gameManager.goToScene(lastDialog.next);
+                        } else if (currentScene.nextScene != null) {
+                            gameManager.goToScene(currentScene.nextScene);
+                        } else {
+                            gameManager.goToScene(null); // Tamat
+                        }
                     } else {
                         gameManager.goToScene(null); // Tamat
                     }
-                } else {
-                    gameManager.goToScene(null); // Tamat
                 }
+                updateUI();
+            } else if (event.getButton() == javafx.scene.input.MouseButton.SECONDARY) { // Klik kanan
+                // Hanya undo jika bisa undo (tidak di dialog pertama)
+                if (gameManager.canUndoDialog()) {
+                    gameManager.undoDialog();
+                    updateUI();
+                }
+                // Jika tidak bisa undo, tidak lakukan apa-apa (tidak next scene)
             }
-            updateUI();
         });
+
+        undoButton.setDisable(!gameManager.canUndoDialog());
     }
 
     private void updateImage(ImageView view, String imagePath) {

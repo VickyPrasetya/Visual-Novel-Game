@@ -85,11 +85,18 @@ public class gameManager {
      */
     // Saat undoDialog:
     public boolean undoDialog() {
-        if (!dialogStack.isEmpty() && dialogStack.peek() >= minUndoIndex) {
-            currentDialogIndex = dialogStack.pop();
-            return true;
+        // Tidak bisa undo jika sudah di dialog pertama (index 0)
+        if (currentDialogIndex <= 0) {
+            return false;
         }
-        return false; // Tidak bisa undo lagi
+        
+        // Tidak bisa undo jika stack kosong atau sudah melewati batas minimum
+        if (dialogStack.isEmpty() || dialogStack.peek() < minUndoIndex) {
+            return false;
+        }
+        
+        currentDialogIndex = dialogStack.pop();
+        return true;
     }
 
     // Mendapatkan pilihan di scene saat ini
@@ -115,11 +122,23 @@ public class gameManager {
             return false;
         }
         if (currentDialogIndex < currentScene.dialogs.size() - 1) {
-            dialogStack.push(currentDialogIndex); // Untuk fitur undo, jika dipakai
+            dialogStack.push(currentDialogIndex); // Simpan index dialog saat ini untuk undo
             currentDialogIndex++;
             return true;
         }
+        // Jika sudah di dialog terakhir, jangan push ke stack
         return false; // Sudah di dialog terakhir
     }
 
+    public boolean canUndoDialog() {
+        // Bisa undo jika:
+        // 1. Tidak di dialog pertama (index > 0)
+        // 2. Stack tidak kosong
+        // 3. Index di stack >= batas minimum
+        // 4. Scene memiliki lebih dari 1 dialog (untuk scene dengan 1 dialog saja)
+        return currentDialogIndex > 0 && 
+               !dialogStack.isEmpty() && 
+               dialogStack.peek() >= minUndoIndex &&
+               (currentScene.dialogs != null && currentScene.dialogs.size() > 1);
+    }
 }
