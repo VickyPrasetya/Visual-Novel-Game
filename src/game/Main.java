@@ -4,8 +4,7 @@ package game;
 import game.manager.gameManager;
 import game.model.ChoiceData;
 import game.model.SceneData;
-import game.model.DialogNode;
-
+import game.model.Data;
 import java.io.File;
 
 import javafx.application.Application;
@@ -143,16 +142,12 @@ public class Main extends Application {
         updateImage(backgroundView, currentScene.backgroundImage);
         updateImage(characterView, currentScene.characterImage);
 
-        DialogNode currentDialog = gameManager.getCurrentDialog();
-        if (currentDialog != null) {
-            dialogueLabel.setText(currentDialog.text);
-        }
-        // Kosongkan wadah pilihan dari tombol-tombol sebelumnya
+        dialogueLabel.setText(currentScene.dialog);
         choicesBox.getChildren().clear();
 
-        if (currentDialog.choices != null && !currentDialog.choices.isEmpty()) {
-            for (ChoiceData choice : currentDialog.choices) {
-                Button choiceButton = new Button(choice.text);
+        if (currentScene.choices != null && !currentScene.choices.isEmpty()) {
+            for (ChoiceData choice : currentScene.choices) {
+                Button choiceButton = new Button(choice.label);
                 choiceButton.setStyle("-fx-font-size: 16px;");
                 choiceButton.setOnAction(_ -> {
                     gameManager.goToScene(choice.nextScene);
@@ -161,36 +156,20 @@ public class Main extends Application {
                 choicesBox.getChildren().add(choiceButton);
             }
         } else {
-            Button nextButton = new Button("Lanjut ->");
-            nextButton.setStyle("-fx-font-size: 16px;");
-            nextButton.setOnAction(_ -> {
-                // Coba lanjut ke dialog berikutnya
-                boolean hasNext = gameManager.nextDialog();
-                if (!hasNext) {
-                    // Jika sudah di dialog terakhir, cek apakah ada nextScene
-                    if (currentScene.dialogs != null && !currentScene.dialogs.isEmpty()) {
-                        DialogNode lastDialog = currentScene.dialogs.get(currentScene.dialogs.size() - 1);
-                        // Jika dialog terakhir punya nextScene atau next (id scene), pindah ke scene berikutnya
-                        if (lastDialog.next != null) {
-                            gameManager.goToScene(lastDialog.next);
-                        } else if (currentScene.nextScene != null) {
-                            gameManager.goToScene(currentScene.nextScene);
-                        } else {
-                            // Tamat
-                            gameManager.goToScene(null);
-                        }
-                    } else {
-                        // Tamat
-                        gameManager.goToScene(null);
-                    }
+            nextIndicator.setVisible(true);
+            dialogueContainer.setCursor(Cursor.HAND);
+
+            dialogueContainer.setOnMouseClicked(event -> {
+                if (currentScene.nextScene != null) {
+                    gameManager.goToScene(currentScene.nextScene);
+                    updateUI();
+                } else {
+                    gameManager.goToScene(null);
+                    updateUI();
                 }
-                updateUI();
             });
-            choicesBox.getChildren().add(nextButton);
         }
     }
-
-    
 
     private void updateImage(ImageView view, String imagePath) {
         if (imagePath != null && !imagePath.isEmpty()) {
