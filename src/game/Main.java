@@ -1,5 +1,4 @@
-// File: src/ui/visualnovel/game/Main.java
-
+// File: /game/Main.java
 package game;
 
 import game.manager.gameManager;
@@ -94,12 +93,17 @@ public class Main extends Application {
 
         // --- Buat Scene dan Tampilkan ---
         Scene scene = new Scene(rootLayout, 1280, 720);
-        primaryStage.setScene(scene);
-        
+        primaryStage.setScene(scene); // Pasang scene ke jendela utama (Stage)
+
+        // Panggil updateUI() untuk pertama kali agar adegan prolog muncul
         updateUI();
         primaryStage.show();
     }
 
+    /**
+     * Metode ini adalah jantung dari UI. Ia akan memperbarui tampilan setiap
+     * kali kita pindah adegan.
+     */
     private void updateUI() {
         sceneData currentScene = gameManager.getCurrentScene();
 
@@ -134,6 +138,8 @@ public class Main extends Application {
         updateImage(characterView, currentScene.characterImage);
         
         dialogueLabel.setText(currentScene.dialog);
+
+        // Kosongkan wadah pilihan dari tombol-tombol sebelumnya
         choicesBox.getChildren().clear();
 
         if (currentScene.choices != null && !currentScene.choices.isEmpty()) {
@@ -154,11 +160,11 @@ public class Main extends Application {
                 gameManager.goToScene(currentScene.nextScene);
                 updateUI();
             });
-            choicesBox.getChildren().add(nextButton);
+            choicesBox.getChildren().add(nextButton); // Tambahkan tombol ke wadah
         }
     }
 
-    // Metode updateImage tetap sama persis, tidak perlu diubah
+     // Metode updateImage tetap sama persis, tidak perlu diubah
     private void updateImage(ImageView view, String imagePath) {
         if (imagePath != null && !imagePath.isEmpty()) {
             try {
@@ -173,4 +179,7 @@ public class Main extends Application {
             view.setImage(null);
         }
     }
+    
 }
+
+ 
