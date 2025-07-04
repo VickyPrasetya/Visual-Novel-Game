@@ -1,8 +1,8 @@
 [
     {
         "id": "prolog_1",
-        "backgroundImage": "assets/bg/class.jpg",
-        "characterImage": "assets/sprite/1.png",
+        "backgroundImage": "assets/bg/TamanBelakangSekolah_POV/alley.jpg",
+        "characterImage": "assets/sprite/Karakter_Pria/1.png",
         "dialog": "(Suara tawa anak-anak terdengar samar)",
         "nextScene": "prolog_2"
         
