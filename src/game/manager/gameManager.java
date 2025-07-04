@@ -15,16 +15,13 @@ public class gameManager {
     private int currentDialogIndex;
     private Stack<Integer> dialogStack = new Stack<>(); // Untuk undo dialog
     private Map<String, SceneData> sceneIndex = new HashMap<>(); // Untuk lookup cepat
+    private int minUndoIndex = 0;
 
     public gameManager() {
         loadStory();
         this.currentScene = rootScene;
         this.currentDialogIndex = 0;
         dialogStack.clear();
-    }
-
-    public SceneData getCurrentScene() {
-        return currentScene;
     }
 
     // GANTI METODE loadStory() YANG LAMA DENGAN YANG INI:
@@ -37,22 +34,32 @@ public class gameManager {
 
             System.out.println("--- [METODE BARU] BERHASIL! File ditemukan di " + filePath);
 
-            sceneData[] scenes = gson.fromJson(reader, sceneData[].class);
-            this.storyData = java.util.Arrays.stream(scenes)
-                    .collect(java.util.stream.Collectors.toMap(scene -> scene.id, java.util.function.Function.identity()));
-
-            System.out.println("--- Cerita berhasil di-parsing. Total adegan: " + storyData.size());
-
+            SceneData[] scenes = gson.fromJson(reader, SceneData[].class);
+            if (scenes != null) {
+                for (SceneData s : scenes) {
+                    sceneIndex.put(s.id, s);
+                }
+                // Set rootScene sesuai id root di JSON
+                rootScene = sceneIndex.get("prolog_scene_1");
+            }
         } catch (java.io.FileNotFoundException e) {
             System.err.println("--- [METODE BARU] FATAL ERROR: File tidak ditemukan di path '" + filePath + "'");
             System.err.println("--- Pastikan kamu menjalankan game dari folder root proyek (VISUAL-NOVEL-GAME).");
-            System.err.println("--- Cek lagi apakah nama folder 'assets' dan file 'scene1.json' sudah benar dan tidak ada salah ketik.");
-            this.storyData = null; // Pastikan storyData null jika gagal
+            System.err.println("--- Cek lagi apakah nama folder 'assets' dan file 'scene.json' sudah benar dan tidak ada salah ketik.");
+
         } catch (Exception e) {
             System.err.println("--- [METODE BARU] GAGAL mem-parsing file JSON.");
             e.printStackTrace();
-            this.storyData = null; // Pastikan storyData null jika gagal
+
         }
+
+        System.out.println("Scene loaded: " + sceneIndex.keySet());
+        if (rootScene == null) {
+            System.out.println("Root scene not found!");
+        } else if (rootScene.dialogs == null || rootScene.dialogs.isEmpty()) {
+            System.out.println("Root scene has no dialogs!");
+        }
+
     }
 
     /**
@@ -60,8 +67,15 @@ public class gameManager {
      *
      * @return Objek SceneData dari adegan saat ini.
      */
-    public sceneData getCurrentScene() {
+    public SceneData getCurrentScene() {
         return this.currentScene;
+    }
+
+    public DialogNode getCurrentDialog() {
+        if (currentScene == null || currentScene.dialogs == null || currentDialogIndex >= currentScene.dialogs.size()) {
+            return null;
+        }
+        return currentScene.dialogs.get(currentDialogIndex);
     }
 
     /**
@@ -94,6 +108,18 @@ public class gameManager {
             // Jika scene tidak ditemukan, anggap tamat
             currentScene = null;
         }
+    }
+
+    public boolean nextDialog() {
+        if (currentScene == null || currentScene.dialogs == null) {
+            return false;
+        }
+        if (currentDialogIndex < currentScene.dialogs.size() - 1) {
+            dialogStack.push(currentDialogIndex); // Untuk fitur undo, jika dipakai
+            currentDialogIndex++;
+            return true;
+        }
+        return false; // Sudah di dialog terakhir
     }
 
 }

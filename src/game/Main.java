@@ -161,16 +161,36 @@ public class Main extends Application {
                 choicesBox.getChildren().add(choiceButton);
             }
         } else {
-            String buttonText = (currentScene.nextScene != null) ? "Lanjut ->" : "Tamat";
-            Button nextButton = new Button(buttonText);
+            Button nextButton = new Button("Lanjut ->");
             nextButton.setStyle("-fx-font-size: 16px;");
             nextButton.setOnAction(_ -> {
-                gameManager.goToScene(currentScene.nextScene);
+                // Coba lanjut ke dialog berikutnya
+                boolean hasNext = gameManager.nextDialog();
+                if (!hasNext) {
+                    // Jika sudah di dialog terakhir, cek apakah ada nextScene
+                    if (currentScene.dialogs != null && !currentScene.dialogs.isEmpty()) {
+                        DialogNode lastDialog = currentScene.dialogs.get(currentScene.dialogs.size() - 1);
+                        // Jika dialog terakhir punya nextScene atau next (id scene), pindah ke scene berikutnya
+                        if (lastDialog.next != null) {
+                            gameManager.goToScene(lastDialog.next);
+                        } else if (currentScene.nextScene != null) {
+                            gameManager.goToScene(currentScene.nextScene);
+                        } else {
+                            // Tamat
+                            gameManager.goToScene(null);
+                        }
+                    } else {
+                        // Tamat
+                        gameManager.goToScene(null);
+                    }
+                }
                 updateUI();
             });
-            choicesBox.getChildren().add(nextButton); // Tambahkan tombol ke wadah
+            choicesBox.getChildren().add(nextButton);
         }
     }
+
+    
 
     private void updateImage(ImageView view, String imagePath) {
         if (imagePath != null && !imagePath.isEmpty()) {
