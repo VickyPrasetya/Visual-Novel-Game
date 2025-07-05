@@ -1,0 +1,31 @@
+{
+  "id": "scene_1",
+  "backgroundImage": "bg1.png",
+  "characterImage": "char1.png",
+  "dialogs": [
+    { "label": "start", "text": "Selamat datang di kelas!" },
+    { "label": "tanya", "text": "Apa warna favoritmu?" },
+    {
+      "label": "pilihan_warna",
+      "choices": [
+        { "text": "Merah", "next": "jawab_merah_1" },
+        { "text": "Biru", "next": "jawab_biru" },
+        { "text": "Lanjut ke scene 2", "next": "goto:scene_2" }
+      ]
+    },
+    {
+      "label": "jawab_merah_1",
+      "text": "Warna merah itu berani!",
+      "next": "jawab_merah_2"
+    },
+    {
+      "label": "jawab_merah_2",
+      "text": "Merah juga melambangkan semangat.",
+      "next": "goto:scene2M"
+    },
+    {
+      "label": "jawab_biru",
+      "text": "Biru itu menenangkan."
+    }
+  ]
+}

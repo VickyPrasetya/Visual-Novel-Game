@@ -2,9 +2,9 @@
 package game;
 
 import game.manager.gameManager;
-import game.model.choiceData;
-import game.model.sceneData;
-
+import game.model.ChoiceData;
+import game.model.SceneData;
+import game.model.DialogNode;
 import java.io.File;
 import java.util.List;
 
@@ -35,11 +35,15 @@ public class Main extends Application {
     private StackPane rootLayout;
     private ImageView backgroundView;
     private ImageView characterView;
+<<<<<<< HEAD
     
     // UI Dialog Bawah
     private VBox dialogueUIGroup;
     private StackPane nameBox;
     private Label nameLabel;
+=======
+    private Button undoButton;
+>>>>>>> 07e73d1154b737cd77e527ff1d881f623f6afc7b
     private VBox dialogueContainer;
     private Label dialogueLabel;
     private Label nextIndicator;
@@ -63,6 +67,10 @@ public class Main extends Application {
 
         // --- LAPISAN 1: GAMBAR ---
         StackPane imageContainer = new StackPane();
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07e73d1154b737cd77e527ff1d881f623f6afc7b
         backgroundView = new ImageView();
         backgroundView.fitWidthProperty().bind(primaryStage.widthProperty());
         backgroundView.fitHeightProperty().bind(primaryStage.heightProperty());
@@ -73,10 +81,20 @@ public class Main extends Application {
         StackPane.setAlignment(characterView, Pos.BOTTOM_CENTER);
         imageContainer.getChildren().addAll(backgroundView, characterView);
 
+<<<<<<< HEAD
         // --- LAPISAN 2: UI DIALOG BAWAH (Struktur yang sudah benar) ---
         dialogueUIGroup = new VBox();
         dialogueUIGroup.setAlignment(Pos.BOTTOM_LEFT);
         dialogueUIGroup.setPadding(new Insets(0, 20, 20, 20));
+=======
+        // --- LAPISAN 2: UI (KOTAK DIALOG & INDIKATOR) ---
+        StackPane uiOverlay = new StackPane();
+        uiOverlay.setPadding(new Insets(0, 20, 20, 20));
+
+        // PERBAIKAN KRUSIAL: Mencegah wadah UI mengembang memenuhi layar.
+        // Baris ini menyuruh uiOverlay untuk "menjadi sekecil mungkin sesuai isinya".
+        uiOverlay.setMaxSize(1600, 200); // Ukuran maksimum yang sesuai untuk UI
+>>>>>>> 07e73d1154b737cd77e527ff1d881f623f6afc7b
 
         nameLabel = new Label();
         nameLabel.setFont(Font.font("Arial", FontWeight.BOLD, 22));
@@ -113,6 +131,7 @@ public class Main extends Application {
 
         dialogueSystemStack.getChildren().addAll(dialogueContainer, nextIndicator);
         StackPane.setAlignment(nextIndicator, Pos.BOTTOM_RIGHT);
+<<<<<<< HEAD
         dialogueUIGroup.getChildren().addAll(nameBox, dialogueSystemStack);
         
         // --- PENAMBAHAN FITUR BARU: Wadah untuk Pilihan & Surat ---
@@ -121,6 +140,31 @@ public class Main extends Application {
         centeredChoicesContainer.setAlignment(Pos.CENTER);
         centeredChoicesContainer.setPadding(new Insets(20));
         centeredChoicesContainer.setVisible(false); // Sembunyikan di awal
+=======
+        StackPane.setMargin(nextIndicator, new Insets(0, 25, 15, 0));
+
+        // --- INISIALISASI UNDO BUTTON ---
+        undoButton = new Button("⟲ Undo");
+        undoButton.setOpacity(0.4);
+        undoButton.setStyle("-fx-font-size: 14px; -fx-background-radius: 20; -fx-background-color: #222; -fx-text-fill: white;");
+        undoButton.setOnAction(e -> {
+            if (gameManager.undoDialog()) {
+                updateUI();
+            }
+        });
+        undoButton.setTooltip(new javafx.scene.control.Tooltip("Undo dialog (atau klik kanan di kotak dialog)"));
+        undoButton.setFocusTraversable(false);
+
+        uiOverlay.getChildren().add(undoButton);
+        StackPane.setAlignment(undoButton, Pos.BOTTOM_LEFT);
+        StackPane.setMargin(undoButton, new Insets(0, 0, 15, 25));
+
+        // --- GABUNGKAN SEMUA LAPISAN KE LAYOUT UTAMA ---
+        rootLayout.getChildren().addAll(imageContainer, uiOverlay);
+
+        // Sekarang baris ini akan bekerja karena uiOverlay sudah berukuran kecil
+        StackPane.setAlignment(uiOverlay, Pos.BOTTOM_CENTER);
+>>>>>>> 07e73d1154b737cd77e527ff1d881f623f6afc7b
 
         // 2. Wadah untuk surat
         letterContainer = new StackPane();
@@ -138,9 +182,11 @@ public class Main extends Application {
 
         updateUI();
         primaryStage.show();
+
     }
 
     private void updateUI() {
+<<<<<<< HEAD
         // --- Reset semua UI ke kondisi awal ---
         dialogueUIGroup.setVisible(true);
         nameBox.setVisible(false);
@@ -149,9 +195,15 @@ public class Main extends Application {
         dialogueUIGroup.setOnMouseClicked(null);
         centeredChoicesContainer.setVisible(false);
         letterContainer.setVisible(false);
+=======
+        dialogueContainer.setOnMouseClicked(null);
+        dialogueContainer.setCursor(Cursor.DEFAULT);
+        nextIndicator.setVisible(false);
+>>>>>>> 07e73d1154b737cd77e527ff1d881f623f6afc7b
 
-        sceneData currentScene = gameManager.getCurrentScene();
+        SceneData currentScene = gameManager.getCurrentScene();
 
+<<<<<<< HEAD
         if (currentScene == null) { /* Logika akhir game... */ return; }
         
         updateImage(backgroundView, currentScene.backgroundImage);
@@ -173,6 +225,87 @@ public class Main extends Application {
         
         // KASUS 3: Dialog Normal (Default)
         showNormalDialogue(currentScene);
+=======
+        if (currentScene == null) {
+            if (dialogueContainer.getParent() != null) {
+                dialogueContainer.getParent().setVisible(false);
+            }
+            backgroundView.setImage(null);
+            characterView.setImage(null);
+
+            Label endLabel = new Label("TAMAT\nTerima kasih telah bermain.");
+            endLabel.setFont(Font.font("Arial", 40));
+            endLabel.setTextFill(Color.WHITE);
+            endLabel.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5); -fx-padding: 20;");
+
+            if (backgroundView.getParent() instanceof StackPane) {
+                StackPane root = (StackPane) backgroundView.getParent();
+                root.getChildren().removeIf(node -> node instanceof Label && ((Label) node).getText().startsWith("TAMAT"));
+                root.getChildren().add(endLabel);
+            }
+            return;
+        }
+
+        if (dialogueContainer.getParent() != null) {
+            dialogueContainer.getParent().setVisible(true);
+        }
+
+        updateImage(backgroundView, currentScene.backgroundImage);
+        updateImage(characterView, currentScene.characterImage);
+
+        DialogNode currentDialog = gameManager.getCurrentDialog();
+        if (currentDialog != null) {
+
+            dialogueLabel.setText(currentDialog.text);
+        }
+        choicesBox.getChildren().clear();
+
+        if (currentDialog.choices != null && !currentDialog.choices.isEmpty()) {
+            // Tampilkan tombol pilihan
+            for (ChoiceData choice : currentDialog.choices) {
+                Button choiceButton = new Button(choice.text);
+                choiceButton.setOnAction(e -> {
+                    gameManager.goToScene(choice.nextScene);
+                    updateUI();
+                });
+                choicesBox.getChildren().add(choiceButton);
+            }
+        }
+
+        nextIndicator.setVisible(true);
+        dialogueContainer.setCursor(Cursor.HAND);
+
+        // Handler untuk klik kiri dan kanan (next dialog/scene dan undo)
+        dialogueContainer.setOnMouseClicked(event -> {
+            if (event.getButton() == javafx.scene.input.MouseButton.PRIMARY) { // Klik kiri
+                boolean hasNext = gameManager.nextDialog();
+                if (!hasNext) {
+                    if (currentScene.dialogs != null && !currentScene.dialogs.isEmpty()) {
+                        DialogNode lastDialog = currentScene.dialogs.get(currentScene.dialogs.size() - 1);
+                        if (lastDialog.next != null) {
+                            gameManager.goToScene(lastDialog.next);
+                        } else if (currentScene.nextScene != null) {
+                            gameManager.goToScene(currentScene.nextScene);
+                        } else {
+                            gameManager.goToScene(null); // Tamat
+                        }
+                    } else {
+                        gameManager.goToScene(null); // Tamat
+                    }
+                }
+                updateUI();
+            } else if (event.getButton() == javafx.scene.input.MouseButton.SECONDARY) { // Klik kanan
+                // Hanya undo jika bisa undo (tidak di dialog pertama)
+                if (gameManager.canUndoDialog()) {
+                    gameManager.undoDialog();
+                    updateUI();
+                }
+                // Jika tidak bisa undo, tidak lakukan apa-apa (tidak next scene)
+            }
+        });
+
+        undoButton.setDisable(!gameManager.canUndoDialog());
+>>>>>>> 07e73d1154b737cd77e527ff1d881f623f6afc7b
     }
 
     // --- PENAMBAHAN FITUR BARU: Metode terpisah untuk setiap jenis UI ---
@@ -274,5 +407,7 @@ public class Main extends Application {
         } else {
             view.setImage(null);
         }
+
     }
+
 }
