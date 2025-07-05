@@ -1,8 +1,9 @@
 [
     {
         "id": "prolog_1",
+        "characterName": "Zia Dewasa",
         "backgroundImage": "assets/bg/TamanBelakangSekolah_POV/alley.jpg",
-        "characterImage": "assets/sprite/Karakter_Pria/1.png",
+        "characterImage": "assets/sprite/Karakter_Pria/char_m_Kuliah_cry.png",
         "dialog": "(Suara tawa anak-anak terdengar samar)",
         "nextScene": "prolog_2"
         

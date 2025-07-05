@@ -14,4 +14,5 @@ public class sceneData {
 
     public String backgroundImage; // Untuk menyimpan nama file gambar latar
     public String characterImage;
+    public String characterName;
 }
