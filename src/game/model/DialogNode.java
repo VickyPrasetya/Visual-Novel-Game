@@ -4,8 +4,11 @@ import java.util.*;
 
 public class DialogNode {
 
-    public String label; // opsional, hanya jika ada label
+      // Properti untuk dialog biasa
+    public String character;
     public String text;
-    public String next; // opsional, bisa id scene atau label dialog
-    public List<ChoiceData> choices;
+    public String next;
+
+    // Properti untuk node yang berisi pilihan
+    public List<choiceData> choices; 
 }

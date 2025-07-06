@@ -7,20 +7,16 @@ import java.util.List;
  * dengan objek di dalam file JSON Anda. Kelas ini merepresentasikan satu adegan
  * dalam cerita. Strukturnya harus cocok dengan objek di dalam file JSON Anda.
  */
-public class SceneData {
+public class sceneData {
 
     public String id;
     public String backgroundImage;
     public String characterImage;
-<<<<<<< HEAD
-    public String characterName;
-}
-=======
     public List<DialogNode> dialogs; // Ubah dari String dialog ke List<String>
-    public List<ChoiceData> choices; // Pilihan ke scene berikutnya
+    public List<choiceData> choices; // Pilihan ke scene berikutnya
     public String nextScene;
-    public List<SceneData> children;
+    public List<sceneData> children;
+    public String type;
     // Untuk tree
     // public List<sceneData> nextScenes; // Anak-anak (pilihan)
 }
->>>>>>> 07e73d1154b737cd77e527ff1d881f623f6afc7b

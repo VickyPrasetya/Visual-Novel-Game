@@ -2,19 +2,19 @@ package game.manager;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import game.model.SceneData;
+import game.model.sceneData;
 import java.io.FileReader;
-import game.model.ChoiceData;
+import game.model.choiceData;
 import game.model.DialogNode;
 import java.util.*;
 
 public class gameManager {
 
-    private SceneData rootScene; // Akar tree
-    private SceneData currentScene;
+    private sceneData rootScene; // Akar tree
+    private sceneData currentScene;
     private int currentDialogIndex;
     private Stack<Integer> dialogStack = new Stack<>(); // Untuk undo dialog
-    private Map<String, SceneData> sceneIndex = new HashMap<>(); // Untuk lookup cepat
+    private Map<String, sceneData> sceneIndex = new HashMap<>(); // Untuk lookup cepat
     private int minUndoIndex = 0;
 
     public gameManager() {
@@ -34,9 +34,9 @@ public class gameManager {
 
             System.out.println("--- [METODE BARU] BERHASIL! File ditemukan di " + filePath);
 
-            SceneData[] scenes = gson.fromJson(reader, SceneData[].class);
+            sceneData[] scenes = gson.fromJson(reader, sceneData[].class);
             if (scenes != null) {
-                for (SceneData s : scenes) {
+                for (sceneData s : scenes) {
                     sceneIndex.put(s.id, s);
                 }
                 // Set rootScene sesuai id root di JSON
@@ -67,7 +67,7 @@ public class gameManager {
      *
      * @return Objek SceneData dari adegan saat ini.
      */
-    public SceneData getCurrentScene() {
+    public sceneData getCurrentScene() {
         return this.currentScene;
     }
 
@@ -76,6 +76,9 @@ public class gameManager {
             return null;
         }
         return currentScene.dialogs.get(currentDialogIndex);
+    }
+    public int getCurrentDialogIndex() {
+        return this.currentDialogIndex;
     }
 
     /**
@@ -100,12 +103,12 @@ public class gameManager {
     }
 
     // Mendapatkan pilihan di scene saat ini
-    public List<ChoiceData> getChoices() {
+    public List<choiceData> getChoices() {
         return currentScene.choices;
     }
 
     public void goToScene(String sceneId) {
-        SceneData next = sceneIndex.get(sceneId);
+        sceneData next = sceneIndex.get(sceneId);
         if (next != null) {
             currentScene = next;
             currentDialogIndex = 0;

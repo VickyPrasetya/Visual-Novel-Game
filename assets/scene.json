@@ -1,22 +1,27 @@
 [
   {
     "id": "prolog_scene_1",
-    "backgroundImage": "assets/bg/KamarPersonalRooms1/Kamar1Day2.png",
+    "backgroundImage": "assets/sprite/BG.png",
     "characterImage": "assets/sprite/Karakter_Pria/CharMKuliah2Cry.png",
     "dialogs": [
-      { "text": "(Suara tawa anak-anak terdengar samar)" },
       {
-        "text": "(Suara Zia Dewasa):\nDulu, duniaku penuh warna. Kanvas putih adalah sahabatku, dan kuas adalah caraku berbicara...",
+        "character": "Narator",
+        "text": "(Suara tawa anak-anak terdengar samar)"
+      },
+      {
+        "character": "Zia (Dewasa)",
+        "text": "Dulu, duniaku penuh warna. Kanvas putih adalah sahabatku, dan kuas adalah caraku berbicara...",
         "next": "prolog_scene_2"
       }
     ]
   },
   {
     "id": "prolog_scene_2",
-    "backgroundImage": "assets/bg/Kamar_PersonalRooms1_1080p_PNG/pra_a2_day2.png",
+    "backgroundImage": "assets/sprite/BG.png",
     "characterImage": "assets/sprite/Karakter_Pria/char_m_Kuliah_happy.png",
     "dialogs": [
       {
+        "character": "Narator",
         "text": "(Gambar berubah menjadi lebih jelas: Zia kecil sedang melukis di taman, Aira kecil memperhatikannya dari kejauhan...)",
         "next": "prolog_scene_3"
       }
@@ -26,7 +31,8 @@
     "id": "prolog_scene_3",
     "dialogs": [
       {
-        "text": "(Suara Zia Dewasa)\nAku juga ingat... ada sepasang mata yang selalu menatapku dengan kagum...",
+        "character": "Zia (Dewasa)",
+        "text": "Aku juga ingat... ada sepasang mata yang selalu menatapku dengan kagum...",
         "next": "prolog_scene_4"
       }
     ]
@@ -35,6 +41,7 @@
     "id": "prolog_scene_4",
     "dialogs": [
       {
+        "character": "Narator",
         "text": "(Gambar tiba-tiba robek. Suara tawa berubah menjadi suara cemoohan dan tangisan. Gambar menjadi hitam.)",
         "next": "prolog_scene_5"
       }
@@ -44,7 +51,8 @@
     "id": "prolog_scene_5",
     "dialogs": [
       {
-        "text": "(Suara Zia Dewasa)\nNamun, satu hari yang kelam merenggut semua warna itu... Sejak saat itu, aku bersumpah untuk tidak akan pernah menyentuh kuas lagi...",
+        "character": "Zia (Dewasa)",
+        "text": "Namun, satu hari yang kelam merenggut semua warna itu... Sejak saat itu, aku bersumpah untuk tidak akan pernah menyentuh kuas lagi...",
         "next": "prolog_scene_6"
       }
     ]
@@ -53,6 +61,7 @@
     "id": "prolog_scene_6",
     "dialogs": [
       {
+        "character": "Narator",
         "text": "(Layar menampilkan Zia dewasa, duduk di kamarnya yang monoton, menatap keluar jendela.)",
         "next": "prolog_scene_7"
       }
@@ -62,15 +71,17 @@
     "id": "prolog_scene_7",
     "dialogs": [
       {
-        "text": "(Suara Zia Dewasa):\nDan aku baik-baik saja dengan itu. Atau... setidaknya, begitulah yang kukatakan pada diriku sendiri.",
-        "next": "adegan1_scene_1"
+        "character": "Zia (Dewasa)",
+        "text": "Dan aku baik-baik saja dengan itu. Atau... setidaknya, begitulah yang kukatakan pada diriku sendiri."
       }
-    ]
+    ],
+    "nextScene": "adegan1_scene_1"
   },
   {
     "id": "adegan1_scene_1",
     "dialogs": [
       {
+        "character": "Narator",
         "text": "(Taman kampus. Zia sedang duduk sendiri, melamun. Tiba-tiba Aira duduk di sebelahnya dengan senyum lebar.)",
         "next": "adegan1_scene_2"
       }
@@ -80,7 +91,8 @@
     "id": "adegan1_scene_2",
     "dialogs": [
       {
-        "text": "Aira: \"Permisi, kamu Zia, kan? Si pelukis cilik dari komplek Bekasi!\"",
+        "character": "Aira",
+        "text": "Permisi, kamu Zia, kan? Si pelukis cilik dari komplek Bekasi!",
         "next": "adegan1_scene_3"
       }
     ]
@@ -89,12 +101,15 @@
     "id": "adegan1_scene_3",
     "dialogs": [
       {
+        "character": "Narator",
         "text": "(Zia menoleh, kaget karena seseorang mengingat masa lalunya. Bagaimana ia harus merespon?)"
       },
       {
-        "label": "pilihan_sikap",
         "choices": [
-          { "text": "\"Salah orang.\"", "nextScene": "adegan1_path_A" },
+          {
+            "text": "\"Salah orang.\"",
+            "nextScene": "adegan1_path_A"
+          },
           {
             "text": "\"...Mungkin. Aku tidak ingat.\"",
             "nextScene": "adegan1_path_B"
@@ -107,17 +122,618 @@
     "id": "adegan1_path_A",
     "dialogs": [
       {
-        "text": "Zia: (Menjawab dengan dingin) \"Salah orang.\"",
-        "nextScene": "adegan1_merge"
+        "character": "Zia",
+        "text": "(Menjawab dengan dingin) \"Salah orang.\""
       }
-    ]
+    ],
+    "nextScene": "adegan1_merge"
   },
   {
     "id": "adegan1_path_B",
     "dialogs": [
       {
-        "text": "Zia: (Menjawab dengan ragu) \"...Mungkin. Aku tidak ingat.\"",
-        "nextScene": "adegan1_merge"
+        "character": "Zia",
+        "text": "(Menjawab dengan ragu) \"...Mungkin. Aku tidak ingat.\""
+      }
+    ],
+    "nextScene": "adegan1_merge"
+  },
+  {
+    "id": "adegan1_merge",
+    "dialogs": [
+      {
+        "character": "Aira",
+        "text": "Eh? Masa sih? Aku yakin sekali. Dulu kamu suka melukis di taman, dan lukisanmu bagus sekali! Aku Aira, kita dulu tetanggaan."
+      }
+    ],
+    "nextScene": "adegan1_5"
+  },
+  {
+    "id": "adegan1_5",
+    "dialogs": [
+      {
+        "character": "Zia",
+        "text": "(Berdiri, hendak pergi) \"Aku sudah tidak melukis. Permisi.\""
+      }
+    ],
+    "nextScene": "adegan1_6"
+  },
+  {
+    "id": "adegan1_6",
+    "dialogs": [
+      {
+        "character": "Aira",
+        "text": "(Menahan lengannya, tatapannya tulus) \"Tunggu! Kenapa berhenti? Padahal... aku selalu suka melihatmu melukis.\""
+      }
+    ],
+    "nextScene": "adegan1_7"
+  },
+  {
+    "id": "adegan1_7",
+    "dialogs": [
+      {
+        "character": "Narator",
+        "text": "(Zia terdiam sejenak, tatapannya sedikit goyah, lalu menarik lengannya dan pergi tanpa berkata apa-apa.)"
+      }
+    ],
+    "nextScene": "adegan1_8_new"
+  },
+  {
+    "id": "adegan1_8_new",
+    "dialogs": [
+      {
+        "character": "Aira",
+        "text": "(Tidak menyerah, sedikit berteriak ke arah Zia yang menjauh) \"Hei! Oke, oke! Nggak usah bahas melukis lagi! Tapi kita satu jurusan, kan? Besok traktir aku di kantin sebagai permintaan maaf karena sudah kabur!\""
+      }
+    ],
+    "nextScene": "adegan1_9_new"
+  },
+  {
+    "id": "adegan1_9_new",
+    "dialogs": [
+      {
+        "character": "Narator",
+        "text": "(Zia tidak menjawab, tapi langkahnya sedikit melambat sebelum menghilang di tikungan. Aira tersenyum kecil.)"
+      },
+      {
+        "character": "Narator",
+        "text": "(Beberapa hari berikutnya, Aira benar-benar menepati janjinya. Ia selalu menemukan cara untuk berada di dekat Zia. Duduk di sebelahnya di kelas, 'kebetulan' bertemu di perpustakaan, dan menunggunya di depan gerbang.)"
+      },
+      {
+        "character": "Narator",
+        "text": "(Perlahan, dinding es di sekitar Zia mulai retak. Ia mulai membalas sapaan Aira, bahkan sesekali tersenyum tipis mendengar leluconnya.)"
+      }
+    ],
+    "nextScene": "adegan2_1"
+  },
+  {
+    "id": "adegan2_1",
+    "dialogs": [
+      {
+        "character": "Narator",
+        "text": "(Di sebuah kafe dekat kampus. Mereka sedang mengerjakan tugas bersama. Aira sengaja membuka pamflet pameran seni mahasiswa.)"
+      }
+    ],
+    "nextScene": "adegan2_1_new"
+  },
+  {
+    "id": "adegan2_1_new",
+    "dialogs": [
+      {
+        "character": "Aira",
+        "text": "Lihat deh, Zia. Pameran seni. Kayaknya seru. Jadi ingat, di dekat sini ada toko peralatan seni yang lengkap banget."
+      },
+      {
+        "character": "Zia",
+        "text": "(Melirik sekilas, mencoba acuh) \"Oh ya?\""
+      },
+      {
+        "character": "Aira",
+        "text": "Iya! Ayolah, temani aku ke sana sebentar. Aku cuma mau lihat-lihat. Janji nggak akan maksa kamu beli apa-apa. Anggap saja refreshing dari tugas ini. Ya? Ya?\""
+      },
+      {
+        "character": "Zia",
+        "text": "(Menghela napas, tapi ada sedikit senyum di bibirnya) \"...Baiklah. Sebentar saja.\""
+      }
+    ],
+    "nextScene": "adegan2_2"
+  },
+  {
+    "id": "adegan2_2",
+    "dialogs": [
+      {
+        "character": "Narator",
+        "text": "(Di depan toko peralatan seni. Aira langsung menarik Zia ke bagian cat.)"
+      },
+      {
+        "character": "Aira",
+        "text": "Ayolah, Zia! Lihat! Cat akrilik ini warnanya cerah sekali! Pasti bagus untuk melukis langit senja."
+      }
+    ],
+    "nextScene": "adegan2_choice2"
+  },
+  {
+    "id": "adegan2_choice2",
+    "dialogs": [
+      {
+        "character": "Narator",
+        "text": "(Zia menatap cat yang ditawarkan Aira. Rasa sakit dari masa lalu kembali terasa.)"
+      },
+      {
+        "choices": [
+          {
+            "text": "\"Untuk apa? Sudah kubilang aku berhenti.\"",
+            "nextScene": "adegan2_path_A"
+          },
+          { "text": "\"Jangan memaksaku, Aira.\"", "nextScene": "adegan2_path_B" }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "adegan2_path_A",
+    "dialogs": [
+      { "character": "Zia", "text": "Untuk apa? Sudah kubilang aku berhenti." }
+    ],
+    "nextScene": "adegan2_merge"
+  },
+  {
+    "id": "adegan2_path_B",
+    "dialogs": [
+      {
+        "character": "Zia",
+        "text": "(Dengan nada lelah) \"Jangan memaksaku, Aira.\""
+      }
+    ],
+    "nextScene": "adegan2_merge"
+  },
+  {
+    "id": "adegan2_merge",
+    "dialogs": [
+      {
+        "character": "Aira",
+        "text": "Kenapa? Karena dulu ada yang mengejek lukisanmu di lomba itu?",
+        "next": "adegan2_5"
+      }
+    ]
+  },
+  {
+    "id": "adegan2_5",
+    "dialogs": [
+      { "character": "Zia", "text": "(Terkejut) \"Bagaimana kamu tahu?\"" }
+    ],
+    "nextScene": "adegan2_6"
+  },
+  {
+    "id": "adegan2_6",
+    "dialogs": [
+      {
+        "character": "Aira",
+        "text": "Aku ada di sana. Aku melihatmu menangis. Tapi aku juga melihat betapa indahnya lukisanmu... Mereka tidak mengerti seni, Zia."
+      }
+    ],
+    "nextScene": "adegan2_7"
+  },
+  {
+    "id": "adegan2_7",
+    "dialogs": [
+      { "character": "Zia", "text": "(Menunduk, suaranya pelan) \"Tetap saja... itu menyakitkan.\"" }
+    ],
+    "nextScene": "adegan2_8"
+  },
+  {
+    "id": "adegan2_8",
+    "dialogs": [
+      {
+        "character": "Aira",
+        "text": "Kalau begitu, melukislah untuk dirimu sendiri. Atau... melukislah untukku. Aku ingin melihat duniamu yang penuh warna lagi."
+      }
+    ],
+    "nextScene": "adegan2_9"
+  },
+  {
+    "id": "adegan2_9",
+    "dialogs": [
+      {
+        "character": "Narator",
+        "text": "(Zia menatap kuas di tangannya, lalu menatap Aira. Untuk pertama kalinya, ada keraguan dalam keputusannya untuk berhenti.)"
+      }
+    ],
+    "nextScene": "adegan3_0_new"
+  },
+  {
+    "id": "adegan3_0_new",
+    "dialogs": [
+      {
+        "character": "Narator",
+        "text": "(Malam harinya, di kamarnya. Zia tidak bisa tidur. Perkataan Aira terus terngiang. Ia membuka laci mejanya yang berdebu dan mengeluarkan sebuah sketchbook tua.)"
+      },
+      {
+        "character": "Narator",
+        "text": "(Dengan ragu, tangannya mengambil sebuah pensil. Ia mulai menggambar. Bukan pemandangan, bukan objek. Tapi sketsa wajah Aira yang sedang tersenyum.)"
+      },
+      {
+        "character": "Zia",
+        "text": "(Melihat hasil sketsanya) \"Aira...\""
+      },
+      {
+        "character": "Narator",
+        "text": "(Saat itulah Zia sadar. Bukan hanya kanvasnya yang kembali berwarna, tapi juga hatinya. Ia harus memberitahu Aira.)"
+      }
+    ],
+    "nextScene": "adegan3_1"
+  },
+  {
+    "id": "adegan3_1",
+    "dialogs": [
+      {
+        "character": "Narator",
+        "text": "(Keesokan harinya, Zia mengajak Aira ke tepi danau kampus saat matahari terbenam. Ia merasa inilah saat yang tepat.)",
+        "next": "adegan3_2"
+      }
+    ]
+  },
+  {
+    "id": "adegan3_2",
+    "dialogs": [
+      {
+        "character": "Zia",
+        "text": "Aira... selama ini aku merasa duniaku gelap. Tapi sejak bertemu denganmu, semuanya jadi berbeda. Kamu membawa warna dalam hidupku lagi.",
+        "next": "adegan3_3"
+      }
+    ]
+  },
+  {
+    "id": "adegan3_3",
+    "dialogs": [
+      {
+        "character": "Narator",
+        "text": "(Aira menatap air danau, wajahnya sulit dibaca. Dia baru saja kembali dari rumah sakit.)",
+        "next": "adegan3_choice3"
+      }
+    ]
+  },
+  {
+    "id": "adegan3_choice3",
+    "dialogs": [
+      { "character": "Narator", "text": "(Zia mengumpulkan seluruh keberaniannya.)" },
+      {
+        "choices": [
+          {
+            "text": "(Nyatakan perasaanmu sekarang)",
+            "nextScene": "adegan3_merge"
+          },
+          {
+            "text": "(Mungkin lain kali saja...)",
+            "nextScene": "adegan3_path_hesitate"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "adegan3_path_hesitate",
+    "dialogs": [
+      {
+        "character": "Narator",
+        "text": "(Zia ragu. Tapi melihat wajah Aira, ia tahu ia harus mengatakannya sekarang juga.)"
+      }
+    ],
+    "nextScene": "adegan3_merge"
+  },
+  {
+    "id": "adegan3_merge",
+    "dialogs": [
+      { "character": "Zia", "text": "Aku... aku rasa aku jatuh cinta padamu, Aira. Maukah kamu..." }
+    ],
+    "nextScene": "adegan3_5"
+  },
+  {
+    "id": "adegan3_5",
+    "dialogs": [
+      {
+        "character": "Aira",
+        "text": "(Memotong dengan nada dingin, tanpa menoleh) \"Hentikan, Zia.\""
+      }
+    ],
+    "nextScene": "adegan3_6"
+  },
+  {
+    "id": "adegan3_6",
+    "dialogs": [{ "character": "Zia", "text": "A-apa?" }],
+    "nextScene": "adegan3_7"
+  },
+  {
+    "id": "adegan3_7",
+    "dialogs": [
+      {
+        "character": "Aira",
+        "text": "(Berbalik, menatap Zia dengan tatapan kosong) \"Aku sadar kita tidak cocok. Aku lelah harus terus menyemangatimu. Maaf, ini tidak akan berhasil.\""
+      }
+    ],
+    "nextScene": "adegan3_8"
+  },
+  {
+    "id": "adegan3_8",
+    "dialogs": [
+      {
+        "character": "Zia",
+        "text": "(Terpukul, tidak percaya) \"Tapi... kemarin... kita baik-baik saja. Apa maksudmu?\""
+      }
+    ],
+    "nextScene": "adegan3_9"
+  },
+    {
+    "id": "adegan3_9",
+    "dialogs": [{ "character": "Aira", "text": "Aku hanya bosan. Tolong, jangan temui aku lagi." }],
+    "nextScene": "adegan3_10"
+  },
+  {
+    "id": "adegan3_10",
+    "dialogs": [
+      {
+        "character": "Narator",
+        "text": "(Aira berjalan pergi meninggalkan Zia yang membeku, hatinya hancur berkeping-keping. Dunianya yang baru saja mulai berwarna, kini kembali menjadi hitam putih, bahkan lebih kelam dari sebelumnya.)"
+      }
+    ],
+    "nextScene": "post_rejection_choice"
+  },
+  {
+    "id": "post_rejection_choice",
+    "dialogs": [
+      {
+        "character": "Narator",
+        "text": "(Luka lama yang belum sembuh kini ditusuk kembali. Zia merasa dikhianati dan bodoh. Bagaimana ia akan menghadapi rasa sakit ini?)"
+      },
+      {
+        "choices": [
+          {
+            "text": "\"Aku tidak akan pernah percaya pada siapapun lagi. Aku menyerah.\"",
+            "nextScene": "path_bad_ending_1"
+          },
+          {
+            "text": "\"Tidak mungkin... Ini tidak masuk akal. Pasti ada sesuatu yang terjadi.\"",
+            "nextScene": "path_seek_truth_1"
+          }
+        ]
+      }
+    ]
+  },
+
+
+  {
+    "id": "path_bad_ending_1",
+    "dialogs": [
+      {
+        "character": "Narator",
+        "text": "(Zia membiarkan kebencian dan keputusasaan menelannya bulat-bulat. Dia tidak mencoba mencari Aira. Dia mengunci diri di kamarnya, menjauhi semua orang.)"
+      },
+      {
+        "character": "Zia",
+        "text": "Semua orang sama saja. Mereka datang, memberimu harapan, lalu menghancurkanmu. Seni, cinta... semua itu bohong."
+      }
+    ],
+    "nextScene": "path_bad_ending_2"
+  },
+  {
+    "id": "path_bad_ending_2",
+    "dialogs": [
+      {
+        "character": "Narator",
+        "text": "(Beberapa bulan berlalu. Zia benar-benar menjadi orang yang berbeda. Tatapannya kosong, ia jarang masuk kuliah dan nilainya hancur. Dinding yang ia bangun di sekeliling hatinya kini lebih tinggi dan tebal dari sebelumnya.)"
+      },
+      {
+        "character": "Narator",
+        "text": "(Dia tidak pernah tahu bahwa Aira telah tiada. Dia tidak pernah bertemu ibu Aira. Dia tidak pernah menerima surat itu. Baginya, Aira hanyalah pengkhianat lain dalam hidupnya.)"
+      }
+    ],
+    "nextScene": "path_bad_ending_final"
+  },
+  {
+    "id": "path_bad_ending_final",
+    "dialogs": [
+      {
+        "character": "Narator",
+        "text": "(Suatu malam, Zia menatap tumpukan kanvas kosong dan peralatan melukisnya yang berdebu. Tanpa emosi, ia memasukkan semuanya ke dalam kardus dan menyimpannya di gudang.)"
+      },
+      {
+        "character": "Zia",
+        "text": "Warna-warna itu tidak akan pernah kembali. Kanvasku akan selamanya kosong, sama seperti hatiku."
+      },
+      {
+        "character": "Narator",
+        "text": "--- BAD ENDING ---"
+      }
+    ]
+  },
+
+
+  {
+    "id": "path_seek_truth_1",
+    "dialogs": [
+      {
+        "character": "Narator",
+        "text": "(Meskipun hatinya sakit, secercah intuisi mengatakan bahwa Aira yang ia kenal tidak akan melakukan ini tanpa alasan. Zia memutuskan untuk mencari jawaban.)"
+      },
+      {
+        "character": "Narator",
+        "text": "(Selama beberapa hari, dia mencoba mencari Aira di kampus, tapi Aira tidak pernah muncul. Teman-temannya pun tidak tahu di mana dia. Rasa cemas mulai menggantikan rasa sakit.)"
+      }
+    ],
+    "nextScene": "path_seek_truth_2"
+  },
+  {
+    "id": "path_seek_truth_2",
+    "dialogs": [
+      {
+        "character": "Narator",
+        "text": "(Zia teringat Aira pernah menyebutkan alamat komplek rumahnya. Dengan nekat, ia memutuskan untuk pergi ke sana. Di sanalah, di taman yang sama tempat ia pernah melukis saat kecil, ia melihat seorang wanita paruh baya yang menatapnya dengan sedih.)"
+      }
+    ],
+    "nextScene": "epilog_1"
+  },
+  {
+    "id": "epilog_1",
+    "dialogs": [
+      { "character": "Ibu Aira", "text": "Apakah kamu dek Zia?" },
+      { "character": "Zia", "text": "I-iya bu, saya Zia. Apakah ibu kenal Aira? Saya mencarinya..." },
+      { "character": "Ibu Aira", "text": "Ah... Aira sudah menceritakan banyak tentangmu. Ibu hanya ingin memberikan surat ini. Aira menitipkannya untukmu."},
+      { "character": "Narator", "text": "(Ibu Aira menahan tangisnya sambil memberikan surat itu ke Zia.)"},
+      { "character": "Zia", "text": "Surat? Di mana Aira, bu? Kenapa ibu menangis?"},
+      { "character": "Ibu Aira", "text": "Biar surat ini yang menjelaskan semuanya, nak... (Dengan nafas yang terisak-isak)."},
+      { "character": "Narator", "text": "(Zia membuka surat itu dengan tangan gemetar dan perasaan yang berantakan.)"}
+    ],
+    "nextScene": "epilog_12"
+  },
+  {
+    "type": "letter",
+    "id": "epilog_12",
+    "dialogs": [
+      {
+        "character": "Aira (Surat)",
+        "text": "Untuk Zia-ku yang tersayang,\n\nJika kamu membaca surat ini, artinya aku sudah tidak ada di dunia ini lagi. Maaf, ya. Aku tidak pandai berpamitan.\n\nKamu mungkin tidak ingat, tapi aku sudah mengenalmu sejak lama. Aku adalah gadis kecil yang selalu bersembunyi di balik pohon, mengagumi setiap goresan kuasmu di taman. Bagiku, kamu adalah penyihir yang bisa menciptakan keajaiban di atas kanvas. Lukisanmu adalah duniaku.\n\nBertemu denganmu lagi di kampus adalah sebuah keajaiban. Sejujurnya, saat itu dokter bilang waktuku sudah tidak banyak. Tapi melihatmu lagi, meskipun kamu terlihat muram, memberiku kekuatan untuk bertahan lebih lama. Aku ingin melihatmu tersenyum. Aku ingin melihatmu melukis lagi. Itu menjadi tujuanku, alasanku untuk bangun setiap pagi.\n\nSetiap candaan, setiap perhatian yang kuberikan, semuanya tulus dari hatiku. Aku benar-benar jatuh cinta padamu, Zia.\n\nLalu, hari itu tiba. Saat dokter berkata waktuku hanya tersisa 24 jam. Di saat yang bersamaan, kamu datang dengan tatapan penuh cinta itu. Hatiku hancur, Zia. Bagaimana mungkin aku membiarkanmu masuk lebih dalam, hanya untuk meninggalkanmu sendirian?\n\nAku memilih menjadi pengecut. Aku menyakitimu. Aku mendorongmu menjauh karena aku pikir... mungkin jika kamu membenciku, rasa sakit saat aku pergi tidak akan terlalu dalam. Maafkan aku. Aku sangat bodoh dan egois.\n\nAku tidak ingin kamu bersedih terlalu lama karenaku. Aku ingin kamu bahagia. Kembali melukis ya? Warnai duniamu lagi, seperti yang dulu kamu lakukan.\n\nDan satu permintaan terakhirku...\n\nTolong, jangan membenciku. Ingatlah aku sebagai Aira yang usil, yang selalu mengagumi lukisanmu, dan yang akan selalu mencintaimu, bahkan dari tempat yang berbeda.\n\nSelalu milikmu,\nAira."
+      }
+    ],
+    "nextScene": "epilog_13"
+  },
+  {
+    "id": "epilog_13",
+    "dialogs": [
+      {
+        "character": "Zia",
+        "text": "Surat itu terlepas dari genggamanku. Air mata yang selama ini kutahan akhirnya tumpah. Bukan karena benci, tapi karena penyesalan dan rasa cinta yang begitu dalam."
+      }
+    ],
+    "nextScene": "epilog_14"
+  },
+  {
+    "id": "epilog_14",
+    "dialogs": [
+      {
+        "character": "Narator",
+        "text": "(Zia berlari menembus hujan menuju pemakaman yang ditunjukkan oleh Ibu Aira. Akulah yang bodoh karena tidak menyadarinya.)"
+      }
+    ],
+    "nextScene": "epilog_15"
+  },
+  {
+    "id": "epilog_15",
+    "dialogs": [
+      {
+        "character": "Narator",
+        "text": "(Zia tiba di pemakaman. Dia melihat gundukan tanah yang masih basah dengan sebuah nisan sederhana bertuliskan \"Aira\".)"
+      }
+    ],
+    "nextScene": "epilog_16"
+  },
+  {
+    "id": "epilog_16",
+    "dialogs": [
+      {
+        "character": "Narator",
+        "text": "(Zia jatuh berlutut di depan makam itu. Isak tangisnya menjadi satu dengan suara hujan.)"
+      },
+      {
+        "character": "Zia",
+        "text": "Maafkan aku... Aira... Maafkan aku..."
+      }
+    ],
+    "nextScene": "final_choice_at_grave"
+  },
+  {
+    "id": "final_choice_at_grave",
+    "dialogs": [
+      {
+        "character": "Narator",
+        "text": "(Di tengah rasa sakit, sebuah janji terucap dalam hati. Janji untuk Aira. Janji untuk dirinya sendiri.)"
+      },
+      {
+        "choices": [
+          {
+            "text": "Aku akan melukis lagi. Untuknya. Sebuah lukisan terakhir untuk cinta pertamaku.",
+            "nextScene": "true_ending_final"
+          },
+          {
+            "text": "Aku tidak akan membiarkan pengorbananmu sia-sia. Aku akan menunjukkan pada dunia keindahan yang kamu lihat dalam diriku.",
+            "nextScene": "good_ending_1"
+          }
+        ]
+      }
+    ]
+  },
+
+
+  {
+    "id": "true_ending_final",
+    "dialogs": [
+      {
+        "character": "Narator",
+        "text": "(Zia memegang janjinya. Ia kembali ke kamarnya, menyiapkan kanvas. Bukan untuk ketenaran, bukan untuk siapapun, tapi sebagai persembahan terakhir yang intim dan pribadi.)"
+      },
+      {
+        "character": "Zia",
+        "text": "Lukisan ini hanya untukmu, Aira. Selamanya."
+      },
+      {
+        "character": "Narator",
+        "text": "(Ia mulai melukis, mencurahkan semua cinta dan kesedihannya. Proses itu menjadi katarsis baginya. Mungkin ia akan terus melukis, mungkin tidak. Tapi malam itu, ia telah menemukan cara untuk berdamai dengan masa lalu dan menjaga kenangan Aira tetap hidup di dalam hatinya.)"
+      },
+      {
+        "character": "Narator",
+        "text": "--- TRUE ENDING ---"
+      }
+    ]
+  },
+  
+
+  {
+    "id": "good_ending_1",
+    "dialogs": [
+      {
+        "character": "Narator",
+        "text": "(Beberapa tahun kemudian. Sebuah galeri seni bergengsi di ibu kota dipenuhi pengunjung. Semua mata tertuju pada satu lukisan di tengah ruangan.)"
+      }
+    ],
+    "nextScene": "good_ending_2"
+  },
+  {
+    "id": "good_ending_2",
+    "dialogs": [
+      {
+        "character": "Kritikus Seni",
+        "text": "Luar biasa! Lukisan 'Gadis Pembawa Warna' ini memiliki kehidupan di dalamnya. Lihatlah sorot mata dan senyumnya... seolah-olah dia bisa melompat keluar dari kanvas kapan saja. Sang seniman, Zia, telah berhasil menangkap sebuah jiwa, bukan sekadar rupa."
+      }
+    ],
+    "nextScene": "good_ending_3"
+  },
+  {
+    "id": "good_ending_3",
+    "dialogs": [
+      {
+        "character": "Narator",
+        "text": "(Di sudut ruangan, Zia—kini seorang pria dewasa yang tenang dan berwibawa—menatap lukisan Aira yang tersenyum. Lukisan itu menjadi mahakaryanya, sebuah 'Monalisa' di generasinya.)"
+      },
+      {
+        "character": "Zia",
+        "text": "(Berbicara dalam hati) Lihat, Aira? Aku menepati janjiku. Dunia sekarang bisa melihat keindahan yang hanya bisa kulihat berkatmu."
+      }
+    ],
+    "nextScene": "good_ending_final"
+  },
+  {
+    "id": "good_ending_final",
+    "dialogs": [
+      {
+        "character": "Narator",
+        "text": "(Dia telah mengubah rasa sakitnya menjadi sebuah keindahan abadi. Dia hidup sepenuhnya, membawa warisan cinta Aira di setiap goresan kuasnya.)"
+      },
+      {
+        "character": "Zia",
+        "text": "Dan di setiap warna yang terpancar, akan selalu ada senyummu. Terima kasih, Aira. Kau adalah mahakaryaku."
+      },
+      {
+        "character": "Narator",
+        "text": "--- GOOD ENDING ---"
       }
     ]
   }
