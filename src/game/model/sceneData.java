@@ -11,12 +11,16 @@ public class sceneData {
 
     public String id;
     public String backgroundImage;
-    public String characterImage;
+    public List<CharacterData> characters;
     public List<DialogNode> dialogs; // Ubah dari String dialog ke List<String>
     public List<choiceData> choices; // Pilihan ke scene berikutnya
     public String nextScene;
     public List<sceneData> children;
     public String type;
-    // Untuk tree
-    // public List<sceneData> nextScenes; // Anak-anak (pilihan)
+
+    public List<CharacterData> getCharacters() {
+        return characters;
+        // Untuk tree
+        // public List<sceneData> nextScenes; // Anak-anak (pilihan)
+    }
 }

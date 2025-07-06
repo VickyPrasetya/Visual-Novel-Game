@@ -1,15 +1,14 @@
-// File: /game/Main.java
+// File: game/Main.java
 package game;
 
 import game.manager.gameManager;
+import game.model.CharacterData;
 import game.model.choiceData;
 import game.model.sceneData;
 import game.model.DialogNode;
 
 import java.io.File;
 import java.util.List;
-
-
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -20,38 +19,45 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tooltip;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.stage.Stage;
-import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-
+import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    // Deklarasi variabel instance (tidak diubah dari kode asli Anda)
+    // --- BAGIAN YANG HILANG DAN KINI DITAMBAHKAN KEMBALI ---
+    // Deklarasi variabel instance
     private gameManager gameManager;
     private Stage primaryStage;
     private StackPane rootLayout;
     private ImageView backgroundView;
-    private ImageView characterView;
+
+    // Wadah untuk karakter kiri dan kanan
+    private ImageView leftCharacterView;
+    private ImageView rightCharacterView;
+    private HBox characterContainer;
+
+    // Semua elemen UI yang perlu diakses di seluruh kelas
     private Button undoButton;
-    private VBox dialogueContainer;
     private VBox dialogueUIGroup;
     private StackPane nameBox;
     private Text nameLabel;
     private javafx.scene.text.Text dialogueLabel;
-    private VBox choicesBox;
+    private VBox choicesBox; // Meskipun diinisialisasi lokal, lebih aman dideklarasikan di sini
+    private VBox dialogueContainer; // Variabel yang menyebabkan error utama
     private Label nextIndicator;
     private VBox centeredChoicesContainer;
     private StackPane letterContainer;
+    // --- AKHIR BAGIAN YANG DIPERBAIKI ---
+
 
     public static void main(String[] args) {
         launch(args);
@@ -71,19 +77,32 @@ public class Main extends Application {
         backgroundView.fitWidthProperty().bind(primaryStage.widthProperty());
         backgroundView.fitHeightProperty().bind(primaryStage.heightProperty());
         backgroundView.setPreserveRatio(false);
-        characterView = new ImageView();
-        characterView.setPreserveRatio(true);
-        characterView.setFitHeight(600);
-        StackPane.setAlignment(characterView, Pos.BOTTOM_CENTER);
-        imageContainer.getChildren().addAll(backgroundView, characterView);
 
-        // --- LAPISAN 2: UI DIALOG BAWAH (Struktur Diperbaiki) ---
-        dialogueUIGroup = new VBox(); // TETAP VBox seperti kode asli Anda
+        // Inisialisasi ImageView untuk setiap posisi
+        leftCharacterView = new ImageView();
+        leftCharacterView.setPreserveRatio(true);
+        leftCharacterView.setFitHeight(650);
+
+        rightCharacterView = new ImageView();
+        rightCharacterView.setPreserveRatio(true);
+        rightCharacterView.setFitHeight(650);
+
+        // Buat HBox untuk menampung karakter
+        characterContainer = new HBox(leftCharacterView, rightCharacterView);
+        characterContainer.setAlignment(Pos.BOTTOM_CENTER);
+        characterContainer.setSpacing(100);
+        characterContainer.setPadding(new Insets(0, 0, 20, 0));
+        characterContainer.setPickOnBounds(false);
+
+        imageContainer.getChildren().addAll(backgroundView, characterContainer);
+
+
+        // --- LAPISAN 2: UI DIALOG BAWAH (Sekarang akan berfungsi) ---
+        dialogueUIGroup = new VBox();
         dialogueUIGroup.setAlignment(Pos.BOTTOM_CENTER);
         dialogueUIGroup.setPadding(new Insets(0, 20, 20, 20));
         dialogueUIGroup.setPickOnBounds(false);
 
-        // Name Box (styling dan inisialisasi)
         nameLabel = new javafx.scene.text.Text();
         nameLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 22));
         nameLabel.setFill(Color.WHITE);
@@ -94,38 +113,32 @@ public class Main extends Application {
         nameBox.setStyle("-fx-background-color: #ffb7c5; -fx-background-radius: 15 15 0 0; -fx-border-color: white; -fx-border-width: 1; -fx-border-radius: 15 15 0 0;");
         nameBox.setPadding(new Insets(5, 20, 5, 20));
         nameBox.setAlignment(Pos.CENTER_LEFT);
-        nameBox.setMaxWidth(VBox.USE_PREF_SIZE); // Agar lebarnya pas dengan teks
-        // Atur agar nameBox sedikit ke kiri dari tengah VBox
-        HBox nameBoxWrapper = new HBox(nameBox);
-nameBoxWrapper.setAlignment(Pos.CENTER_LEFT); // Ini yang bikin dia ke kiri
-HBox.setMargin(nameBox, new Insets(0, 0, -5, 40)); // Margin kiri
+        nameBox.setMaxWidth(VBox.USE_PREF_SIZE);
 
-nameBoxWrapper.setPickOnBounds(false); // (Atas, Kanan, Bawah, Kiri) -> Margin bawah negatif agar menempel
+        HBox nameBoxWrapper = new HBox(nameBox);
+        nameBoxWrapper.setAlignment(Pos.CENTER_LEFT);
+        HBox.setMargin(nameBox, new Insets(0, 0, -5, 40));
+        nameBoxWrapper.setPickOnBounds(false);
         nameBox.setVisible(false);
 
-        // Dialogue Box dan elemen di dalamnya
         StackPane dialogueSystemStack = new StackPane();
         dialogueContainer = new VBox(15);
         dialogueContainer.setPadding(new Insets(20));
         dialogueContainer.setStyle("-fx-background-color: rgba(255, 183, 197, 0.9); -fx-border-radius:10; -fx-border-color: white; -fx-border-width: 1; -fx-background-radius: 10;");
         dialogueContainer.setMinHeight(180);
-        
 
         dialogueLabel = new javafx.scene.text.Text();
         dialogueLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         dialogueLabel.setFill(Color.WHITE);
         dialogueLabel.setStroke(Color.BLACK);
-        dialogueLabel.setStrokeWidth(0.5); 
+        dialogueLabel.setStrokeWidth(0.5);
         TextFlow dialogueFlow = new TextFlow(dialogueLabel);
         dialogueFlow.setMaxWidth(900);
         dialogueFlow.setLineSpacing(5);
 
-        
-
         choicesBox = new VBox(10);
         choicesBox.setAlignment(Pos.CENTER);
         dialogueContainer.getChildren().addAll(dialogueFlow, choicesBox);
-
 
         nextIndicator = new Label("▼");
         nextIndicator.setFont(Font.font("Arial", 24));
@@ -142,19 +155,16 @@ nameBoxWrapper.setPickOnBounds(false); // (Atas, Kanan, Bawah, Kiri) -> Margin b
         StackPane.setMargin(nextIndicator, new Insets(0, 25, 10, 0));
         StackPane.setAlignment(undoButton, Pos.BOTTOM_LEFT);
         StackPane.setMargin(undoButton, new Insets(0, 0, 10, 25));
-        
-        // Gabungkan ke VBox utama
+
         dialogueUIGroup.getChildren().addAll(nameBoxWrapper, dialogueSystemStack);
 
-        
-        // --- LAPISAN 3: UI PILIHAN DI TENGAH ---
+        // --- LAPISAN 3 & 4 ---
         centeredChoicesContainer = new VBox(15);
         centeredChoicesContainer.setAlignment(Pos.CENTER);
         centeredChoicesContainer.setStyle("-fx-background-color: rgba(0, 0, 0, 0.4);");
         centeredChoicesContainer.setVisible(false);
         centeredChoicesContainer.setOnMouseClicked(event -> event.consume());
 
-        // --- LAPISAN 4: UI SURAT ---
         letterContainer = new StackPane();
         letterContainer.setVisible(false);
 
@@ -168,11 +178,6 @@ nameBoxWrapper.setPickOnBounds(false); // (Atas, Kanan, Bawah, Kiri) -> Margin b
         updateUI();
         primaryStage.show();
     }
-
-    // =========================================================================
-    // SEMUA FUNGSI DI BAWAH INI KEMBALI SEPERTI KODE ASLI ANDA,
-    // DENGAN PENYESUAIAN PADA showChoices DAN showLetter
-    // =========================================================================
 
     private void updateUI() {
         // Reset state
@@ -199,9 +204,35 @@ nameBoxWrapper.setPickOnBounds(false); // (Atas, Kanan, Bawah, Kiri) -> Margin b
         }
 
         updateImage(backgroundView, currentScene.backgroundImage);
-        updateImage(characterView, currentScene.characterImage);
+        leftCharacterView.setImage(null);
+        rightCharacterView.setImage(null);
+        characterContainer.getChildren().clear();
 
-        // Cek tipe scene di awal untuk UI khusus
+        if (currentScene.characters != null && !currentScene.characters.isEmpty()) {
+            boolean hasLeft = false;
+            boolean hasRight = false;
+            for (CharacterData character : currentScene.characters) {
+                if ("left".equalsIgnoreCase(character.position)) {
+                    updateImage(leftCharacterView, character.sprite);
+                    hasLeft = true;
+                } else if ("right".equalsIgnoreCase(character.position)) {
+                    updateImage(rightCharacterView, character.sprite);
+                    hasRight = true;
+                } else { // Asumsi default atau "center"
+                    updateImage(rightCharacterView, character.sprite);
+                    hasRight = true;
+                }
+            }
+            if (hasLeft) characterContainer.getChildren().add(leftCharacterView);
+            if (hasRight) characterContainer.getChildren().add(rightCharacterView);
+            
+            if (currentScene.characters.size() == 1) {
+                characterContainer.setAlignment(Pos.BOTTOM_CENTER);
+            } else {
+                 characterContainer.setAlignment(Pos.BOTTOM_CENTER);
+            }
+        }
+
         if ("letter".equals(currentScene.type)) {
             showLetter(currentScene);
             undoButton.setDisable(true);
@@ -222,7 +253,8 @@ nameBoxWrapper.setPickOnBounds(false); // (Atas, Kanan, Bawah, Kiri) -> Margin b
         
         undoButton.setDisable(!gameManager.canUndoDialog());
     }
-
+    
+    // ... (Fungsi-fungsi lain tidak berubah dan seharusnya sudah benar) ...
     private void showNormalDialogue(sceneData currentScene, DialogNode currentDialog) {
         dialogueLabel.setText(currentDialog.text);
         if (currentDialog.character != null && !currentDialog.character.isEmpty()) {
@@ -249,8 +281,7 @@ nameBoxWrapper.setPickOnBounds(false); // (Atas, Kanan, Bawah, Kiri) -> Margin b
     }
 
     private void showChoices(sceneData currentScene, DialogNode currentDialog) {
-        // PERUBAHAN TAMPILAN: Pilihan muncul di tengah
-        dialogueUIGroup.setVisible(false); // Sembunyikan seluruh UI bawah
+        dialogueUIGroup.setVisible(false);
         centeredChoicesContainer.setVisible(true);
         centeredChoicesContainer.getChildren().clear();
 
@@ -273,9 +304,8 @@ nameBoxWrapper.setPickOnBounds(false); // (Atas, Kanan, Bawah, Kiri) -> Margin b
     private void showLetter(sceneData currentScene) {
         dialogueUIGroup.setVisible(false); 
         letterContainer.setVisible(true);
-        letterContainer.getChildren().clear(); // Kosongkan dulu
+        letterContainer.getChildren().clear();
 
-        // Background kertas
         StackPane paper = new StackPane();
         paper.setStyle("-fx-background-color: #faf0e6; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 0, 5);");
         paper.setMaxWidth(800);
@@ -292,7 +322,7 @@ nameBoxWrapper.setPickOnBounds(false); // (Atas, Kanan, Bawah, Kiri) -> Margin b
 
         ScrollPane scrollPane = new ScrollPane(letterTextLabel);
         scrollPane.setFitToWidth(true);
-        scrollPane.setFitToHeight(false); // penting
+        scrollPane.setFitToHeight(false);
         scrollPane.setPrefViewportHeight(400);
         scrollPane.setStyle("-fx-background: transparent; -fx-background-color: transparent;");
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -304,8 +334,6 @@ nameBoxWrapper.setPickOnBounds(false); // (Atas, Kanan, Bawah, Kiri) -> Margin b
         
         letterContainer.setCursor(Cursor.HAND);
         letterContainer.setOnMouseClicked(e -> {
-            // Karena ini scene 'letter', mungkin semua dialog surat ada di satu node.
-            // Kita langsung pindah ke nextScene dari level scene.
             gameManager.goToScene(currentScene.nextScene);
             updateUI();
         });

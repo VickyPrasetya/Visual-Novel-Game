@@ -1,7 +1,7 @@
 [
   {
     "id": "prolog_scene_1",
-    "backgroundImage": "assets/sprite/BG.png",
+    "backgroundImage": "assets/bg/black.jpg",
     "characterImage": "assets/sprite/Karakter_Pria/CharMKuliah2Cry.png",
     "dialogs": [
       {

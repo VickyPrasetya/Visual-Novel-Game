@@ -1,0 +1,36 @@
+// ... (Hapus semua field "characterImage" dari semua scene) ...
+// ... (Tambahkan field "characters" seperti di bawah ini) ...
+
+{
+  "id": "prolog_scene_2",
+  "backgroundImage": "assets/sprite/BG.png",
+  "characters": [
+    {
+      "sprite": "assets/sprite/Karakter_Wanita/Aira_Child_Observing.png", 
+      "position": "left"
+    },
+    {
+      "sprite": "assets/sprite/Karakter_Pria/Zia_Child_Painting.png",
+      "position": "right"
+    }
+  ],
+  "dialogs": [
+    {
+      "character": "Narator",
+      "text": "(Gambar berubah menjadi lebih jelas: Zia kecil sedang melukis di taman, Aira kecil memperhatikannya dari kejauhan...)",
+      "next": "prolog_scene_3"
+    }
+  ]
+},
+// Contoh untuk satu karakter dengan sistem baru
+{
+  "id": "prolog_scene_1",
+  "backgroundImage": "assets/bg/black.jpg",
+  "characters": [
+    {
+      "sprite": "assets/sprite/Karakter_Pria/CharMKuliah2Cry.png",
+      "position": "center"
+    }
+  ],
+  "dialogs": [ ... ]
+}
