@@ -21,6 +21,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -39,18 +40,21 @@ public class Main extends Application {
 
     // --- DEKLARASI VARIABEL INSTANCE ---
     private Stage primaryStage;
-    private StackPane rootLayout;
+    private BorderPane rootLayout;
     private MediaPlayer mediaPlayer;
     private String currentMusicPath = null;
     private boolean isMusicOn = true;
 
     // --- LAYANAN & MODE ---
     private SaveLoadService saveLoadService;
-    private enum SaveLoadMode { SAVE, LOAD }
+
+    private enum SaveLoadMode {
+        SAVE, LOAD
+    }
 
     // --- Kontainer untuk setiap layar ---
     private StackPane mainMenuContainer;
-    private StackPane gameContainer;
+    private BorderPane gameContainer;
     private StackPane settingsContainer;
     private StackPane saveLoadContainer;
 
@@ -83,14 +87,14 @@ public class Main extends Application {
         primaryStage.setTitle("Visual Novel - 24 Hours");
 
         saveLoadService = new SaveLoadService();
-        rootLayout = new StackPane();
+        rootLayout = new BorderPane();
 
         mainMenuContainer = createMainMenu();
         gameContainer = createGameUI();
         settingsContainer = createSettingsUI();
         saveLoadContainer = createSaveLoadUI();
 
-        rootLayout.getChildren().addAll(gameContainer, settingsContainer, saveLoadContainer, mainMenuContainer);
+        rootLayout.setCenter(mainMenuContainer);
         showScreen(mainMenuContainer);
 
         Scene scene = new Scene(rootLayout, 1280, 720);
@@ -104,6 +108,7 @@ public class Main extends Application {
         gameContainer.setVisible(screen == gameContainer);
         settingsContainer.setVisible(screen == settingsContainer);
         saveLoadContainer.setVisible(screen == saveLoadContainer);
+        rootLayout.setCenter(screen);
     }
 
     private StackPane createMainMenu() {
@@ -143,8 +148,12 @@ public class Main extends Application {
         return menuLayout;
     }
 
-    private StackPane createGameUI() {
-        StackPane layout = new StackPane();
+    private BorderPane createGameUI() {
+        // --- LAYOUT UTAMA ---
+        BorderPane layout = new BorderPane();
+
+        // --- CENTER: StackPane untuk background, karakter, dialog, dsb ---
+        StackPane centerStack = new StackPane();
         StackPane imageContainer = new StackPane();
         backgroundView = new ImageView();
         backgroundView.fitWidthProperty().bind(primaryStage.widthProperty());
@@ -162,10 +171,12 @@ public class Main extends Application {
         characterContainer.setPadding(new Insets(0, 0, 20, 0));
         characterContainer.setPickOnBounds(false);
         imageContainer.getChildren().addAll(backgroundView, characterContainer);
+        // --- Dialog dan UI ---
         dialogueUIGroup = new VBox();
         dialogueUIGroup.setAlignment(Pos.BOTTOM_CENTER);
-        dialogueUIGroup.setPadding(new Insets(0, 20, 20, 20));
-        dialogueUIGroup.setPickOnBounds(false);
+        dialogueUIGroup.setPadding(new Insets(0, 20, 5, 20));
+        dialogueUIGroup.setPickOnBounds(true);
+        dialogueUIGroup.setStyle("-fx-background-color: rgba(0,0,0,0.05);");
         nameLabel = new Text();
         nameLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 22));
         nameLabel.setFill(Color.WHITE);
@@ -183,9 +194,11 @@ public class Main extends Application {
         nameBox.setVisible(false);
         StackPane dialogueSystemStack = new StackPane();
         dialogueContainer = new VBox(15);
-        dialogueContainer.setPadding(new Insets(20));
+        dialogueContainer.setPadding(new Insets(20, 40, 20, 40));
         dialogueContainer.setStyle("-fx-background-color: rgba(255, 183, 197, 0.9); -fx-border-radius:10; -fx-border-color: white; -fx-border-width: 1; -fx-background-radius: 10;");
         dialogueContainer.setMinHeight(180);
+        dialogueContainer.setPickOnBounds(true);
+        dialogueContainer.setMaxWidth(Double.MAX_VALUE);
         dialogueLabel = new Text();
         dialogueLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         dialogueLabel.setFill(Color.WHITE);
@@ -211,6 +224,34 @@ public class Main extends Application {
         centeredChoicesContainer.setOnMouseClicked(event -> event.consume());
         letterContainer = new StackPane();
         letterContainer.setVisible(false);
+        // --- Tambahkan ke centerStack ---
+        centerStack.getChildren().addAll(
+                imageContainer,
+                dialogueUIGroup,
+                centeredChoicesContainer,
+                letterContainer
+        );
+        layout.setCenter(centerStack);
+        // --- TOP: tombol menu/musik ---
+        musicToggleButton = new Button("\uD83D\uDD0A");
+        musicToggleButton.setStyle("-fx-font-size: 22px; -fx-background-radius: 20; -fx-background-color: #222; -fx-text-fill: white; -fx-padding: 4 10;");
+        musicToggleButton.setOnAction(e -> toggleMusic());
+        musicToggleButton.setTooltip(new Tooltip("Toggle Music"));
+        musicToggleButton.setFocusTraversable(false);
+        Button hamburgerButton = new Button("\u2630");
+        hamburgerButton.setStyle("-fx-font-size: 22px; -fx-background-radius: 20; -fx-background-color: #222; -fx-text-fill: white; -fx-padding: 4 10;");
+        hamburgerButton.setTooltip(new Tooltip("Menu"));
+        hamburgerButton.setFocusTraversable(false);
+        hamburgerButton.setOnAction(e -> {
+            if (inGameMenu != null) {
+                inGameMenu.setVisible(!inGameMenu.isVisible());
+            }
+        });
+        HBox topLeftButtons = new HBox(8, hamburgerButton, musicToggleButton);
+        topLeftButtons.setAlignment(Pos.TOP_LEFT);
+        topLeftButtons.setPadding(new Insets(10, 0, 0, 10));
+        layout.setTop(topLeftButtons);
+        // --- BOTTOM: undoButton ---
         undoButton = new Button("⟲ Undo");
         undoButton.setOpacity(0.7);
         undoButton.setStyle("-fx-font-size: 18px; -fx-background-radius: 20; -fx-background-color: #222; -fx-text-fill: white; -fx-padding: 4 10;");
@@ -221,24 +262,18 @@ public class Main extends Application {
                 updateUI();
             }
         });
-        musicToggleButton = new Button("\uD83D\uDD0A");
-        musicToggleButton.setStyle("-fx-font-size: 22px; -fx-background-radius: 20; -fx-background-color: #222; -fx-text-fill: white; -fx-padding: 4 10;");
-        musicToggleButton.setOnAction(e -> toggleMusic());
-        musicToggleButton.setTooltip(new Tooltip("Toggle Music"));
-        Button hamburgerButton = new Button("\u2630");
-        hamburgerButton.setStyle("-fx-font-size: 22px; -fx-background-radius: 20; -fx-background-color: #222; -fx-text-fill: white; -fx-padding: 4 10;");
-        hamburgerButton.setTooltip(new Tooltip("Menu"));
-        hamburgerButton.setOnAction(e -> {
-            if (inGameMenu != null) {
-                inGameMenu.setVisible(!inGameMenu.isVisible());
-            }
-        });
-        HBox topLeftButtons = new HBox(8, hamburgerButton, musicToggleButton, undoButton);
-        topLeftButtons.setAlignment(Pos.TOP_LEFT);
-        topLeftButtons.setPadding(new Insets(10, 0, 0, 10));
-        topLeftButtons.setPickOnBounds(false);
-        layout.getChildren().addAll(imageContainer, dialogueUIGroup, centeredChoicesContainer, letterContainer, topLeftButtons);
-        initializeInGameMenu(layout);
+        HBox bottomLeftBox = new HBox(undoButton);
+        bottomLeftBox.setAlignment(Pos.BOTTOM_LEFT);
+        bottomLeftBox.setPadding(new Insets(0, 0, 10, 10));
+        layout.setBottom(bottomLeftBox);
+        // --- InGameMenu tetap pakai StackPane overlay ---
+        initializeInGameMenu(centerStack);
+        centerStack.prefWidthProperty().bind(layout.widthProperty());
+        centerStack.prefHeightProperty().bind(layout.heightProperty());
+        centerStack.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        StackPane.setAlignment(dialogueUIGroup, Pos.BOTTOM_CENTER);
+        centerStack.setStyle("-fx-background-color: rgba(0,255,0,0.05);");
+        dialogueUIGroup.setStyle("-fx-background-color: rgba(255,0,0,0.05);");
         return layout;
     }
 
@@ -259,7 +294,7 @@ public class Main extends Application {
         settingsLayout.getChildren().addAll(settingsBg, content);
         return settingsLayout;
     }
-    
+
     private StackPane createSaveLoadUI() {
         StackPane layout = new StackPane();
         ImageView bg = createBlurredBackground(MENU_BACKGROUND_PATH);
@@ -276,19 +311,21 @@ public class Main extends Application {
         VBox content = new VBox(30, titleLabel, slotsGrid);
         content.setAlignment(Pos.CENTER);
         content.setPadding(new Insets(50));
-        
+
         Button backButton = new Button("Kembali");
         styleSubMenuButton(backButton);
         backButton.setPrefWidth(250);
         backButton.setOnAction(e -> {
             if (gameContainer.isVisible()) {
                 showScreen(gameContainer);
-                if(inGameMenu != null) inGameMenu.setVisible(true);
+                if (inGameMenu != null) {
+                    inGameMenu.setVisible(true);
+                }
             } else {
                 showScreen(mainMenuContainer);
             }
         });
-        
+
         VBox bottomBox = new VBox(backButton);
         bottomBox.setAlignment(Pos.BOTTOM_CENTER);
         bottomBox.setPadding(new Insets(0, 0, 50, 0));
@@ -298,12 +335,14 @@ public class Main extends Application {
     }
 
     private void openSaveLoadScreen(SaveLoadMode mode) {
-        if(inGameMenu != null) inGameMenu.setVisible(false);
+        if (inGameMenu != null) {
+            inGameMenu.setVisible(false);
+        }
 
         VBox content = (VBox) saveLoadContainer.getChildren().get(1);
         Label titleLabel = (Label) content.getChildren().get(0);
         GridPane slotsGrid = (GridPane) content.getChildren().get(1);
-        
+
         titleLabel.setText(mode == SaveLoadMode.SAVE ? "Simpan Game" : "Muat Game");
         slotsGrid.getChildren().clear();
 
@@ -315,11 +354,11 @@ public class Main extends Application {
             slotBox.setAlignment(Pos.CENTER_LEFT);
             slotBox.setPadding(new Insets(15));
             slotBox.setPrefSize(350, 100);
-            
+
             String baseStyle = "-fx-background-color: rgba(0, 0, 0, 0.5); -fx-border-color: white; -fx-border-width: 1px; -fx-background-radius: 5; -fx-border-radius: 5; -fx-cursor: hand;";
             String hoverStyle = baseStyle + "-fx-background-color: rgba(255, 255, 255, 0.2);";
             slotBox.setStyle(baseStyle);
-            
+
             Label slotLabel = new Label("SLOT " + slotNumber);
             slotLabel.setFont(Font.font("Arial", FontWeight.BOLD, 20));
             slotLabel.setTextFill(Color.WHITE);
@@ -330,18 +369,20 @@ public class Main extends Application {
 
             slotBox.getChildren().addAll(slotLabel, dateLabel);
 
-            if(state != null || mode == SaveLoadMode.SAVE) {
+            if (state != null || mode == SaveLoadMode.SAVE) {
                 slotBox.setOnMouseEntered(e -> slotBox.setStyle(hoverStyle));
                 slotBox.setOnMouseExited(e -> slotBox.setStyle(baseStyle));
                 slotBox.setOnMouseClicked(e -> {
                     if (mode == SaveLoadMode.SAVE) {
                         GameState currentState = gameManager.createSaveState();
                         if (currentState != null && saveLoadService.saveGame(slotNumber, currentState)) {
-                           openSaveLoadScreen(SaveLoadMode.SAVE);
+                            openSaveLoadScreen(SaveLoadMode.SAVE);
                         }
                     } else {
                         if (state != null) {
-                            if (gameManager == null) gameManager = new gameManager();
+                            if (gameManager == null) {
+                                gameManager = new gameManager();
+                            }
                             gameManager.applyGameState(state);
                             showScreen(gameContainer);
                             updateUI();
@@ -349,7 +390,7 @@ public class Main extends Application {
                     }
                 });
             } else {
-                 slotBox.setCursor(Cursor.DEFAULT);
+                slotBox.setCursor(Cursor.DEFAULT);
             }
             slotsGrid.add(slotBox, (i - 1) % 2, (i - 1) / 2);
         }
@@ -357,7 +398,9 @@ public class Main extends Application {
     }
 
     private void updateUI() {
-        if (gameManager == null) return;
+        if (gameManager == null) {
+            return;
+        }
         if (inGameMenu != null && inGameMenu.isVisible()) {
             inGameMenu.setVisible(false);
         }
@@ -368,7 +411,7 @@ public class Main extends Application {
             endLabel.setFont(Font.font("Arial", 40));
             endLabel.setTextFill(Color.WHITE);
             endLabel.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5); -fx-padding: 20;");
-            if (gameContainer.getChildren().stream().noneMatch(node -> node instanceof Label && ((Label)node).getText().startsWith("TAMAT"))) {
+            if (gameContainer.getChildren().stream().noneMatch(node -> node instanceof Label && ((Label) node).getText().startsWith("TAMAT"))) {
                 gameContainer.getChildren().add(endLabel);
             }
             playMusic(DEFAULT_MUSIC_PATH);
@@ -388,23 +431,28 @@ public class Main extends Application {
         rightCharacterView.setImage(null);
         characterContainer.getChildren().clear();
         if (currentScene.characters != null && !currentScene.characters.isEmpty()) {
-             boolean hasLeft = false;
-             boolean hasRight = false;
-             for (CharacterData character : currentScene.characters) {
-                 if ("left".equalsIgnoreCase(character.position)) {
-                     updateImage(leftCharacterView, character.sprite);
-                     hasLeft = true;
-                 } else { 
-                     updateImage(rightCharacterView, character.sprite);
-                     hasRight = true;
-                 }
-             }
-             if (hasLeft) characterContainer.getChildren().add(leftCharacterView);
-             if (hasRight) characterContainer.getChildren().add(rightCharacterView);
+            boolean hasLeft = false;
+            boolean hasRight = false;
+            for (CharacterData character : currentScene.characters) {
+                if ("left".equalsIgnoreCase(character.position)) {
+                    updateImage(leftCharacterView, character.sprite);
+                    hasLeft = true;
+                } else {
+                    updateImage(rightCharacterView, character.sprite);
+                    hasRight = true;
+                }
+            }
+            if (hasLeft) {
+                characterContainer.getChildren().add(leftCharacterView);
+            }
+            if (hasRight) {
+                characterContainer.getChildren().add(rightCharacterView);
+            }
         }
         if ("letter".equals(currentScene.type)) {
             showLetter(currentScene);
             undoButton.setDisable(true);
+            undoButton.setVisible(false);
             return;
         }
         DialogNode currentDialog = gameManager.getCurrentDialog();
@@ -418,7 +466,9 @@ public class Main extends Application {
             gameManager.goToScene(currentScene.nextScene);
             updateUI();
         }
-        undoButton.setDisable(!gameManager.canUndoDialog());
+        boolean canUndo = gameManager.canUndoDialog();
+        undoButton.setDisable(!canUndo);
+        undoButton.setVisible(canUndo);
     }
 
     private void showNormalDialogue(sceneData currentScene, DialogNode currentDialog) {
@@ -429,10 +479,13 @@ public class Main extends Application {
         }
         nextIndicator.setVisible(true);
         dialogueUIGroup.setCursor(Cursor.HAND);
+        System.out.println("[DEBUG] Event handler dialogBox di-set!");
         dialogueUIGroup.setOnMouseClicked(event -> {
+            System.out.println("[DEBUG] DialogBox diklik! MouseButton: " + event.getButton());
             if (event.getButton() == javafx.scene.input.MouseButton.PRIMARY) {
                 if (justUndone) {
                     justUndone = false;
+                    System.out.println("Klik kiri setelah undo, hanya reset flag, tidak next!");
                     return;
                 }
                 boolean movedToNextDialog = gameManager.nextDialog();
@@ -469,9 +522,9 @@ public class Main extends Application {
             centeredChoicesContainer.getChildren().add(choiceButton);
         }
     }
-    
+
     private void showLetter(sceneData currentScene) {
-        dialogueUIGroup.setVisible(false); 
+        dialogueUIGroup.setVisible(false);
         letterContainer.setVisible(true);
         letterContainer.getChildren().clear();
         StackPane paper = new StackPane();
@@ -479,7 +532,9 @@ public class Main extends Application {
         paper.setMaxWidth(800);
         paper.setMaxHeight(600);
         DialogNode letterDialog = gameManager.getCurrentDialog();
-        if (letterDialog == null) return;
+        if (letterDialog == null) {
+            return;
+        }
         Label letterTextLabel = new Label(letterDialog.text);
         letterTextLabel.setWrapText(true);
         letterTextLabel.setFont(Font.font("Courier New", 22));
@@ -517,10 +572,12 @@ public class Main extends Application {
             view.setImage(null);
         }
     }
-    
+
     private void playMusic(String musicPath) {
         String pathToPlay = (musicPath != null && !musicPath.isEmpty()) ? musicPath : DEFAULT_MUSIC_PATH;
-        if (pathToPlay.equals(currentMusicPath)) return;
+        if (pathToPlay.equals(currentMusicPath)) {
+            return;
+        }
         try {
             Media media = new Media(new File(pathToPlay).toURI().toString());
             if (mediaPlayer != null) {
@@ -538,7 +595,7 @@ public class Main extends Application {
             currentMusicPath = null;
         }
     }
-    
+
     private void toggleMusic() {
         isMusicOn = !isMusicOn;
         if (mediaPlayer != null) {
@@ -570,9 +627,8 @@ public class Main extends Application {
             playMusic(DEFAULT_MUSIC_PATH);
         });
         inGameMenu.getChildren().addAll(menuTitle, resumeButton, saveButton, backToMainMenuButton);
-        parent.getChildren().add(inGameMenu);
     }
-    
+
     private void styleMainMenuButton(Button button) {
         button.setPrefWidth(300);
         button.setPrefHeight(50);
@@ -582,7 +638,7 @@ public class Main extends Application {
         button.setOnMouseEntered(e -> button.setStyle(hoverStyle));
         button.setOnMouseExited(e -> button.setStyle(baseStyle));
     }
-    
+
     private void styleSubMenuButton(Button button) {
         button.setPrefWidth(250);
         String baseStyle = "-fx-font-size: 16px; -fx-background-color: #444; -fx-text-fill: white; -fx-background-radius: 5;";
