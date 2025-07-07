@@ -407,10 +407,13 @@
           {
             "text": "\"Jangan memaksaku, Aira.\"",
             "nextScene": "adegan2_path_B"
+<<<<<<< HEAD
           },
           {
             "text": "\"Jangan memaksaku, Aira.\"",
             "nextScene": "adegan2_path_B"
+=======
+>>>>>>> bf12aed379dc8c3aab39e5054f68eab3ef58265b
           }
         ]
       }
