@@ -117,7 +117,7 @@ public class Main extends Application {
         Button startButton = new Button("Start");
         Button loadButton = new Button("Load Game");
         Button settingsButton = new Button("Settings");
-        Button exitButton = new Button("Keluar");
+        Button exitButton = new Button("Quit");
         styleMainMenuButton(startButton);
         styleMainMenuButton(loadButton);
         styleMainMenuButton(settingsButton);
