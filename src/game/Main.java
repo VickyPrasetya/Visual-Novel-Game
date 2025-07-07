@@ -51,6 +51,7 @@ public class Main extends Application {
     private Button undoButton;
     private VBox dialogueUIGroup;
     private VBox buttonGroup; // Group untuk tombol-tombol menu
+    private VBox inGameMenu;
     private StackPane nameBox;
     private Text nameLabel;
     private javafx.scene.text.Text dialogueLabel;
@@ -65,6 +66,7 @@ public class Main extends Application {
     private VBox createInGameMenu; // Untuk menu dalam game jika diperlukan
     private Button musicToggleButton;
     private Button hamburgerButton;
+    private boolean justUndone = false;
     // --- AKHIR BAGIAN YANG DIPERBAIKI ---
 
     private static final String DEFAULT_MUSIC_PATH = "assets/music/Music Page Menu.mp3";
@@ -227,6 +229,10 @@ public class Main extends Application {
 
         updateUI();
         primaryStage.show();
+
+        inGameMenu = createInGameMenu();
+        rootLayout.getChildren().add(inGameMenu);
+        StackPane.setAlignment(inGameMenu, Pos.CENTER);
     }
 
     private void updateUI() {
@@ -266,8 +272,8 @@ public class Main extends Application {
             try {
                 // Hanya ganti musik jika path-nya BERBEDA
                 if (!musicPath.equals(currentMusicPath)) {
-                    System.out.println("Mencari musik di path: " + new File(musicPath).getAbsolutePath()); 
-            
+                    System.out.println("Mencari musik di path: " + new File(musicPath).getAbsolutePath());
+
                     Media media = new Media(new File(musicPath).toURI().toString());
                     if (mediaPlayer != null) {
                         mediaPlayer.stop();
@@ -404,12 +410,7 @@ public class Main extends Application {
                     // Setelah undo, klik kiri pertama hanya reset flag, tidak next
                     return;
                 }
-                // Hanya blokir next jika sudah di dialog terakhir dan tidak bisa undo
-                if (gameManager.getCurrentDialogIndex() >= gameManager.getCurrentScene().dialogs.size() - 1 && !gameManager.canUndoDialog()) {
-                    // Sudah di dialog terakhir, tidak bisa next lagi
-                    System.out.println("Sudah di dialog terakhir, tidak bisa next");
-                    return;
-                }
+             
                 System.out.println("Mencoba next dialog...");
                 boolean movedToNextDialog = gameManager.nextDialog();
                 if (!movedToNextDialog) {
@@ -520,9 +521,6 @@ public class Main extends Application {
         musicToggleButton.setText(isMusicOn ? "\uD83D\uDD0A" : "\uD83D\uDD07"); // 🔊/🔇
 
     }
-<<<<<<< HEAD
-}
-=======
 
     private VBox createInGameMenu() {
         VBox menuLayout = new VBox(15);
@@ -567,6 +565,4 @@ public class Main extends Application {
         button.setOnMouseExited(e -> button.setStyle("-fx-background-color: #444; -fx-text-fill: white; -fx-background-radius: 5;"));
     }
 
-
 }
->>>>>>> 6e48dfe09914b420c77e25ee453d1bbb16acbc81
