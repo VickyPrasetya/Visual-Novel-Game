@@ -310,7 +310,7 @@
   },
   {
     "id": "adegan2_1",
-    "backgroundImage": "assets/bg/images/Restaurant_B.png",
+    "backgroundImage": "assets/sprite/images/Restaurant_B.png",
     "dialogs": [
       {
         "character": "Narator",
@@ -321,7 +321,7 @@
   },
   {
     "id": "adegan2_1_new",
-    "backgroundImage": "assets/bg/images/Restaurant_B.png",
+    "backgroundImage": "assets/sprite/images/Restaurant_B.png",
     "characters": [
       {
         "sprite": "assets/sprite/images/Aiko_Casual_Open.png",
@@ -342,7 +342,7 @@
   },
   {
     "id": "adegan2_1b_new",
-    "backgroundImage": "assets/bg/images/Restaurant_B.png",
+    "backgroundImage": "assets/sprite/images/Restaurant_B.png",
     "characters": [
       {
         "sprite": "assets/sprite/images/Aiko_Casual_Closed_Open.png",
@@ -363,7 +363,13 @@
   },
   {
     "id": "adegan2_2",
-    "backgroundImage": "assets/bg/TokoPeralatanSeni/senitoko.jpg",
+    "backgroundImage": "assets/bg/Neko/Backstreet_Spring_Day.png",
+    "characters": [
+      {
+        "sprite": "assets/sprite/images/Aiko_Casual_Closed_Open.png",
+        "position": "center"
+      }
+    ],
     "dialogs": [
       {
         "character": "Narator",
@@ -378,6 +384,7 @@
   },
   {
     "id": "adegan2_choice2",
+    "backgroundImage": "assets/bg/Neko/Backstreet_Spring_Day.png",
     "dialogs": [
       {
         "character": "Narator",
@@ -396,6 +403,7 @@
   },
   {
     "id": "adegan2_path_A",
+    "backgroundImage": "assets/bg/Neko/Backstreet_Spring_Day.png",
     "dialogs": [
       { "character": "Zia", "text": "Untuk apa? Sudah kubilang aku berhenti." }
     ],
@@ -403,6 +411,7 @@
   },
   {
     "id": "adegan2_path_B",
+    "backgroundImage": "assets/bg/Neko/Backstreet_Spring_Day.png",
     "dialogs": [
       {
         "character": "Zia",
@@ -413,6 +422,13 @@
   },
   {
     "id": "adegan2_merge",
+    "backgroundImage": "assets/bg/Neko/Backstreet_Spring_Day.png",
+    "characters": [
+      {
+        "sprite": "assets/sprite/images/side_Aiko_Casual_Frown.png",
+        "position": "center"
+      }
+    ],
     "dialogs": [
       {
         "character": "Aira",
@@ -423,6 +439,13 @@
   },
   {
     "id": "adegan2_5",
+    "backgroundImage": "assets/bg/Neko/Backstreet_Spring_Day.png",
+    "characters": [
+      {
+        "sprite": "assets/sprite/images/side_Aiko_Casual_Frown.png.png",
+        "position": "center"
+      }
+    ],
     "dialogs": [
       { "character": "Zia", "text": "(Terkejut) \"Bagaimana kamu tahu?\"" }
     ],
@@ -430,6 +453,13 @@
   },
   {
     "id": "adegan2_6",
+    "backgroundImage": "assets/bg/Neko/Backstreet_Spring_Day.png",
+    "characters": [
+      {
+        "sprite": "assets/sprite/images/side_Aiko_Casual_Frown.png",
+        "position": "center"
+      }
+    ],
     "dialogs": [
       {
         "character": "Aira",
@@ -440,6 +470,7 @@
   },
   {
     "id": "adegan2_7",
+    "backgroundImage": "assets/bg/Neko/Backstreet_Spring_Day.png",
     "dialogs": [
       { "character": "Zia", "text": "(Menunduk, suaranya pelan) \"Tetap saja... itu menyakitkan.\"" }
     ],
@@ -447,6 +478,13 @@
   },
   {
     "id": "adegan2_8",
+    "backgroundImage": "assets/bg/Neko/Backstreet_Spring_Day.png",
+    "characters": [
+      {
+        "sprite": "assets/sprite/images/side_Aiko_Casual_Closed_Open.png",
+        "position": "center"
+      }
+    ],
     "dialogs": [
       {
         "character": "Aira",
@@ -457,6 +495,13 @@
   },
   {
     "id": "adegan2_9",
+    "backgroundImage": "assets/bg/Neko/Backstreet_Spring_Day.png",
+    "characters": [
+      {
+        "sprite": "assets/sprite/images/side_Aiko_Casual_Smile.png",
+        "position": "center"
+      }
+    ],
     "dialogs": [
       {
         "character": "Narator",
@@ -467,6 +512,7 @@
   },
   {
     "id": "adegan3_0_new",
+    "backgroundImage": "assets/bg/KamarPersonalRooms1/Kamar1Night1.png",
     "dialogs": [
       {
         "character": "Narator",
@@ -489,6 +535,7 @@
   },
   {
     "id": "adegan3_1",
+    "backgroundImage": "assets/bg/LakeSidePinggirSungai/SampingSungaiEvening.jpg",
     "dialogs": [
       {
         "character": "Narator",
@@ -499,6 +546,13 @@
   },
   {
     "id": "adegan3_2",
+    "backgroundImage": "assets/bg/LakeSidePinggirSungai/SampingSungaiEvening.jpg",
+    "characters": [
+      {
+        "sprite": "assets/sprite/images/Aiko_Casual_Frown.png",
+        "position": "center"
+      }
+    ],
     "dialogs": [
       {
         "character": "Zia",
@@ -509,6 +563,13 @@
   },
   {
     "id": "adegan3_3",
+    "backgroundImage": "assets/bg/LakeSidePinggirSungai/SampingSungaiEvening.jpg",
+    "characters": [
+      {
+        "sprite": "assets/sprite/images/Aiko_Casual_Frown.png",
+        "position": "center"
+      }
+    ],
     "dialogs": [
       {
         "character": "Narator",
@@ -519,6 +580,13 @@
   },
   {
     "id": "adegan3_choice3",
+    "backgroundImage": "assets/bg/LakeSidePinggirSungai/SampingSungaiEvening.jpg",
+    "characters": [
+      {
+        "sprite": "assets/sprite/images/Aiko_Casual_Frown.png",
+        "position": "center"
+      }
+    ],
     "dialogs": [
       { "character": "Narator", "text": "(Zia mengumpulkan seluruh keberaniannya.)" },
       {
@@ -537,6 +605,13 @@
   },
   {
     "id": "adegan3_path_hesitate",
+    "backgroundImage": "assets/bg/LakeSidePinggirSungai/SampingSungaiEvening.jpg",
+    "characters": [
+      {
+        "sprite": "assets/sprite/images/Aiko_Casual_Frown.png",
+        "position": "center"
+      }
+    ],
     "dialogs": [
       {
         "character": "Narator",
@@ -547,6 +622,13 @@
   },
   {
     "id": "adegan3_merge",
+    "backgroundImage": "assets/bg/LakeSidePinggirSungai/SampingSungaiEvening.jpg",
+    "characters": [
+      {
+        "sprite": "assets/sprite/images/Aiko_Casual_Shocked_Frown.png",
+        "position": "center"
+      }
+    ],
     "dialogs": [
       { "character": "Zia", "text": "Aku... aku rasa aku jatuh cinta padamu, Aira. Maukah kamu..." }
     ],
@@ -554,6 +636,7 @@
   },
   {
     "id": "adegan3_5",
+    "backgroundImage": "assets/bg/LakeSidePinggirSungai/SampingSungaiEvening.jpg",
     "dialogs": [
       {
         "character": "Aira",
@@ -564,11 +647,19 @@
   },
   {
     "id": "adegan3_6",
+    "backgroundImage": "assets/bg/LakeSidePinggirSungai/SampingSungaiEvening.jpg",
     "dialogs": [{ "character": "Zia", "text": "A-apa?" }],
     "nextScene": "adegan3_7"
   },
   {
     "id": "adegan3_7",
+    "backgroundImage": "assets/bg/LakeSidePinggirSungai/SampingSungaiEvening.jpg",
+    "characters": [
+      {
+        "sprite": "assets/sprite/images/Aiko_Casual_Frown.png",
+        "position": "center"
+      }
+    ],
     "dialogs": [
       {
         "character": "Aira",
@@ -579,6 +670,13 @@
   },
   {
     "id": "adegan3_8",
+    "backgroundImage": "assets/bg/LakeSidePinggirSungai/SampingSungaiEvening.jpg",
+    "characters": [
+      {
+        "sprite": "assets/sprite/images/Aiko_Casual_Shocked_Frown.png",
+        "position": "center"
+      }
+    ],
     "dialogs": [
       {
         "character": "Zia",
@@ -589,6 +687,13 @@
   },
     {
     "id": "adegan3_9",
+    "backgroundImage": "assets/bg/LakeSidePinggirSungai/SampingSungaiEvening.jpg",
+    "characters": [
+      {
+        "sprite": "assets/sprite/images/Aiko_Casual_Frown.png",
+        "position": "center"
+      }
+    ],
     "dialogs": [{ "character": "Aira", "text": "Aku hanya bosan. Tolong, jangan temui aku lagi." }],
     "nextScene": "adegan3_10"
   },
@@ -604,6 +709,7 @@
   },
   {
     "id": "post_rejection_choice",
+    "backgroundImage": "assets/bg/black.jpg",
     "dialogs": [
       {
         "character": "Narator",
@@ -627,6 +733,13 @@
 
   {
     "id": "path_bad_ending_1",
+    "backgroundImage": "assets/bg/KamarPersonalRooms1/Kamar1Night1.png",
+    "characters": [
+      {
+        "sprite": "assets/sprite/Karakter_Pria/CharMKuliah2Cry.png",
+        "position": "center"
+      }
+    ],
     "dialogs": [
       {
         "character": "Narator",
@@ -641,6 +754,7 @@
   },
   {
     "id": "path_bad_ending_2",
+    "backgroundImage": "assets/bg/black.jpg",
     "dialogs": [
       {
         "character": "Narator",
@@ -655,6 +769,13 @@
   },
   {
     "id": "path_bad_ending_final",
+    "backgroundImage": "assets/bg/KamarPersonalRooms1/Kamar1Night1.png",
+    "characters": [
+      {
+        "sprite": "assets/sprite/Karakter_Pria/charMKuliahFlat.png",
+        "position": "center"
+      }
+    ],
     "dialogs": [
       {
         "character": "Narator",
@@ -674,6 +795,7 @@
 
   {
     "id": "path_seek_truth_1",
+    "backgroundImage": "assets/bg/black.jpg",
     "dialogs": [
       {
         "character": "Narator",
@@ -688,6 +810,7 @@
   },
   {
     "id": "path_seek_truth_2",
+    "backgroundImage": "assets/bg/TamanBelakang/Park.jpg",
     "dialogs": [
       {
         "character": "Narator",
@@ -698,20 +821,74 @@
   },
   {
     "id": "epilog_1",
+    "backgroundImage": "assets/bg/TamanBelakang/Park.jpg",
+    "characters": [
+      {
+        "sprite": "assets/sprite/Karakter_Wanita/Karakter_PendukungWanita/CharFMotherNormal.png",
+        "position": "center"
+      }
+    ],
     "dialogs": [
       { "character": "Ibu Aira", "text": "Apakah kamu dek Zia?" },
       { "character": "Zia", "text": "I-iya bu, saya Zia. Apakah ibu kenal Aira? Saya mencarinya..." },
-      { "character": "Ibu Aira", "text": "Ah... Aira sudah menceritakan banyak tentangmu. Ibu hanya ingin memberikan surat ini. Aira menitipkannya untukmu."},
-      { "character": "Narator", "text": "(Ibu Aira menahan tangisnya sambil memberikan surat itu ke Zia.)"},
-      { "character": "Zia", "text": "Surat? Di mana Aira, bu? Kenapa ibu menangis?"},
-      { "character": "Ibu Aira", "text": "Biar surat ini yang menjelaskan semuanya, nak... (Dengan nafas yang terisak-isak)."},
-      { "character": "Narator", "text": "(Zia membuka surat itu dengan tangan gemetar dan perasaan yang berantakan.)"}
+      { "character": "Ibu Aira", "text": "Ah... Aira sudah menceritakan banyak tentangmu. Ibu hanya ingin memberikan surat ini. Aira menitipkannya untukmu."}
+    ],
+    "nextScene": "epilog_1d"
+  },
+   {
+    "id": "epilog_1d",
+    "backgroundImage": "assets/bg/TamanBelakang/Park.jpg",
+    "characters": [
+      {
+        "sprite": "assets/sprite/Karakter_Wanita/Karakter_PendukungWanita/20250707_1213_Ekspresi Merengut Tertutup_remix_01jzhmrt61ff1sq63brgqveqj4.png",
+        "position": "center"
+      }
+    ],
+    "dialogs": [
+      { "character": "Narator", "text": "(Ibu Aira menahan tangisnya sambil memberikan surat itu ke Zia.)" }
+    ],
+    "nextScene": "epilog_1e"
+  },
+  {
+    "id": "epilog_1e",
+    "backgroundImage": "assets/bg/TamanBelakang/Park.jpg",
+    "characters": [
+      {
+        "sprite": "assets/sprite/Karakter_Wanita/Karakter_PendukungWanita/20250707_1213_Ekspresi Merengut Tertutup_remix_01jzhmrt61ff1sq63brgqveqj4.png",
+        "position": "center"
+      }
+    ],
+    "dialogs": [
+      { "character": "Zia", "text": "Surat? Di mana Aira, bu? Kenapa ibu menangis?" }
+    ],
+    "nextScene": "epilog_1f"
+  },
+  {
+    "id": "epilog_1f",
+    "backgroundImage": "assets/bg/TamanBelakang/Park.jpg",
+    "characters": [
+      {
+        "sprite": "assets/sprite/Karakter_Wanita/Karakter_PendukungWanita/20250707_1213_Ekspresi Merengut Tertutup_remix_01jzhmrt61ff1sq63brgqveqj4.png",
+        "position": "center"
+      }
+    ],
+    "dialogs": [
+      { "character": "Ibu Aira", "text": "Biar surat ini yang menjelaskan semuanya, nak... (Dengan nafas yang terisak-isak)." }
+    ],
+    "nextScene": "epilog_1g"
+  },
+  {
+    "id": "epilog_1g",
+    "backgroundImage": "assets/bg/TamanBelakang/Park.jpg",
+    "dialogs": [
+      { "character": "Narator", "text": "(Zia membuka surat itu dengan tangan gemetar dan perasaan yang berantakan.)" }
     ],
     "nextScene": "epilog_12"
   },
   {
     "type": "letter",
     "id": "epilog_12",
+    "backgroundImage": "assets/bg/TamanBelakang/Park.jpg",
     "dialogs": [
       {
         "character": "Aira (Surat)",
@@ -722,6 +899,8 @@
   },
   {
     "id": "epilog_13",
+    "backgroundImage": "assets/bg/TamanBelakang/Park.jpg",
+
     "dialogs": [
       {
         "character": "Zia",
@@ -732,6 +911,7 @@
   },
   {
     "id": "epilog_14",
+    "backgroundImage": "assets/bg/black.jpg",
     "dialogs": [
       {
         "character": "Narator",
@@ -742,6 +922,7 @@
   },
   {
     "id": "epilog_15",
+    "backgroundImage": "assets/bg/KuburanPOV/KuburanManga.jpeg",
     "dialogs": [
       {
         "character": "Narator",
@@ -752,6 +933,13 @@
   },
   {
     "id": "epilog_16",
+    "backgroundImage": "assets/bg/KuburanPOV/KuburanManga.jpeg",
+    "characters": [
+      {
+        "sprite": "assets/sprite/Karakter_Pria/CharMKuliahCry.png",
+        "position": "center"
+      }
+    ],
     "dialogs": [
       {
         "character": "Narator",
@@ -766,6 +954,13 @@
   },
   {
     "id": "final_choice_at_grave",
+    "backgroundImage": "assets/bg/KuburanPOV/KuburanManga.jpeg",
+    "characters": [
+      {
+        "sprite": "assets/sprite/Karakter_Pria/CharMKuliahCry.png",
+        "position": "center"
+      }
+    ],
     "dialogs": [
       {
         "character": "Narator",
@@ -789,6 +984,13 @@
 
   {
     "id": "true_ending_final",
+    "backgroundImage": "assets/bg/SchoolMiniPack/Smp2ArtDay1.png",
+    "characters": [
+      {
+        "sprite": "assets/sprite/Karakter_Pria/20250707_1237_Senyum Lembut Karakter_remix_01jzhp4p6nehnsec2m3gtzg0c6.png",
+        "position": "center"
+      }
+    ],
     "dialogs": [
       {
         "character": "Narator",
@@ -812,6 +1014,7 @@
 
   {
     "id": "good_ending_1",
+    "backgroundImage": "assets/bg/seni.png",
     "dialogs": [
       {
         "character": "Narator",
@@ -822,6 +1025,7 @@
   },
   {
     "id": "good_ending_2",
+    "backgroundImage": "assets/bg/seni.png",
     "dialogs": [
       {
         "character": "Kritikus Seni",
@@ -832,6 +1036,13 @@
   },
   {
     "id": "good_ending_3",
+    "backgroundImage": "assets/bg/seni.png",
+    "characters": [
+      {
+        "sprite": "assets/sprite/Karakter_Pria/CharMKuliahHappy.png",
+        "position": "center"
+      }
+    ],
     "dialogs": [
       {
         "character": "Narator",
@@ -846,6 +1057,7 @@
   },
   {
     "id": "good_ending_final",
+    "backgroundImage": "assets/bg/foto.png",
     "dialogs": [
       {
         "character": "Narator",
