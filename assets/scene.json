@@ -27,7 +27,15 @@
     "dialogs": [
       {
         "character": "Narator",
-        "text": "(Gambar berubah menjadi lebih jelas: Zia kecil sedang melukis di taman, Aira kecil memperhatikannya dari kejauhan...)",
+        "text": "(Gambar berubah menjadi lebih jelas: Zia kecil sedang melukis di taman, Aira kecil memperhatikannya dari kejauhan...)"
+      },
+      {
+        "character": "Narator",
+        "text": "EEK!!!!"
+      },
+      {
+        "character": "Zia (Dewasa)",
+        "text": "...",
         "next": "prolog_scene_3"
       }
     ]
@@ -399,6 +407,10 @@
           {
             "text": "\"Jangan memaksaku, Aira.\"",
             "nextScene": "adegan2_path_B"
+          },
+          {
+            "text": "\"Jangan memaksaku, Aira.\"",
+            "nextScene": "adegan2_path_B"
           }
         ]
       }
@@ -712,7 +724,12 @@
         "position": "center"
       }
     ],
-    "dialogs": [{ "character": "Aira", "text": "Aku hanya bosan. Tolong, jangan temui aku lagi." }],
+    "dialogs": [
+      {
+        "character": "Aira",
+        "text": "Aku hanya bosan. Tolong, jangan temui aku lagi."
+      }
+    ],
     "nextScene": "adegan3_10"
   },
   {
@@ -847,12 +864,18 @@
     ],
     "dialogs": [
       { "character": "Ibu Aira", "text": "Apakah kamu dek Zia?" },
-      { "character": "Zia", "text": "I-iya bu, saya Zia. Apakah ibu kenal Aira? Saya mencarinya..." },
-      { "character": "Ibu Aira", "text": "Ah... Aira sudah menceritakan banyak tentangmu. Ibu hanya ingin memberikan surat ini. Aira menitipkannya untukmu."}
+      {
+        "character": "Zia",
+        "text": "I-iya bu, saya Zia. Apakah ibu kenal Aira? Saya mencarinya..."
+      },
+      {
+        "character": "Ibu Aira",
+        "text": "Ah... Aira sudah menceritakan banyak tentangmu. Ibu hanya ingin memberikan surat ini. Aira menitipkannya untukmu."
+      }
     ],
     "nextScene": "epilog_1d"
   },
-   {
+  {
     "id": "epilog_1d",
     "backgroundImage": "assets/bg/TamanBelakang/Park.jpg",
     "characters": [
@@ -862,7 +885,10 @@
       }
     ],
     "dialogs": [
-      { "character": "Narator", "text": "(Ibu Aira menahan tangisnya sambil memberikan surat itu ke Zia.)" }
+      {
+        "character": "Narator",
+        "text": "(Ibu Aira menahan tangisnya sambil memberikan surat itu ke Zia.)"
+      }
     ],
     "nextScene": "epilog_1e"
   },
@@ -876,7 +902,10 @@
       }
     ],
     "dialogs": [
-      { "character": "Zia", "text": "Surat? Di mana Aira, bu? Kenapa ibu menangis?" }
+      {
+        "character": "Zia",
+        "text": "Surat? Di mana Aira, bu? Kenapa ibu menangis?"
+      }
     ],
     "nextScene": "epilog_1f"
   },
@@ -890,7 +919,10 @@
       }
     ],
     "dialogs": [
-      { "character": "Ibu Aira", "text": "Biar surat ini yang menjelaskan semuanya, nak... (Dengan nafas yang terisak-isak)." }
+      {
+        "character": "Ibu Aira",
+        "text": "Biar surat ini yang menjelaskan semuanya, nak... (Dengan nafas yang terisak-isak)."
+      }
     ],
     "nextScene": "epilog_1g"
   },
@@ -898,7 +930,10 @@
     "id": "epilog_1g",
     "backgroundImage": "assets/bg/TamanBelakang/Park.jpg",
     "dialogs": [
-      { "character": "Narator", "text": "(Zia membuka surat itu dengan tangan gemetar dan perasaan yang berantakan.)" }
+      {
+        "character": "Narator",
+        "text": "(Zia membuka surat itu dengan tangan gemetar dan perasaan yang berantakan.)"
+      }
     ],
     "nextScene": "epilog_12"
   },
