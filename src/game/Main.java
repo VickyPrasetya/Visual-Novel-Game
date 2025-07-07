@@ -259,7 +259,7 @@ public class Main extends Application {
         settingsLayout.getChildren().addAll(settingsBg, content);
         return settingsLayout;
     }
-    
+
     private StackPane createSaveLoadUI() {
         StackPane layout = new StackPane();
         ImageView bg = createBlurredBackground(MENU_BACKGROUND_PATH);
@@ -272,16 +272,12 @@ public class Main extends Application {
         slotsGrid.setHgap(20);
         slotsGrid.setVgap(20);
         slotsGrid.setAlignment(Pos.CENTER);
-
-        VBox content = new VBox(30, titleLabel, slotsGrid);
-        content.setAlignment(Pos.CENTER);
-        content.setPadding(new Insets(50));
         
         Button backButton = new Button("Kembali");
         styleSubMenuButton(backButton);
         backButton.setPrefWidth(250);
         backButton.setOnAction(e -> {
-            if (gameContainer.isVisible()) {
+            if (gameContainer.isVisible() && !mainMenuContainer.isVisible()) {
                 showScreen(gameContainer);
                 if(inGameMenu != null) inGameMenu.setVisible(true);
             } else {
@@ -289,11 +285,12 @@ public class Main extends Application {
             }
         });
         
-        VBox bottomBox = new VBox(backButton);
-        bottomBox.setAlignment(Pos.BOTTOM_CENTER);
-        bottomBox.setPadding(new Insets(0, 0, 50, 0));
+        VBox content = new VBox(30, titleLabel, slotsGrid, backButton);
+        content.setAlignment(Pos.CENTER);
+        content.setPadding(new Insets(50));
+        VBox.setMargin(backButton, new Insets(20, 0, 0, 0));
 
-        layout.getChildren().addAll(bg, content, bottomBox);
+        layout.getChildren().addAll(bg, content);
         return layout;
     }
 
@@ -316,7 +313,7 @@ public class Main extends Application {
             slotBox.setPadding(new Insets(15));
             slotBox.setPrefSize(350, 100);
             
-            String baseStyle = "-fx-background-color: rgba(0, 0, 0, 0.5); -fx-border-color: white; -fx-border-width: 1px; -fx-background-radius: 5; -fx-border-radius: 5; -fx-cursor: hand;";
+            String baseStyle = "-fx-background-color: rgba(0, 0, 0, 0.5); -fx-border-color: white; -fx-border-width: 1px; -fx-background-radius: 5; -fx-border-radius: 5;";
             String hoverStyle = baseStyle + "-fx-background-color: rgba(255, 255, 255, 0.2);";
             slotBox.setStyle(baseStyle);
             
@@ -331,6 +328,7 @@ public class Main extends Application {
             slotBox.getChildren().addAll(slotLabel, dateLabel);
 
             if(state != null || mode == SaveLoadMode.SAVE) {
+                slotBox.setCursor(Cursor.HAND);
                 slotBox.setOnMouseEntered(e -> slotBox.setStyle(hoverStyle));
                 slotBox.setOnMouseExited(e -> slotBox.setStyle(baseStyle));
                 slotBox.setOnMouseClicked(e -> {
@@ -355,7 +353,9 @@ public class Main extends Application {
         }
         showScreen(saveLoadContainer);
     }
-
+    
+    // --- FIX: METHOD-METHOD YANG HILANG DITAMBAHKAN KEMBALI ---
+    
     private void updateUI() {
         if (gameManager == null) return;
         if (inGameMenu != null && inGameMenu.isVisible()) {
@@ -414,9 +414,12 @@ public class Main extends Application {
             } else {
                 showNormalDialogue(currentScene, currentDialog);
             }
-        } else {
+        } else if (currentScene.nextScene != null){
             gameManager.goToScene(currentScene.nextScene);
             updateUI();
+        } else {
+             // Jika tidak ada dialog dan tidak ada nextScene, anggap tamat
+             updateUI(); // Akan memanggil blok currentScene == null di atas
         }
         undoButton.setDisable(!gameManager.canUndoDialog());
     }
