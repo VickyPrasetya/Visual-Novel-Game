@@ -3,6 +3,7 @@
     "id": "prolog_scene_1",
     "backgroundImage": "assets/bg/black.jpg",
     "characterImage": "assets/sprite/Karakter_Pria/CharMKuliah2Cry.png",
+    "music": "assets/music/Music Page Menu.mp3",
     "dialogs": [
       {
         "character": "Narator",

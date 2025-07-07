@@ -30,6 +30,8 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class Main extends Application {
 
@@ -56,8 +58,11 @@ public class Main extends Application {
     private Label nextIndicator;
     private VBox centeredChoicesContainer;
     private StackPane letterContainer;
+    private MediaPlayer mediaPlayer;
+    private String currentMusicPath = null;
     // --- AKHIR BAGIAN YANG DIPERBAIKI ---
 
+    private static final String DEFAULT_MUSIC_PATH = "assets/music/Music Page Menu.mp3";
 
     public static void main(String[] args) {
         launch(args);
@@ -200,7 +205,48 @@ public class Main extends Application {
             if (rootLayout.getChildren().stream().noneMatch(node -> node instanceof Label && ((Label)node).getText().startsWith("TAMAT"))) {
                 rootLayout.getChildren().add(endLabel);
             }
+            if (mediaPlayer != null) {
+                mediaPlayer.stop();
+                mediaPlayer.dispose();
+                mediaPlayer = null;
+                currentMusicPath = null;
+            }
             return;
+        }
+
+        // --- LOGIKA PLAY MUSIC ---
+        String musicPath = (currentScene.music != null && !currentScene.music.isEmpty()) ? currentScene.music : DEFAULT_MUSIC_PATH;
+        if (musicPath != null && !musicPath.isEmpty()) {
+            try {
+                // Hanya ganti musik jika path-nya BERBEDA
+                if (!musicPath.equals(currentMusicPath)) {
+                    if (mediaPlayer != null) {
+                        mediaPlayer.stop();
+                        mediaPlayer.dispose();
+                    }
+                    System.out.println("Mencoba play musik: " + new File(musicPath).getAbsolutePath());
+                    Media media = new Media(new File(musicPath).toURI().toString());
+                    mediaPlayer = new MediaPlayer(media);
+                    mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE); // Looping
+                    mediaPlayer.setVolume(1.0);
+                    mediaPlayer.setOnError(() -> {
+                        System.err.println("MediaPlayer error: " + mediaPlayer.getError());
+                    });
+                    mediaPlayer.play();
+                    currentMusicPath = musicPath;
+                }
+                // Jika path sama, biarkan musik tetap lanjut
+            } catch (Exception e) {
+                System.err.println("Gagal memutar musik: " + musicPath);
+                e.printStackTrace();
+            }
+        } else {
+            if (mediaPlayer != null) {
+                mediaPlayer.stop();
+                mediaPlayer.dispose();
+                mediaPlayer = null;
+                currentMusicPath = null;
+            }
         }
 
         updateImage(backgroundView, currentScene.backgroundImage);
