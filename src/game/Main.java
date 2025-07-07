@@ -30,6 +30,8 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class Main extends Application {
 
@@ -57,8 +59,14 @@ public class Main extends Application {
     private Label nextIndicator;
     private VBox centeredChoicesContainer;
     private StackPane letterContainer;
-    private boolean justUndone = false;
+    private MediaPlayer mediaPlayer;
+    private String currentMusicPath = null;
+    private boolean isMusicOn = true;
+    private Button musicToggleButton;
+    private Button hamburgerButton;
     // --- AKHIR BAGIAN YANG DIPERBAIKI ---
+
+    private static final String DEFAULT_MUSIC_PATH = "assets/music/Music Page Menu.mp3";
 
     public static void main(String[] args) {
         launch(args);
@@ -187,8 +195,29 @@ public class Main extends Application {
         letterContainer = new StackPane();
         letterContainer.setVisible(false);
 
+        // Tambah tombol music ON/OFF dengan icon
+        musicToggleButton = new Button("\uD83D\uDD0A"); // 🔊
+        musicToggleButton.setStyle("-fx-font-size: 22px; -fx-background-radius: 20; -fx-background-color: #222; -fx-text-fill: white; -fx-padding: 4 10 4 10;");
+        musicToggleButton.setOnAction(e -> toggleMusic());
+        musicToggleButton.setTooltip(new Tooltip("Toggle Music"));
+
+        // Tambah tombol hamburger
+        hamburgerButton = new Button("\u2630"); // ☰
+        hamburgerButton.setStyle("-fx-font-size: 22px; -fx-background-radius: 20; -fx-background-color: #222; -fx-text-fill: white; -fx-padding: 4 10 4 10;");
+        hamburgerButton.setTooltip(new Tooltip("Menu"));
+
+        // Buat HBox untuk kedua tombol
+        HBox topLeftButtons = new HBox(8, hamburgerButton, musicToggleButton);
+        topLeftButtons.setAlignment(Pos.TOP_LEFT);
+        topLeftButtons.setPadding(new Insets(10, 0, 0, 10));
+        topLeftButtons.setPickOnBounds(false);
+
         // --- GABUNGKAN SEMUA LAPISAN KE ROOT ---
-        rootLayout.getChildren().addAll(imageContainer, dialogueUIGroup, buttonGroup, centeredChoicesContainer, letterContainer);
+        rootLayout.getChildren().addAll(imageContainer, dialogueUIGroup, centeredChoicesContainer, letterContainer);
+        // Tambahkan tombol ke rootLayout PALING AKHIR agar selalu di atas
+        rootLayout.getChildren().add(topLeftButtons);
+        StackPane.setAlignment(topLeftButtons, Pos.TOP_LEFT);
+        StackPane.setMargin(topLeftButtons, new Insets(10, 0, 0, 10));
 
         // --- BUAT SCENE ---
         Scene scene = new Scene(rootLayout, 1280, 720);
@@ -220,18 +249,57 @@ public class Main extends Application {
             if (rootLayout.getChildren().stream().noneMatch(node -> node instanceof Label && ((Label) node).getText().startsWith("TAMAT"))) {
                 rootLayout.getChildren().add(endLabel);
             }
+            if (mediaPlayer != null) {
+                mediaPlayer.stop();
+                mediaPlayer.dispose();
+                mediaPlayer = null;
+                currentMusicPath = null;
+            }
             return;
         }
 
-        // Set background image, jika tidak ada gunakan background hitam default
-        if (currentScene.backgroundImage != null && !currentScene.backgroundImage.isEmpty()) {
-            updateImage(backgroundView, currentScene.backgroundImage);
+        // --- LOGIKA PLAY MUSIC ---
+        String musicPath = (currentScene.music != null && !currentScene.music.isEmpty()) ? currentScene.music : DEFAULT_MUSIC_PATH;
+        if (musicPath != null && !musicPath.isEmpty()) {
+            try {
+                // Hanya ganti musik jika path-nya BERBEDA
+                if (!musicPath.equals(currentMusicPath)) {
+                    if (mediaPlayer != null) {
+                        mediaPlayer.stop();
+                        mediaPlayer.dispose();
+                    }
+                    System.out.println("Mencoba play musik: " + new File(musicPath).getAbsolutePath());
+                    Media media = new Media(new File(musicPath).toURI().toString());
+                    mediaPlayer = new MediaPlayer(media);
+                    mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE); // Looping
+                    mediaPlayer.setVolume(isMusicOn ? 1.0 : 0.0);
+                    mediaPlayer.setOnError(() -> {
+                        System.err.println("MediaPlayer error: " + mediaPlayer.getError());
+                    });
+                    mediaPlayer.play();
+                    currentMusicPath = musicPath;
+                } else {
+                    // Jika path sama, pastikan volume sesuai status tombol
+                    if (mediaPlayer != null) {
+                        mediaPlayer.setVolume(isMusicOn ? 1.0 : 0.0);
+                    }
+                }
+                // Selalu update icon tombol sesuai status
+                musicToggleButton.setText(isMusicOn ? "\uD83D\uDD0A" : "\uD83D\uDD07");
+            } catch (Exception e) {
+                System.err.println("Gagal memutar musik: " + musicPath);
+                e.printStackTrace();
+            }
         } else {
-            // Set background hitam default untuk scene tanpa background
-            backgroundView.setImage(null);
-            backgroundView.setStyle("-fx-background-color: black;");
-            System.out.println("Scene " + currentScene.id + " tidak memiliki background image, menggunakan background hitam default");
+            if (mediaPlayer != null) {
+                mediaPlayer.stop();
+                mediaPlayer.dispose();
+                mediaPlayer = null;
+                currentMusicPath = null;
+            }
         }
+
+        updateImage(backgroundView, currentScene.backgroundImage);
         leftCharacterView.setImage(null);
         rightCharacterView.setImage(null);
         characterContainer.getChildren().clear();
@@ -369,9 +437,9 @@ public class Main extends Application {
             Button choiceButton = new Button(choice.text);
             choiceButton.setMaxWidth(450);
             choiceButton.setWrapText(true);
-            choiceButton.setStyle("-fx-background-color: white; -fx-text-fill: #593b59; -fx-font-family: 'Verdana'; -fx-font-size: 20px; -fx-padding: 10 20; -fx-border-color: #593b59; -fx-border-width: 2; -fx-background-radius: 0;");
-            choiceButton.setOnMouseEntered(e -> choiceButton.setStyle("-fx-background-color: #ffddf4; -fx-text-fill: #593b59; -fx-font-family: 'Verdana'; -fx-font-size: 20px; -fx-padding: 10 20; -fx-border-color: #593b59; -fx-border-width: 2; -fx-background-radius: 0;"));
-            choiceButton.setOnMouseExited(e -> choiceButton.setStyle("-fx-background-color: white; -fx-text-fill: #593b59; -fx-font-family: 'Verdana'; -fx-font-size: 20px; -fx-padding: 10 20; -fx-border-color: #593b59; -fx-border-width: 2; -fx-background-radius: 0;"));
+            choiceButton.setStyle("-fx-background-color: white; -fx-text-fill: #593b59; -fx-font-family: 'Verdana'; -fx-font-size: 20px; -fx-padding: 10 20; -fx-border-color: #593b59; -fx-border-width: 2; -fx-background-radius: 10; -fx-cursor: hand; -fx-border-radius: 10;");
+            choiceButton.setOnMouseEntered(e -> choiceButton.setStyle("-fx-background-color: #ffddf4; -fx-text-fill: #593b59; -fx-font-family: 'Verdana'; -fx-font-size: 20px; -fx-padding: 10 20; -fx-border-color: #593b59; -fx-border-width: 2; -fx-background-radius: 10; -fx-border-radius: 10;"));
+            choiceButton.setOnMouseExited(e -> choiceButton.setStyle("-fx-background-color: white; -fx-text-fill: #593b59; -fx-font-family: 'Verdana'; -fx-font-size: 20px; -fx-padding: 10 20; -fx-border-color: #593b59; -fx-border-width: 2; -fx-background-radius: 10; -fx-border-radius: 10;"));
 
             choiceButton.setOnAction(_ -> {
                 gameManager.goToScene(choice.nextScene);
@@ -439,5 +507,13 @@ public class Main extends Application {
         } else {
             view.setImage(null);
         }
+    }
+
+    private void toggleMusic() {
+        isMusicOn = !isMusicOn;
+        if (mediaPlayer != null) {
+            mediaPlayer.setVolume(isMusicOn ? 1.0 : 0.0);
+        }
+        musicToggleButton.setText(isMusicOn ? "\uD83D\uDD0A" : "\uD83D\uDD07"); // 🔊/🔇
     }
 }

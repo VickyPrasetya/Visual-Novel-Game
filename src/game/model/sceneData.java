@@ -17,6 +17,7 @@ public class sceneData {
     public String nextScene;
     public List<sceneData> children;
     public String type;
+    public String music;
 
     public List<CharacterData> getCharacters() {
         return characters;
