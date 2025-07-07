@@ -2,7 +2,6 @@
   {
     "id": "prolog_scene_1",
     "backgroundImage": "assets/bg/black.jpg",
-    "characterImage": "assets/sprite/Karakter_Pria/CharMKuliah2Cry.png",
     "music": "assets/music/Music Page Menu.mp3",
     "dialogs": [
       {
@@ -18,8 +17,13 @@
   },
   {
     "id": "prolog_scene_2",
-    "backgroundImage": "assets/sprite/BG.png",
-    "characterImage": "assets/sprite/Karakter_Pria/char_m_Kuliah_happy.png",
+    "backgroundImage": "assets/bg/TamanBelakang/Park.jpg",
+    "characters": [
+      {
+        "sprite": "assets/sprite/Pose B/Sumi_PoseB_WinterUni_Open.png",
+        "position": "center"
+      }
+    ],
     "dialogs": [
       {
         "character": "Narator",
@@ -30,6 +34,13 @@
   },
   {
     "id": "prolog_scene_3",
+    "backgroundImage": "assets/bg/TamanBelakang/Park.jpg",
+    "characters": [
+      {
+        "sprite": "assets/sprite/Pose B/Sumi_PoseB_WinterUni_Open.png",
+        "position": "center"
+      }
+    ],
     "dialogs": [
       {
         "character": "Zia (Dewasa)",
@@ -40,6 +51,7 @@
   },
   {
     "id": "prolog_scene_4",
+    "backgroundImage": "assets/bg/black.jpg",
     "dialogs": [
       {
         "character": "Narator",
@@ -50,6 +62,7 @@
   },
   {
     "id": "prolog_scene_5",
+    "backgroundImage": "assets/bg/black.jpg",
     "dialogs": [
       {
         "character": "Zia (Dewasa)",
@@ -60,6 +73,7 @@
   },
   {
     "id": "prolog_scene_6",
+    "backgroundImage": "assets/bg/KamarPersonalRooms1/KamarDay.png",
     "dialogs": [
       {
         "character": "Narator",
@@ -70,6 +84,13 @@
   },
   {
     "id": "prolog_scene_7",
+    "backgroundImage": "assets/bg/KamarPersonalRooms1/Kamar1Day2.png",
+    "characters": [
+      {
+        "sprite": "assets/sprite/Karakter_Pria/CharMKuliah2Flat.png",
+        "position": "center"
+      }
+    ],
     "dialogs": [
       {
         "character": "Zia (Dewasa)",
@@ -80,6 +101,7 @@
   },
   {
     "id": "adegan1_scene_1",
+    "backgroundImage": "assets/bg/TamanBelakang/smallpark.jpg",
     "dialogs": [
       {
         "character": "Narator",
@@ -90,6 +112,13 @@
   },
   {
     "id": "adegan1_scene_2",
+    "backgroundImage": "assets/bg/TamanBelakang/smallpark.jpg",
+    "characters": [
+      {
+        "sprite": "assets/sprite/images/Aiko_Casual_Closed_Open.png",
+        "position": "center"
+      }
+    ],
     "dialogs": [
       {
         "character": "Aira",
@@ -100,6 +129,13 @@
   },
   {
     "id": "adegan1_scene_3",
+    "backgroundImage": "assets/bg/TamanBelakang/smallpark.jpg",
+    "characters": [
+      {
+        "sprite": "assets/sprite/images/Aiko_Casual_Closed_Open.png",
+        "position": "center"
+      }
+    ],
     "dialogs": [
       {
         "character": "Narator",
@@ -121,6 +157,13 @@
   },
   {
     "id": "adegan1_path_A",
+    "backgroundImage": "assets/bg/TamanBelakang/smallpark.jpg",
+    "characters": [
+      {
+        "sprite": "assets/sprite/images/Aiko_Casual_Closed_Open.png",
+        "position": "center"
+      }
+    ],
     "dialogs": [
       {
         "character": "Zia",
@@ -131,6 +174,13 @@
   },
   {
     "id": "adegan1_path_B",
+    "backgroundImage": "assets/bg/TamanBelakang/smallpark.jpg",
+    "characters": [
+      {
+        "sprite": "assets/sprite/images/Aiko_Casual_Closed_Open.png",
+        "position": "center"
+      }
+    ],
     "dialogs": [
       {
         "character": "Zia",
@@ -141,6 +191,13 @@
   },
   {
     "id": "adegan1_merge",
+    "backgroundImage": "assets/bg/TamanBelakang/smallpark.jpg",
+    "characters": [
+      {
+        "sprite": "assets/sprite/images/side_Aiko_Casual_Shocked_Frown.png",
+        "position": "center"
+      }
+    ],
     "dialogs": [
       {
         "character": "Aira",
@@ -151,6 +208,7 @@
   },
   {
     "id": "adegan1_5",
+    "backgroundImage": "assets/bg/TamanBelakang/smallpark.jpg",
     "dialogs": [
       {
         "character": "Zia",
@@ -161,6 +219,13 @@
   },
   {
     "id": "adegan1_6",
+    "backgroundImage": "assets/bg/TamanBelakang/smallpark.jpg",
+    "characters": [
+      {
+        "sprite": "assets/sprite/images/side_Aiko_Casual_Frown.png",
+        "position": "center"
+      }
+    ],
     "dialogs": [
       {
         "character": "Aira",
@@ -171,6 +236,13 @@
   },
   {
     "id": "adegan1_7",
+    "backgroundImage": "assets/bg/TamanBelakang/smallpark.jpg",
+    "characters": [
+      {
+        "sprite": "assets/sprite/images/side_Aiko_Casual_Shocked_Frown.png",
+        "position": "center"
+      }
+    ],
     "dialogs": [
       {
         "character": "Narator",
@@ -181,6 +253,13 @@
   },
   {
     "id": "adegan1_8_new",
+    "backgroundImage": "assets/bg/TamanBelakang/smallpark.jpg",
+    "characters": [
+      {
+        "sprite": "assets/sprite/images/side_Aiko_Casual_Closed_Open.png",
+        "position": "center"
+      }
+    ],
     "dialogs": [
       {
         "character": "Aira",
@@ -189,17 +268,39 @@
     ],
     "nextScene": "adegan1_9_new"
   },
+
   {
     "id": "adegan1_9_new",
+    "backgroundImage": "assets/bg/TamanBelakang/smallpark.jpg",
+    "characters": [
+      {
+        "sprite": "assets/sprite/images/Aiko_Casual_Smile.png",
+        "position": "center"
+      }
+    ],
     "dialogs": [
       {
         "character": "Narator",
         "text": "(Zia tidak menjawab, tapi langkahnya sedikit melambat sebelum menghilang di tikungan. Aira tersenyum kecil.)"
-      },
+      }
+    ],
+    "nextScene": "adegan1_9b_new"
+  },
+  {
+    "id": "adegan1_9b_new",
+    "backgroundImage": "assets/bg/black.jpg",
+    "dialogs": [
       {
         "character": "Narator",
         "text": "(Beberapa hari berikutnya, Aira benar-benar menepati janjinya. Ia selalu menemukan cara untuk berada di dekat Zia. Duduk di sebelahnya di kelas, 'kebetulan' bertemu di perpustakaan, dan menunggunya di depan gerbang.)"
-      },
+      }
+    ],
+    "nextScene": "adegan1_9c_new"
+  },
+  {
+    "id": "adegan1_9c_new",
+    "backgroundImage": "assets/bg/black.jpg",
+    "dialogs": [
       {
         "character": "Narator",
         "text": "(Perlahan, dinding es di sekitar Zia mulai retak. Ia mulai membalas sapaan Aira, bahkan sesekali tersenyum tipis mendengar leluconnya.)"
@@ -209,6 +310,7 @@
   },
   {
     "id": "adegan2_1",
+    "backgroundImage": "assets/bg/images/Restaurant_B.png",
     "dialogs": [
       {
         "character": "Narator",
@@ -219,6 +321,13 @@
   },
   {
     "id": "adegan2_1_new",
+    "backgroundImage": "assets/bg/images/Restaurant_B.png",
+    "characters": [
+      {
+        "sprite": "assets/sprite/images/Aiko_Casual_Open.png",
+        "position": "center"
+      }
+    ],
     "dialogs": [
       {
         "character": "Aira",
@@ -227,7 +336,20 @@
       {
         "character": "Zia",
         "text": "(Melirik sekilas, mencoba acuh) \"Oh ya?\""
-      },
+      }
+    ],
+    "nextScene": "adegan2_1b_new"
+  },
+  {
+    "id": "adegan2_1b_new",
+    "backgroundImage": "assets/bg/images/Restaurant_B.png",
+    "characters": [
+      {
+        "sprite": "assets/sprite/images/Aiko_Casual_Closed_Open.png",
+        "position": "center"
+      }
+    ],
+    "dialogs": [
       {
         "character": "Aira",
         "text": "Iya! Ayolah, temani aku ke sana sebentar. Aku cuma mau lihat-lihat. Janji nggak akan maksa kamu beli apa-apa. Anggap saja refreshing dari tugas ini. Ya? Ya?\""
@@ -241,6 +363,7 @@
   },
   {
     "id": "adegan2_2",
+    "backgroundImage": "assets/bg/TokoPeralatanSeni/senitoko.jpg",
     "dialogs": [
       {
         "character": "Narator",
@@ -266,7 +389,10 @@
             "text": "\"Untuk apa? Sudah kubilang aku berhenti.\"",
             "nextScene": "adegan2_path_A"
           },
-          { "text": "\"Jangan memaksaku, Aira.\"", "nextScene": "adegan2_path_B" }
+          {
+            "text": "\"Jangan memaksaku, Aira.\"",
+            "nextScene": "adegan2_path_B"
+          }
         ]
       }
     ]
@@ -318,7 +444,10 @@
   {
     "id": "adegan2_7",
     "dialogs": [
-      { "character": "Zia", "text": "(Menunduk, suaranya pelan) \"Tetap saja... itu menyakitkan.\"" }
+      {
+        "character": "Zia",
+        "text": "(Menunduk, suaranya pelan) \"Tetap saja... itu menyakitkan.\""
+      }
     ],
     "nextScene": "adegan2_8"
   },
@@ -397,7 +526,10 @@
   {
     "id": "adegan3_choice3",
     "dialogs": [
-      { "character": "Narator", "text": "(Zia mengumpulkan seluruh keberaniannya.)" },
+      {
+        "character": "Narator",
+        "text": "(Zia mengumpulkan seluruh keberaniannya.)"
+      },
       {
         "choices": [
           {
@@ -425,7 +557,10 @@
   {
     "id": "adegan3_merge",
     "dialogs": [
-      { "character": "Zia", "text": "Aku... aku rasa aku jatuh cinta padamu, Aira. Maukah kamu..." }
+      {
+        "character": "Zia",
+        "text": "Aku... aku rasa aku jatuh cinta padamu, Aira. Maukah kamu..."
+      }
     ],
     "nextScene": "adegan3_5"
   },
@@ -464,9 +599,14 @@
     ],
     "nextScene": "adegan3_9"
   },
-    {
+  {
     "id": "adegan3_9",
-    "dialogs": [{ "character": "Aira", "text": "Aku hanya bosan. Tolong, jangan temui aku lagi." }],
+    "dialogs": [
+      {
+        "character": "Aira",
+        "text": "Aku hanya bosan. Tolong, jangan temui aku lagi."
+      }
+    ],
     "nextScene": "adegan3_10"
   },
   {
@@ -500,7 +640,6 @@
       }
     ]
   },
-
 
   {
     "id": "path_bad_ending_1",
@@ -548,7 +687,6 @@
     ]
   },
 
-
   {
     "id": "path_seek_truth_1",
     "dialogs": [
@@ -577,12 +715,30 @@
     "id": "epilog_1",
     "dialogs": [
       { "character": "Ibu Aira", "text": "Apakah kamu dek Zia?" },
-      { "character": "Zia", "text": "I-iya bu, saya Zia. Apakah ibu kenal Aira? Saya mencarinya..." },
-      { "character": "Ibu Aira", "text": "Ah... Aira sudah menceritakan banyak tentangmu. Ibu hanya ingin memberikan surat ini. Aira menitipkannya untukmu."},
-      { "character": "Narator", "text": "(Ibu Aira menahan tangisnya sambil memberikan surat itu ke Zia.)"},
-      { "character": "Zia", "text": "Surat? Di mana Aira, bu? Kenapa ibu menangis?"},
-      { "character": "Ibu Aira", "text": "Biar surat ini yang menjelaskan semuanya, nak... (Dengan nafas yang terisak-isak)."},
-      { "character": "Narator", "text": "(Zia membuka surat itu dengan tangan gemetar dan perasaan yang berantakan.)"}
+      {
+        "character": "Zia",
+        "text": "I-iya bu, saya Zia. Apakah ibu kenal Aira? Saya mencarinya..."
+      },
+      {
+        "character": "Ibu Aira",
+        "text": "Ah... Aira sudah menceritakan banyak tentangmu. Ibu hanya ingin memberikan surat ini. Aira menitipkannya untukmu."
+      },
+      {
+        "character": "Narator",
+        "text": "(Ibu Aira menahan tangisnya sambil memberikan surat itu ke Zia.)"
+      },
+      {
+        "character": "Zia",
+        "text": "Surat? Di mana Aira, bu? Kenapa ibu menangis?"
+      },
+      {
+        "character": "Ibu Aira",
+        "text": "Biar surat ini yang menjelaskan semuanya, nak... (Dengan nafas yang terisak-isak)."
+      },
+      {
+        "character": "Narator",
+        "text": "(Zia membuka surat itu dengan tangan gemetar dan perasaan yang berantakan.)"
+      }
     ],
     "nextScene": "epilog_12"
   },
@@ -663,7 +819,6 @@
     ]
   },
 
-
   {
     "id": "true_ending_final",
     "dialogs": [
@@ -685,7 +840,6 @@
       }
     ]
   },
-  
 
   {
     "id": "good_ending_1",
