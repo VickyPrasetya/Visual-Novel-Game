@@ -60,6 +60,9 @@ public class Main extends Application {
     private StackPane letterContainer;
     private MediaPlayer mediaPlayer;
     private String currentMusicPath = null;
+    private boolean isMusicOn = true;
+    private Button musicToggleButton;
+    private Button hamburgerButton;
     // --- AKHIR BAGIAN YANG DIPERBAIKI ---
 
     private static final String DEFAULT_MUSIC_PATH = "assets/music/Music Page Menu.mp3";
@@ -173,8 +176,29 @@ public class Main extends Application {
         letterContainer = new StackPane();
         letterContainer.setVisible(false);
 
+        // Tambah tombol music ON/OFF dengan icon
+        musicToggleButton = new Button("\uD83D\uDD0A"); // 🔊
+        musicToggleButton.setStyle("-fx-font-size: 22px; -fx-background-radius: 20; -fx-background-color: #222; -fx-text-fill: white; -fx-padding: 4 10 4 10;");
+        musicToggleButton.setOnAction(e -> toggleMusic());
+        musicToggleButton.setTooltip(new Tooltip("Toggle Music"));
+
+        // Tambah tombol hamburger
+        hamburgerButton = new Button("\u2630"); // ☰
+        hamburgerButton.setStyle("-fx-font-size: 22px; -fx-background-radius: 20; -fx-background-color: #222; -fx-text-fill: white; -fx-padding: 4 10 4 10;");
+        hamburgerButton.setTooltip(new Tooltip("Menu"));
+
+        // Buat HBox untuk kedua tombol
+        HBox topLeftButtons = new HBox(8, hamburgerButton, musicToggleButton);
+        topLeftButtons.setAlignment(Pos.TOP_LEFT);
+        topLeftButtons.setPadding(new Insets(10, 0, 0, 10));
+        topLeftButtons.setPickOnBounds(false);
+
         // --- GABUNGKAN SEMUA LAPISAN KE ROOT ---
         rootLayout.getChildren().addAll(imageContainer, dialogueUIGroup, centeredChoicesContainer, letterContainer);
+        // Tambahkan tombol ke rootLayout PALING AKHIR agar selalu di atas
+        rootLayout.getChildren().add(topLeftButtons);
+        StackPane.setAlignment(topLeftButtons, Pos.TOP_LEFT);
+        StackPane.setMargin(topLeftButtons, new Insets(10, 0, 0, 10));
 
         // --- BUAT SCENE ---
         Scene scene = new Scene(rootLayout, 1280, 720);
@@ -228,14 +252,20 @@ public class Main extends Application {
                     Media media = new Media(new File(musicPath).toURI().toString());
                     mediaPlayer = new MediaPlayer(media);
                     mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE); // Looping
-                    mediaPlayer.setVolume(1.0);
+                    mediaPlayer.setVolume(isMusicOn ? 1.0 : 0.0);
                     mediaPlayer.setOnError(() -> {
                         System.err.println("MediaPlayer error: " + mediaPlayer.getError());
                     });
                     mediaPlayer.play();
                     currentMusicPath = musicPath;
+                } else {
+                    // Jika path sama, pastikan volume sesuai status tombol
+                    if (mediaPlayer != null) {
+                        mediaPlayer.setVolume(isMusicOn ? 1.0 : 0.0);
+                    }
                 }
-                // Jika path sama, biarkan musik tetap lanjut
+                // Selalu update icon tombol sesuai status
+                musicToggleButton.setText(isMusicOn ? "\uD83D\uDD0A" : "\uD83D\uDD07");
             } catch (Exception e) {
                 System.err.println("Gagal memutar musik: " + musicPath);
                 e.printStackTrace();
@@ -402,5 +432,13 @@ public class Main extends Application {
         } else {
             view.setImage(null);
         }
+    }
+
+    private void toggleMusic() {
+        isMusicOn = !isMusicOn;
+        if (mediaPlayer != null) {
+            mediaPlayer.setVolume(isMusicOn ? 1.0 : 0.0);
+        }
+        musicToggleButton.setText(isMusicOn ? "\uD83D\uDD0A" : "\uD83D\uDD07"); // 🔊/🔇
     }
 }
