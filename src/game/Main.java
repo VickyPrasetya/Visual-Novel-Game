@@ -246,12 +246,13 @@ public class Main extends Application {
             try {
                 // Hanya ganti musik jika path-nya BERBEDA
                 if (!musicPath.equals(currentMusicPath)) {
+                    System.out.println("Mencari musik di path: " + new File(musicPath).getAbsolutePath()); 
+            
+                    Media media = new Media(new File(musicPath).toURI().toString());
                     if (mediaPlayer != null) {
                         mediaPlayer.stop();
                         mediaPlayer.dispose();
                     }
-                    System.out.println("Mencoba play musik: " + new File(musicPath).getAbsolutePath());
-                    Media media = new Media(new File(musicPath).toURI().toString());
                     mediaPlayer = new MediaPlayer(media);
                     mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE); // Looping
                     mediaPlayer.setVolume(isMusicOn ? 1.0 : 0.0);
