@@ -62,6 +62,7 @@ public class Main extends Application {
     private MediaPlayer mediaPlayer;
     private String currentMusicPath = null;
     private boolean isMusicOn = true;
+    private VBox createInGameMenu; // Untuk menu dalam game jika diperlukan
     private Button musicToggleButton;
     private Button hamburgerButton;
     // --- AKHIR BAGIAN YANG DIPERBAIKI ---
@@ -205,6 +206,7 @@ public class Main extends Application {
         hamburgerButton = new Button("\u2630"); // ☰
         hamburgerButton.setStyle("-fx-font-size: 22px; -fx-background-radius: 20; -fx-background-color: #222; -fx-text-fill: white; -fx-padding: 4 10 4 10;");
         hamburgerButton.setTooltip(new Tooltip("Menu"));
+        hamburgerButton.setOnAction(e -> createInGameMenu().setVisible(!createInGameMenu().isVisible()));
 
         // Buat HBox untuk kedua tombol
         HBox topLeftButtons = new HBox(8, hamburgerButton, musicToggleButton);
@@ -264,12 +266,13 @@ public class Main extends Application {
             try {
                 // Hanya ganti musik jika path-nya BERBEDA
                 if (!musicPath.equals(currentMusicPath)) {
+                    System.out.println("Mencari musik di path: " + new File(musicPath).getAbsolutePath()); 
+            
+                    Media media = new Media(new File(musicPath).toURI().toString());
                     if (mediaPlayer != null) {
                         mediaPlayer.stop();
                         mediaPlayer.dispose();
                     }
-                    System.out.println("Mencoba play musik: " + new File(musicPath).getAbsolutePath());
-                    Media media = new Media(new File(musicPath).toURI().toString());
                     mediaPlayer = new MediaPlayer(media);
                     mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE); // Looping
                     mediaPlayer.setVolume(isMusicOn ? 1.0 : 0.0);
@@ -515,5 +518,55 @@ public class Main extends Application {
             mediaPlayer.setVolume(isMusicOn ? 1.0 : 0.0);
         }
         musicToggleButton.setText(isMusicOn ? "\uD83D\uDD0A" : "\uD83D\uDD07"); // 🔊/🔇
+
     }
+<<<<<<< HEAD
 }
+=======
+
+    private VBox createInGameMenu() {
+        VBox menuLayout = new VBox(15);
+        menuLayout.setAlignment(Pos.CENTER);
+        menuLayout.setStyle("-fx-background-color: rgba(0, 0, 0, 0.75); -fx-background-radius: 10;");
+        menuLayout.setPadding(new Insets(30));
+        menuLayout.setMaxSize(300, 350);
+
+        Label menuTitle = new Label("Menu");
+        menuTitle.setFont(Font.font("Verdana", FontWeight.BOLD, 24));
+        menuTitle.setTextFill(Color.WHITE);
+
+        Button saveButton = new Button("Simpan Game");
+        Button loadButton = new Button("Muat Game");
+        Button settingsButton = new Button("Pengaturan");
+        Button quitButton = new Button("Keluar dari Game");
+
+        styleMenuButton(saveButton);
+        styleMenuButton(loadButton);
+        styleMenuButton(settingsButton);
+        styleMenuButton(quitButton);
+
+        saveButton.setOnAction(e -> System.out.println("Logika Simpan Game..."));
+        loadButton.setOnAction(e -> System.out.println("Logika Muat Game..."));
+        settingsButton.setOnAction(e -> System.out.println("Logika Pengaturan..."));
+        quitButton.setOnAction(e -> primaryStage.close());
+
+        Button closeButton = new Button("Lanjutkan");
+        closeButton.setStyle("-fx-font-size: 14px; -fx-background-color: #ffb7c5; -fx-text-fill: white;");
+        closeButton.setOnAction(e -> inGameMenu.setVisible(false));
+
+        menuLayout.getChildren().addAll(menuTitle, saveButton, loadButton, settingsButton, quitButton, new Label(), closeButton);
+        menuLayout.setVisible(false);
+        return menuLayout;
+    }
+
+    private void styleMenuButton(Button button) {
+        button.setMaxWidth(Double.MAX_VALUE);
+        button.setFont(Font.font("Verdana", FontWeight.NORMAL, 16));
+        button.setStyle("-fx-background-color: #444; -fx-text-fill: white; -fx-background-radius: 5;");
+        button.setOnMouseEntered(e -> button.setStyle("-fx-background-color: #555; -fx-text-fill: white; -fx-background-radius: 5;"));
+        button.setOnMouseExited(e -> button.setStyle("-fx-background-color: #444; -fx-text-fill: white; -fx-background-radius: 5;"));
+    }
+
+
+}
+>>>>>>> 6e48dfe09914b420c77e25ee453d1bbb16acbc81

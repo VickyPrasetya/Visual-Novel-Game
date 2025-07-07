@@ -661,6 +661,12 @@
   {
     "id": "adegan3_5",
     "backgroundImage": "assets/bg/LakeSidePinggirSungai/SampingSungaiEvening.jpg",
+    "characters": [
+      {
+        "sprite": "assets/sprite/Karakter_Wanita/CharFKuliahAngry3.png",
+        "position": "center"
+      }
+    ],
     "dialogs": [
       {
         "character": "Aira",
@@ -680,7 +686,7 @@
     "backgroundImage": "assets/bg/LakeSidePinggirSungai/SampingSungaiEvening.jpg",
     "characters": [
       {
-        "sprite": "assets/sprite/images/Aiko_Casual_Frown.png",
+        "sprite": "assets/sprite/Karakter_Wanita/CharFKuliahAngry3.png",
         "position": "center"
       }
     ],
@@ -697,7 +703,7 @@
     "backgroundImage": "assets/bg/LakeSidePinggirSungai/SampingSungaiEvening.jpg",
     "characters": [
       {
-        "sprite": "assets/sprite/images/Aiko_Casual_Shocked_Frown.png",
+        "sprite": "assets/sprite/Karakter_Wanita/CharFKuliahAngry3.png",
         "position": "center"
       }
     ],
@@ -714,7 +720,7 @@
     "backgroundImage": "assets/bg/LakeSidePinggirSungai/SampingSungaiEvening.jpg",
     "characters": [
       {
-        "sprite": "assets/sprite/images/Aiko_Casual_Frown.png",
+        "sprite": "assets/sprite/Karakter_Wanita/CharFKuliahAngry3.png",
         "position": "center"
       }
     ],
@@ -723,6 +729,7 @@
   },
   {
     "id": "adegan3_10",
+    "backgroundImage": "assets/bg/black.jpg",
     "dialogs": [
       {
         "character": "Narator",
