@@ -27,7 +27,15 @@
     "dialogs": [
       {
         "character": "Narator",
-        "text": "(Gambar berubah menjadi lebih jelas: Zia kecil sedang melukis di taman, Aira kecil memperhatikannya dari kejauhan...)",
+        "text": "(Gambar berubah menjadi lebih jelas: Zia kecil sedang melukis di taman, Aira kecil memperhatikannya dari kejauhan...)"
+      },
+      {
+        "character": "Narator",
+        "text": "EEK!!!!"
+      },
+      {
+        "character": "Zia (Dewasa)",
+        "text": "...",
         "next": "prolog_scene_3"
       }
     ]
@@ -399,6 +407,13 @@
           {
             "text": "\"Jangan memaksaku, Aira.\"",
             "nextScene": "adegan2_path_B"
+<<<<<<< HEAD
+          },
+          {
+            "text": "\"Jangan memaksaku, Aira.\"",
+            "nextScene": "adegan2_path_B"
+=======
+>>>>>>> bf12aed379dc8c3aab39e5054f68eab3ef58265b
           }
         ]
       }
