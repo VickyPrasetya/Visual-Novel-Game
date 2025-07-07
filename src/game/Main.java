@@ -150,7 +150,7 @@ public class Main extends Application {
 
         nextIndicator = new Label("▼");
         nextIndicator.setFont(Font.font("Arial", 24));
-        nextIndicator.setTextFill(Color.web("#4e342e"));
+        nextIndicator.setTextFill(Color.web("#FF0000"));
 
         undoButton = new Button("⟲ Undo");
         undoButton.setOpacity(0.5);
