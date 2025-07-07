@@ -245,13 +245,13 @@ public class Main extends Application {
     private StackPane createSettingsUI() {
         StackPane settingsLayout = new StackPane();
         ImageView settingsBg = createBlurredBackground(MENU_BACKGROUND_PATH);
-        Label title = new Label("Pengaturan");
+        Label title = new Label("Settings");
         title.setFont(Font.font("Arial", FontWeight.BOLD, 50));
         title.setTextFill(Color.WHITE);
-        Label placeholder = new Label("Opsi pengaturan (volume, resolusi, dll.) akan ada di sini.");
+        Label placeholder = new Label("Settings options (volume, resolution, etc.) will be here.");
         placeholder.setFont(Font.font("Arial", 20));
         placeholder.setTextFill(Color.WHITE);
-        Button backButton = new Button("Kembali");
+        Button backButton = new Button("Back");
         styleMainMenuButton(backButton);
         backButton.setOnAction(e -> showScreen(mainMenuContainer));
         VBox content = new VBox(30, title, placeholder, backButton);
@@ -272,8 +272,8 @@ public class Main extends Application {
         slotsGrid.setHgap(20);
         slotsGrid.setVgap(20);
         slotsGrid.setAlignment(Pos.CENTER);
-        
-        Button backButton = new Button("Kembali");
+
+        Button backButton = new Button("Back");
         styleSubMenuButton(backButton);
         backButton.setPrefWidth(250);
         backButton.setOnAction(e -> {
@@ -300,8 +300,8 @@ public class Main extends Application {
         VBox content = (VBox) saveLoadContainer.getChildren().get(1);
         Label titleLabel = (Label) content.getChildren().get(0);
         GridPane slotsGrid = (GridPane) content.getChildren().get(1);
-        
-        titleLabel.setText(mode == SaveLoadMode.SAVE ? "Simpan Game" : "Muat Game");
+
+        titleLabel.setText(mode == SaveLoadMode.SAVE ? "Save Game" : "Load Game");
         slotsGrid.getChildren().clear();
 
         for (int i = 1; i <= 6; i++) {
