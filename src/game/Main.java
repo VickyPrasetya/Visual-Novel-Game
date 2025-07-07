@@ -289,9 +289,9 @@ public class Main extends Application {
             Button choiceButton = new Button(choice.text);
             choiceButton.setMaxWidth(450);
             choiceButton.setWrapText(true);
-            choiceButton.setStyle("-fx-background-color: white; -fx-text-fill: #593b59; -fx-font-family: 'Verdana'; -fx-font-size: 20px; -fx-padding: 10 20; -fx-border-color: #593b59; -fx-border-width: 2; -fx-background-radius: 0;");
-            choiceButton.setOnMouseEntered(e -> choiceButton.setStyle("-fx-background-color: #ffddf4; -fx-text-fill: #593b59; -fx-font-family: 'Verdana'; -fx-font-size: 20px; -fx-padding: 10 20; -fx-border-color: #593b59; -fx-border-width: 2; -fx-background-radius: 0;"));
-            choiceButton.setOnMouseExited(e -> choiceButton.setStyle("-fx-background-color: white; -fx-text-fill: #593b59; -fx-font-family: 'Verdana'; -fx-font-size: 20px; -fx-padding: 10 20; -fx-border-color: #593b59; -fx-border-width: 2; -fx-background-radius: 0;"));
+            choiceButton.setStyle("-fx-background-color: white; -fx-text-fill: #593b59; -fx-font-family: 'Verdana'; -fx-font-size: 20px; -fx-padding: 10 20; -fx-border-color: #593b59; -fx-border-width: 2; -fx-background-radius: 10; -fx-cursor: hand; -fx-border-radius: 10;");
+            choiceButton.setOnMouseEntered(e -> choiceButton.setStyle("-fx-background-color: #ffddf4; -fx-text-fill: #593b59; -fx-font-family: 'Verdana'; -fx-font-size: 20px; -fx-padding: 10 20; -fx-border-color: #593b59; -fx-border-width: 2; -fx-background-radius: 10; -fx-border-radius: 10;"));
+            choiceButton.setOnMouseExited(e -> choiceButton.setStyle("-fx-background-color: white; -fx-text-fill: #593b59; -fx-font-family: 'Verdana'; -fx-font-size: 20px; -fx-padding: 10 20; -fx-border-color: #593b59; -fx-border-width: 2; -fx-background-radius: 10; -fx-border-radius: 10;"));
 
             choiceButton.setOnAction(_ -> {
                 gameManager.goToScene(choice.nextScene);

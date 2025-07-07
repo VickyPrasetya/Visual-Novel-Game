@@ -2,7 +2,6 @@
   {
     "id": "prolog_scene_1",
     "backgroundImage": "assets/bg/black.jpg",
-    "characterImage": "assets/sprite/Karakter_Pria/CharMKuliah2Cry.png",
     "dialogs": [
       {
         "character": "Narator",
@@ -17,8 +16,13 @@
   },
   {
     "id": "prolog_scene_2",
-    "backgroundImage": "assets/sprite/BG.png",
-    "characterImage": "assets/sprite/Karakter_Pria/char_m_Kuliah_happy.png",
+    "backgroundImage": "assets/bg/TamanBelakang/Park.jpg",
+     "characters": [
+      {
+        "sprite": "assets/sprite/Pose B/Sumi_PoseB_WinterUni_Open.png",
+        "position": "center"
+      }
+    ],
     "dialogs": [
       {
         "character": "Narator",
@@ -29,6 +33,13 @@
   },
   {
     "id": "prolog_scene_3",
+    "backgroundImage": "assets/bg/TamanBelakang/Park.jpg",
+    "characters": [
+      {
+        "sprite": "assets/sprite/Pose B/Sumi_PoseB_WinterUni_Open.png",
+        "position": "center"
+      }
+    ],
     "dialogs": [
       {
         "character": "Zia (Dewasa)",
@@ -39,6 +50,7 @@
   },
   {
     "id": "prolog_scene_4",
+    "backgroundImage": "assets/bg/black.jpg",
     "dialogs": [
       {
         "character": "Narator",
@@ -49,6 +61,7 @@
   },
   {
     "id": "prolog_scene_5",
+    "backgroundImage": "assets/bg/black.jpg",
     "dialogs": [
       {
         "character": "Zia (Dewasa)",
@@ -59,6 +72,7 @@
   },
   {
     "id": "prolog_scene_6",
+    "backgroundImage": "assets/bg/KamarPersonalRooms1/Kamar1Day2.png",
     "dialogs": [
       {
         "character": "Narator",
@@ -69,6 +83,13 @@
   },
   {
     "id": "prolog_scene_7",
+    "backgroundImage": "assets/bg/KamarPersonalRooms1/Kamar1Day2.png",
+    "characters": [
+    {
+      "sprite": "assets/sprite/Karakter_Pria/CharMKuliah2Flat.png",
+      "position": "center"
+    }
+  ],
     "dialogs": [
       {
         "character": "Zia (Dewasa)",
@@ -79,6 +100,7 @@
   },
   {
     "id": "adegan1_scene_1",
+    "backgroundImage": "assets/bg/TamanBelakang/smallpark.jpg",
     "dialogs": [
       {
         "character": "Narator",
@@ -89,6 +111,13 @@
   },
   {
     "id": "adegan1_scene_2",
+    "backgroundImage": "assets/bg/TamanBelakang/smallpark.jpg",
+    "characters": [
+      {
+        "sprite": "assets/sprite/images/Aiko_Casual_Closed_Open.png",
+        "position": "center"
+      }
+    ],
     "dialogs": [
       {
         "character": "Aira",
@@ -99,6 +128,13 @@
   },
   {
     "id": "adegan1_scene_3",
+     "backgroundImage": "assets/bg/TamanBelakang/smallpark.jpg",
+    "characters": [
+      {
+        "sprite": "assets/sprite/images/Aiko_Casual_Closed_Open.png",
+        "position": "center"
+      }
+    ],
     "dialogs": [
       {
         "character": "Narator",
@@ -120,6 +156,13 @@
   },
   {
     "id": "adegan1_path_A",
+     "backgroundImage": "assets/bg/TamanBelakang/smallpark.jpg",
+    "characters": [
+      {
+        "sprite": "assets/sprite/images/Aiko_Casual_Closed_Open.png",
+        "position": "center"
+      }
+    ],
     "dialogs": [
       {
         "character": "Zia",
@@ -130,6 +173,13 @@
   },
   {
     "id": "adegan1_path_B",
+     "backgroundImage": "assets/bg/TamanBelakang/smallpark.jpg",
+    "characters": [
+      {
+        "sprite": "assets/sprite/images/Aiko_Casual_Closed_Open.png",
+        "position": "center"
+      }
+    ],
     "dialogs": [
       {
         "character": "Zia",
@@ -140,6 +190,13 @@
   },
   {
     "id": "adegan1_merge",
+     "backgroundImage": "assets/bg/TamanBelakang/smallpark.jpg",
+    "characters": [
+      {
+        "sprite": "assets/sprite/images/side_Aiko_Casual_Shocked_Frown.png",
+        "position": "center"
+      }
+    ],
     "dialogs": [
       {
         "character": "Aira",
@@ -150,6 +207,7 @@
   },
   {
     "id": "adegan1_5",
+    "backgroundImage": "assets/bg/TamanBelakang/smallpark.jpg",
     "dialogs": [
       {
         "character": "Zia",
@@ -160,6 +218,13 @@
   },
   {
     "id": "adegan1_6",
+     "backgroundImage": "assets/bg/TamanBelakang/smallpark.jpg",
+    "characters": [
+      {
+        "sprite": "assets/sprite/images/side_Aiko_Casual_Frown.png",
+        "position": "center"
+      }
+    ],
     "dialogs": [
       {
         "character": "Aira",
@@ -170,6 +235,13 @@
   },
   {
     "id": "adegan1_7",
+    "backgroundImage": "assets/bg/TamanBelakang/smallpark.jpg",
+    "characters": [
+      {
+        "sprite": "assets/sprite/images/side_Aiko_Casual_Shocked_Frown.png",
+        "position": "center"
+      }
+    ],
     "dialogs": [
       {
         "character": "Narator",
@@ -180,6 +252,13 @@
   },
   {
     "id": "adegan1_8_new",
+    "backgroundImage": "assets/bg/TamanBelakang/smallpark.jpg",
+    "characters": [
+      {
+        "sprite": "assets/sprite/images/side_Aiko_Casual_Closed_Open.png",
+        "position": "center"
+      }
+    ],
     "dialogs": [
       {
         "character": "Aira",
@@ -190,6 +269,7 @@
   },
   {
     "id": "adegan1_9_new",
+    
     "dialogs": [
       {
         "character": "Narator",
