@@ -36,8 +36,8 @@ public class gameManager {
 
             sceneData[] scenes = gson.fromJson(reader, sceneData[].class);
             if (scenes != null) {
-                for (sceneData s : scenes) {
-                    sceneIndex.put(s.id, s);
+            for (sceneData s : scenes) {
+                sceneIndex.put(s.id, s);
                 }
                 // Set rootScene sesuai id root di JSON
                 rootScene = sceneIndex.get("prolog_scene_1");
@@ -76,9 +76,6 @@ public class gameManager {
             return null;
         }
         return currentScene.dialogs.get(currentDialogIndex);
-    }
-    public int getCurrentDialogIndex() {
-        return this.currentDialogIndex;
     }
 
     /**
@@ -129,7 +126,6 @@ public class gameManager {
             currentDialogIndex++;
             return true;
         }
-        // Jika sudah di dialog terakhir, jangan push ke stack
         return false; // Sudah di dialog terakhir
     }
 
@@ -138,10 +134,10 @@ public class gameManager {
         // 1. Tidak di dialog pertama (index > 0)
         // 2. Stack tidak kosong
         // 3. Index di stack >= batas minimum
-        // 4. Scene memiliki lebih dari 1 dialog (untuk scene dengan 1 dialog saja)
-        return currentDialogIndex > 0 && 
-               !dialogStack.isEmpty() && 
-               dialogStack.peek() >= minUndoIndex &&
-               (currentScene.dialogs != null && currentScene.dialogs.size() > 1);
+        return currentDialogIndex > 0 && !dialogStack.isEmpty() && dialogStack.peek() >= minUndoIndex;
+    }
+
+    public int getCurrentDialogIndex() {
+        return this.currentDialogIndex;
     }
 }

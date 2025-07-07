@@ -48,6 +48,7 @@ public class Main extends Application {
     // Semua elemen UI yang perlu diakses di seluruh kelas
     private Button undoButton;
     private VBox dialogueUIGroup;
+    private VBox buttonGroup; // Group untuk tombol-tombol menu
     private StackPane nameBox;
     private Text nameLabel;
     private javafx.scene.text.Text dialogueLabel;
@@ -56,8 +57,8 @@ public class Main extends Application {
     private Label nextIndicator;
     private VBox centeredChoicesContainer;
     private StackPane letterContainer;
+    private boolean justUndone = false;
     // --- AKHIR BAGIAN YANG DIPERBAIKI ---
-
 
     public static void main(String[] args) {
         launch(args);
@@ -95,7 +96,6 @@ public class Main extends Application {
         characterContainer.setPickOnBounds(false);
 
         imageContainer.getChildren().addAll(backgroundView, characterContainer);
-
 
         // --- LAPISAN 2: UI DIALOG BAWAH (Sekarang akan berfungsi) ---
         dialogueUIGroup = new VBox();
@@ -144,17 +144,36 @@ public class Main extends Application {
         nextIndicator.setFont(Font.font("Arial", 24));
         nextIndicator.setTextFill(Color.web("#4e342e"));
 
+        // --- BUAT BUTTON GROUP ---
+        buttonGroup = new VBox(10);
+        buttonGroup.setAlignment(Pos.BOTTOM_LEFT);
+        buttonGroup.setPadding(new Insets(0, 0, 30, 30)); // Padding yang sama dengan dialogueUIGroup
+
         undoButton = new Button("⟲ Undo");
         undoButton.setOpacity(0.5);
-        undoButton.setStyle("-fx-font-size: 14px; -fx-background-radius: 20; -fx-background-color: #222; -fx-text-fill: white;");
-        undoButton.setOnAction(e -> { if (gameManager.undoDialog()) updateUI(); });
+        undoButton.setStyle("-fx-font-size: 14px; -fx-background-radius: 20; -fx-background-color: #222; -fx-text-fill: white; -fx-padding: 8 15;");
+        undoButton.setOnAction(e -> {
+            if (gameManager.undoDialog()) {
+                justUndone = true;
+                updateUI();
+            }
+        });
         undoButton.setTooltip(new Tooltip("Undo"));
+        // Mencegah event bubbling ke parent - gunakan setOnMousePressed dan setOnMouseReleased
+        undoButton.setOnMousePressed(e -> e.consume());
+        undoButton.setOnMouseReleased(e -> e.consume());
+        undoButton.setOnMouseClicked(e -> e.consume());
 
-        dialogueSystemStack.getChildren().addAll(dialogueContainer, nextIndicator, undoButton);
+        // Tambahkan undo button ke button group
+        buttonGroup.getChildren().add(undoButton);
+
+        // Contoh: Tombol menu lain (bisa ditambahkan nanti)
+        // Button saveButton = new Button("💾 Save");
+        // saveButton.setStyle("-fx-font-size: 14px; -fx-background-radius: 20; -fx-background-color: #222; -fx-text-fill: white; -fx-padding: 8 15;");
+        // buttonGroup.getChildren().add(saveButton);
+        dialogueSystemStack.getChildren().addAll(dialogueContainer, nextIndicator);
         StackPane.setAlignment(nextIndicator, Pos.BOTTOM_RIGHT);
         StackPane.setMargin(nextIndicator, new Insets(0, 25, 10, 0));
-        StackPane.setAlignment(undoButton, Pos.BOTTOM_LEFT);
-        StackPane.setMargin(undoButton, new Insets(0, 0, 10, 25));
 
         dialogueUIGroup.getChildren().addAll(nameBoxWrapper, dialogueSystemStack);
 
@@ -169,7 +188,7 @@ public class Main extends Application {
         letterContainer.setVisible(false);
 
         // --- GABUNGKAN SEMUA LAPISAN KE ROOT ---
-        rootLayout.getChildren().addAll(imageContainer, dialogueUIGroup, centeredChoicesContainer, letterContainer);
+        rootLayout.getChildren().addAll(imageContainer, dialogueUIGroup, buttonGroup, centeredChoicesContainer, letterContainer);
 
         // --- BUAT SCENE ---
         Scene scene = new Scene(rootLayout, 1280, 720);
@@ -182,12 +201,13 @@ public class Main extends Application {
     private void updateUI() {
         // Reset state
         dialogueUIGroup.setVisible(true);
+        buttonGroup.setVisible(true);
         centeredChoicesContainer.setVisible(false);
         letterContainer.setVisible(false);
         choicesBox.getChildren().clear();
         nextIndicator.setVisible(false);
         nameBox.setVisible(false);
-        dialogueUIGroup.setOnMouseClicked(null);
+        // JANGAN reset event handler di sini, biarkan di-set di showNormalDialogue
         dialogueUIGroup.setCursor(Cursor.DEFAULT);
 
         sceneData currentScene = gameManager.getCurrentScene();
@@ -197,13 +217,21 @@ public class Main extends Application {
             endLabel.setFont(Font.font("Arial", 40));
             endLabel.setTextFill(Color.WHITE);
             endLabel.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5); -fx-padding: 20;");
-            if (rootLayout.getChildren().stream().noneMatch(node -> node instanceof Label && ((Label)node).getText().startsWith("TAMAT"))) {
+            if (rootLayout.getChildren().stream().noneMatch(node -> node instanceof Label && ((Label) node).getText().startsWith("TAMAT"))) {
                 rootLayout.getChildren().add(endLabel);
             }
             return;
         }
 
-        updateImage(backgroundView, currentScene.backgroundImage);
+        // Set background image, jika tidak ada gunakan background hitam default
+        if (currentScene.backgroundImage != null && !currentScene.backgroundImage.isEmpty()) {
+            updateImage(backgroundView, currentScene.backgroundImage);
+        } else {
+            // Set background hitam default untuk scene tanpa background
+            backgroundView.setImage(null);
+            backgroundView.setStyle("-fx-background-color: black;");
+            System.out.println("Scene " + currentScene.id + " tidak memiliki background image, menggunakan background hitam default");
+        }
         leftCharacterView.setImage(null);
         rightCharacterView.setImage(null);
         characterContainer.getChildren().clear();
@@ -223,13 +251,17 @@ public class Main extends Application {
                     hasRight = true;
                 }
             }
-            if (hasLeft) characterContainer.getChildren().add(leftCharacterView);
-            if (hasRight) characterContainer.getChildren().add(rightCharacterView);
-            
+            if (hasLeft) {
+                characterContainer.getChildren().add(leftCharacterView);
+            }
+            if (hasRight) {
+                characterContainer.getChildren().add(rightCharacterView);
+            }
+
             if (currentScene.characters.size() == 1) {
                 characterContainer.setAlignment(Pos.BOTTOM_CENTER);
             } else {
-                 characterContainer.setAlignment(Pos.BOTTOM_CENTER);
+                characterContainer.setAlignment(Pos.BOTTOM_CENTER);
             }
         }
 
@@ -240,21 +272,44 @@ public class Main extends Application {
         }
 
         DialogNode currentDialog = gameManager.getCurrentDialog();
+        System.out.println("Current dialog: " + (currentDialog != null ? "ADA" : "NULL"));
         if (currentDialog != null) {
+            System.out.println("Dialog choices: " + (currentDialog.choices != null ? currentDialog.choices.size() : "NULL"));
             if (currentDialog.choices != null && !currentDialog.choices.isEmpty()) {
+                System.out.println("Menampilkan choices...");
                 showChoices(currentScene, currentDialog);
             } else {
+                System.out.println("Menampilkan normal dialogue...");
                 showNormalDialogue(currentScene, currentDialog);
             }
         } else {
+            System.out.println("Dialog null, pindah ke scene berikutnya...");
             gameManager.goToScene(currentScene.nextScene);
             updateUI();
+            return;
         }
-        
-        undoButton.setDisable(!gameManager.canUndoDialog());
+
+        // Sembunyikan tombol undo jika tidak bisa undo, bukan hanya disable
+        if (gameManager.canUndoDialog()) {
+            undoButton.setVisible(true);
+            undoButton.setDisable(false);
+        } else {
+            undoButton.setVisible(false);
+            undoButton.setDisable(true);
+        }
+
+        // Button group tetap visible, hanya tombol individual yang di-hide
+        // Ini memungkinkan tombol lain tetap terlihat meskipun undo button di-hide
+        buttonGroup.setVisible(true);
+
+        // Debug: pastikan event handler aktif
+        System.out.println("Scene " + currentScene.id + " - Dialog " + gameManager.getCurrentDialogIndex()
+                + " - Can undo: " + gameManager.canUndoDialog()
+                + " - Event handler aktif: " + (dialogueUIGroup.getOnMouseClicked() != null)
+                + " - Undo button visible: " + undoButton.isVisible()
+                + " - Button group visible: " + buttonGroup.isVisible());
     }
-    
-    // ... (Fungsi-fungsi lain tidak berubah dan seharusnya sudah benar) ...
+
     private void showNormalDialogue(sceneData currentScene, DialogNode currentDialog) {
         dialogueLabel.setText(currentDialog.text);
         if (currentDialog.character != null && !currentDialog.character.isEmpty()) {
@@ -264,20 +319,45 @@ public class Main extends Application {
 
         nextIndicator.setVisible(true);
         dialogueUIGroup.setCursor(Cursor.HAND);
+
+        // Debug: pastikan event handler di-set
+        System.out.println("Setting event handler untuk dialog box...");
+
         dialogueUIGroup.setOnMouseClicked(event -> {
+            System.out.println("Dialog box diklik! Button: " + event.getButton());
+
             if (event.getButton() == javafx.scene.input.MouseButton.PRIMARY) {
+                if (justUndone) {
+                    System.out.println("Klik kiri setelah undo, hanya reset flag, tidak next!");
+                    justUndone = false;
+                    // Setelah undo, klik kiri pertama hanya reset flag, tidak next
+                    return;
+                }
+                // Hanya blokir next jika sudah di dialog terakhir dan tidak bisa undo
+                if (gameManager.getCurrentDialogIndex() >= gameManager.getCurrentScene().dialogs.size() - 1 && !gameManager.canUndoDialog()) {
+                    // Sudah di dialog terakhir, tidak bisa next lagi
+                    System.out.println("Sudah di dialog terakhir, tidak bisa next");
+                    return;
+                }
+                System.out.println("Mencoba next dialog...");
                 boolean movedToNextDialog = gameManager.nextDialog();
                 if (!movedToNextDialog) {
                     String nextSceneId = (currentDialog.next != null) ? currentDialog.next : currentScene.nextScene;
+                    System.out.println("Pindah ke scene: " + nextSceneId);
                     gameManager.goToScene(nextSceneId);
                 }
                 updateUI();
             } else if (event.getButton() == javafx.scene.input.MouseButton.SECONDARY) {
-                if (gameManager.undoDialog()) {
-                    updateUI();
+                if (gameManager.canUndoDialog()) {
+                    if (gameManager.undoDialog()) {
+                        justUndone = true;
+                        updateUI();
+                    }
                 }
             }
         });
+
+        System.out.println("Event handler berhasil di-set untuk dialog box");
     }
 
     private void showChoices(sceneData currentScene, DialogNode currentDialog) {
@@ -300,9 +380,9 @@ public class Main extends Application {
             centeredChoicesContainer.getChildren().add(choiceButton);
         }
     }
-    
+
     private void showLetter(sceneData currentScene) {
-        dialogueUIGroup.setVisible(false); 
+        dialogueUIGroup.setVisible(false);
         letterContainer.setVisible(true);
         letterContainer.getChildren().clear();
 
@@ -310,10 +390,12 @@ public class Main extends Application {
         paper.setStyle("-fx-background-color: #faf0e6; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 0, 5);");
         paper.setMaxWidth(800);
         paper.setMaxHeight(600);
-        
+
         DialogNode letterDialog = gameManager.getCurrentDialog();
-        if (letterDialog == null) return;
-        
+        if (letterDialog == null) {
+            return;
+        }
+
         Label letterTextLabel = new Label(letterDialog.text);
         letterTextLabel.setWrapText(true);
         letterTextLabel.setFont(Font.font("Courier New", 22));
@@ -331,20 +413,21 @@ public class Main extends Application {
         paper.setMaxHeight(600);
         paper.getChildren().add(scrollPane);
         letterContainer.getChildren().add(paper);
-        
+
         letterContainer.setCursor(Cursor.HAND);
         letterContainer.setOnMouseClicked(e -> {
             gameManager.goToScene(currentScene.nextScene);
             updateUI();
         });
     }
-    
+
     private void updateImage(ImageView view, String imagePath) {
         if (imagePath != null && !imagePath.isEmpty()) {
             try {
                 File imageFile = new File(imagePath);
                 if (imageFile.exists()) {
                     view.setImage(new Image(imageFile.toURI().toString()));
+                    view.setStyle(""); // Reset style jika ada gambar
                 } else {
                     System.err.println("File gambar tidak ditemukan: " + imagePath);
                     view.setImage(null);
