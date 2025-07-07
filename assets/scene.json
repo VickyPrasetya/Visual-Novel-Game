@@ -267,18 +267,39 @@
     ],
     "nextScene": "adegan1_9_new"
   },
-  {
+  
+     {
     "id": "adegan1_9_new",
-    
+    "backgroundImage": "assets/bg/TamanBelakang/smallpark.jpg",
+    "characters": [
+      {
+        "sprite": "assets/sprite/images/Aiko_Casual_Smile.png",
+        "position": "center"
+      }
+    ],
     "dialogs": [
       {
         "character": "Narator",
         "text": "(Zia tidak menjawab, tapi langkahnya sedikit melambat sebelum menghilang di tikungan. Aira tersenyum kecil.)"
-      },
+      }
+    ],
+    "nextScene": "adegan1_9b_new"
+  },
+  {
+    "id": "adegan1_9b_new",
+    "backgroundImage": "assets/bg/black.jpg",
+    "dialogs": [
       {
         "character": "Narator",
         "text": "(Beberapa hari berikutnya, Aira benar-benar menepati janjinya. Ia selalu menemukan cara untuk berada di dekat Zia. Duduk di sebelahnya di kelas, 'kebetulan' bertemu di perpustakaan, dan menunggunya di depan gerbang.)"
-      },
+      }
+    ],
+    "nextScene": "adegan1_9c_new"
+  },
+  {
+    "id": "adegan1_9c_new",
+    "backgroundImage": "assets/bg/black.jpg",
+    "dialogs": [
       {
         "character": "Narator",
         "text": "(Perlahan, dinding es di sekitar Zia mulai retak. Ia mulai membalas sapaan Aira, bahkan sesekali tersenyum tipis mendengar leluconnya.)"
@@ -288,6 +309,7 @@
   },
   {
     "id": "adegan2_1",
+    "backgroundImage": "assets/bg/images/Restaurant_B.png",
     "dialogs": [
       {
         "character": "Narator",
@@ -298,6 +320,13 @@
   },
   {
     "id": "adegan2_1_new",
+    "backgroundImage": "assets/bg/images/Restaurant_B.png",
+    "characters": [
+      {
+        "sprite": "assets/sprite/images/Aiko_Casual_Open.png",
+        "position": "center"
+      }
+    ],
     "dialogs": [
       {
         "character": "Aira",
@@ -306,8 +335,21 @@
       {
         "character": "Zia",
         "text": "(Melirik sekilas, mencoba acuh) \"Oh ya?\""
-      },
+      }
+      ],
+    "nextScene": "adegan2_1b_new"
+  },
+  {
+    "id": "adegan2_1b_new",
+    "backgroundImage": "assets/bg/images/Restaurant_B.png",
+    "characters": [
       {
+        "sprite": "assets/sprite/images/Aiko_Casual_Closed_Open.png",
+        "position": "center"
+      }
+    ],
+    "dialogs": [
+       {
         "character": "Aira",
         "text": "Iya! Ayolah, temani aku ke sana sebentar. Aku cuma mau lihat-lihat. Janji nggak akan maksa kamu beli apa-apa. Anggap saja refreshing dari tugas ini. Ya? Ya?\""
       },
@@ -320,6 +362,7 @@
   },
   {
     "id": "adegan2_2",
+    "backgroundImage": "assets/bg/TokoPeralatanSeni/senitoko.jpg",
     "dialogs": [
       {
         "character": "Narator",
