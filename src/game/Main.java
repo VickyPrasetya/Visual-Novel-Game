@@ -308,15 +308,7 @@ public class Main extends Application {
         slotsGrid.setVgap(20);
         slotsGrid.setAlignment(Pos.CENTER);
 
-<<<<<<< HEAD
-        VBox content = new VBox(30, titleLabel, slotsGrid);
-        content.setAlignment(Pos.CENTER);
-        content.setPadding(new Insets(50));
-
-        Button backButton = new Button("Kembali");
-=======
         Button backButton = new Button("Back");
->>>>>>> 67aa743f52f4bf74f2d5cbd4f7c45d1a7c40829d
         styleSubMenuButton(backButton);
         backButton.setPrefWidth(250);
         backButton.setOnAction(e -> {
@@ -329,18 +321,11 @@ public class Main extends Application {
                 showScreen(mainMenuContainer);
             }
         });
-<<<<<<< HEAD
-
-        VBox bottomBox = new VBox(backButton);
-        bottomBox.setAlignment(Pos.BOTTOM_CENTER);
-        bottomBox.setPadding(new Insets(0, 0, 50, 0));
-=======
         
         VBox content = new VBox(30, titleLabel, slotsGrid, backButton);
         content.setAlignment(Pos.CENTER);
         content.setPadding(new Insets(50));
         VBox.setMargin(backButton, new Insets(20, 0, 0, 0));
->>>>>>> 67aa743f52f4bf74f2d5cbd4f7c45d1a7c40829d
 
         layout.getChildren().addAll(bg, content);
         return layout;
@@ -355,11 +340,7 @@ public class Main extends Application {
         Label titleLabel = (Label) content.getChildren().get(0);
         GridPane slotsGrid = (GridPane) content.getChildren().get(1);
 
-<<<<<<< HEAD
         titleLabel.setText(mode == SaveLoadMode.SAVE ? "Simpan Game" : "Muat Game");
-=======
-        titleLabel.setText(mode == SaveLoadMode.SAVE ? "Save Game" : "Load Game");
->>>>>>> 67aa743f52f4bf74f2d5cbd4f7c45d1a7c40829d
         slotsGrid.getChildren().clear();
 
         for (int i = 1; i <= 6; i++) {
@@ -370,13 +351,8 @@ public class Main extends Application {
             slotBox.setAlignment(Pos.CENTER_LEFT);
             slotBox.setPadding(new Insets(15));
             slotBox.setPrefSize(350, 100);
-<<<<<<< HEAD
-
-            String baseStyle = "-fx-background-color: rgba(0, 0, 0, 0.5); -fx-border-color: white; -fx-border-width: 1px; -fx-background-radius: 5; -fx-border-radius: 5; -fx-cursor: hand;";
-=======
             
-            String baseStyle = "-fx-background-color: rgba(0, 0, 0, 0.5); -fx-border-color: white; -fx-border-width: 1px; -fx-background-radius: 5; -fx-border-radius: 5;";
->>>>>>> 67aa743f52f4bf74f2d5cbd4f7c45d1a7c40829d
+            String baseStyle = "-fx-background-color: rgba(0, 0, 0, 0.5); -fx-border-color: white; -fx-border-width: 1px; -fx-background-radius: 5; -fx-border-radius: 5; -fx-cursor: hand;";
             String hoverStyle = baseStyle + "-fx-background-color: rgba(255, 255, 255, 0.2);";
             slotBox.setStyle(baseStyle);
 
@@ -390,12 +366,8 @@ public class Main extends Application {
 
             slotBox.getChildren().addAll(slotLabel, dateLabel);
 
-<<<<<<< HEAD
             if (state != null || mode == SaveLoadMode.SAVE) {
-=======
-            if(state != null || mode == SaveLoadMode.SAVE) {
                 slotBox.setCursor(Cursor.HAND);
->>>>>>> 67aa743f52f4bf74f2d5cbd4f7c45d1a7c40829d
                 slotBox.setOnMouseEntered(e -> slotBox.setStyle(hoverStyle));
                 slotBox.setOnMouseExited(e -> slotBox.setStyle(baseStyle));
                 slotBox.setOnMouseClicked(e -> {
