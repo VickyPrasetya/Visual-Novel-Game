@@ -199,7 +199,7 @@ public class Main extends Application {
         dialogueContainer.getChildren().addAll(dialogueFlow, choicesBox);
         nextIndicator = new Label("▼");
         nextIndicator.setFont(Font.font("Arial", 24));
-        nextIndicator.setTextFill(Color.web("#4e342e"));
+        nextIndicator.setTextFill(Color.web("#ffffff"));
         dialogueSystemStack.getChildren().addAll(dialogueContainer, nextIndicator);
         StackPane.setAlignment(nextIndicator, Pos.BOTTOM_RIGHT);
         StackPane.setMargin(nextIndicator, new Insets(0, 25, 10, 0));
