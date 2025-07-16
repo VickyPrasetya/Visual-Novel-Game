@@ -4,10 +4,16 @@ package game.manager;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import game.model.GameState;
+import game.model.SceneData;
+import game.model.ChoiceData;
+import game.manager.GameManager;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+/**
+ * Kelas SaveLoadService bertanggung jawab untuk menyimpan dan memuat data game ke/dari file.
+ */
 public class SaveLoadService {
 
     private static final String SAVE_DIRECTORY = "saves/";
@@ -29,7 +35,10 @@ public class SaveLoadService {
     }
 
     /**
-     * Menyimpan GameState ke dalam file di slot yang ditentukan.
+     * Menyimpan state game ke file.
+     * @param slot Slot save yang digunakan.
+     * @param state State game yang akan disimpan.
+     * @return true jika berhasil, false jika gagal.
      */
     public boolean saveGame(int slot, GameState state) {
         String filePath = getFilePath(slot);
@@ -44,8 +53,9 @@ public class SaveLoadService {
     }
 
     /**
-     * Memuat GameState dari file di slot yang ditentukan.
-     * @return GameState jika berhasil, null jika file tidak ada atau gagal.
+     * Memuat state game dari file.
+     * @param slot Slot save yang digunakan.
+     * @return GameState yang dimuat, atau null jika gagal.
      */
     public GameState loadGame(int slot) {
         String filePath = getFilePath(slot);

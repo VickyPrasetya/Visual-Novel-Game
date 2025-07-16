@@ -17,7 +17,7 @@
   },
   {
     "id": "prolog_scene_2",
-    "backgroundImage": "assets/bg/TamanBelakang/Park.jpg",
+    "backgroundImage": "assets/bg/TamanBelakang/park.jpg",
     "characters": [
       {
         "sprite": "assets/sprite/Pose B/Sumi_PoseB_WinterUni_Open.png",
@@ -42,7 +42,7 @@
   },
   {
     "id": "prolog_scene_3",
-    "backgroundImage": "assets/bg/TamanBelakang/Park.jpg",
+    "backgroundImage": "assets/bg/TamanBelakang/park.jpg",
     "characters": [
       {
         "sprite": "assets/sprite/Pose B/Sumi_PoseB_WinterUni_Open.png",
@@ -453,7 +453,7 @@
     "backgroundImage": "assets/bg/Neko/Backstreet_Spring_Day.png",
     "characters": [
       {
-        "sprite": "assets/sprite/images/side_Aiko_Casual_Frown.png.png",
+        "sprite": "assets/sprite/images/side_Aiko_Casual_Frown.png",
         "position": "center"
       }
     ],
@@ -820,7 +820,8 @@
         "character": "Narator",
         "text": "--- BAD ENDING ---"
       }
-    ]
+    ],
+    "nextScene": "ending_screen"
   },
 
   {
@@ -840,7 +841,7 @@
   },
   {
     "id": "path_seek_truth_2",
-    "backgroundImage": "assets/bg/TamanBelakang/Park.jpg",
+    "backgroundImage": "assets/bg/TamanBelakang/park.jpg",
     "dialogs": [
       {
         "character": "Narator",
@@ -851,7 +852,7 @@
   },
   {
     "id": "epilog_1",
-    "backgroundImage": "assets/bg/TamanBelakang/Park.jpg",
+    "backgroundImage": "assets/bg/TamanBelakang/park.jpg",
     "characters": [
       {
         "sprite": "assets/sprite/Karakter_Wanita/Karakter_PendukungWanita/CharFMotherNormal.png",
@@ -873,7 +874,7 @@
   },
   {
     "id": "epilog_1d",
-    "backgroundImage": "assets/bg/TamanBelakang/Park.jpg",
+    "backgroundImage": "assets/bg/TamanBelakang/park.jpg",
     "characters": [
       {
         "sprite": "assets/sprite/Karakter_Wanita/Karakter_PendukungWanita/20250707_1213_Ekspresi Merengut Tertutup_remix_01jzhmrt61ff1sq63brgqveqj4.png",
@@ -890,7 +891,7 @@
   },
   {
     "id": "epilog_1e",
-    "backgroundImage": "assets/bg/TamanBelakang/Park.jpg",
+    "backgroundImage": "assets/bg/TamanBelakang/park.jpg",
     "characters": [
       {
         "sprite": "assets/sprite/Karakter_Wanita/Karakter_PendukungWanita/20250707_1213_Ekspresi Merengut Tertutup_remix_01jzhmrt61ff1sq63brgqveqj4.png",
@@ -907,7 +908,7 @@
   },
   {
     "id": "epilog_1f",
-    "backgroundImage": "assets/bg/TamanBelakang/Park.jpg",
+    "backgroundImage": "assets/bg/TamanBelakang/park.jpg",
     "characters": [
       {
         "sprite": "assets/sprite/Karakter_Wanita/Karakter_PendukungWanita/20250707_1213_Ekspresi Merengut Tertutup_remix_01jzhmrt61ff1sq63brgqveqj4.png",
@@ -924,7 +925,7 @@
   },
   {
     "id": "epilog_1g",
-    "backgroundImage": "assets/bg/TamanBelakang/Park.jpg",
+    "backgroundImage": "assets/bg/TamanBelakang/park.jpg",
     "dialogs": [
       {
         "character": "Narator",
@@ -936,7 +937,7 @@
   {
     "type": "letter",
     "id": "epilog_12",
-    "backgroundImage": "assets/bg/TamanBelakang/Park.jpg",
+    "backgroundImage": "assets/bg/TamanBelakang/park.jpg",
     "dialogs": [
       {
         "character": "Aira (Surat)",
@@ -947,7 +948,7 @@
   },
   {
     "id": "epilog_13",
-    "backgroundImage": "assets/bg/TamanBelakang/Park.jpg",
+    "backgroundImage": "assets/bg/TamanBelakang/park.jpg",
 
     "dialogs": [
       {
@@ -1055,7 +1056,8 @@
         "character": "Narator",
         "text": "--- TRUE ENDING ---"
       }
-    ]
+    ],
+    "nextScene": "ending_screen"
   },
 
   {
@@ -1117,6 +1119,34 @@
         "character": "Narator",
         "text": "--- GOOD ENDING ---"
       }
+    ],
+    "nextScene": "ending_screen"
+  },
+  {
+    "id": "credits",
+    "backgroundImage": "assets/bg/black.jpg",
+    "dialogs": [
+      {
+        "character": "Credits",
+        "text": "Game Visual Novel 24 Hours\n\nProgrammer: Nama Kamu\nArt: Nama Artis\nMusic: Nama Musisi\nSpecial Thanks: ...\n\nTerima kasih telah bermain!"
+      },
+      {
+        "choices": [
+          { "text": "Kembali ke Menu Utama", "nextScene": "main_menu" },
+          { "text": "Keluar", "nextScene": "exit_game" }
+        ]
+      }
     ]
+  },
+  {
+    "id": "ending_screen",
+    "backgroundImage": "assets/bg/black.jpg",
+    "dialogs": [
+      {
+        "character": "Narator",
+        "text": "--- TAMAT ---\n\nTerima kasih telah menyelesaikan cerita ini."
+      }
+    ],
+    "nextScene": "credits"
   }
 ]
