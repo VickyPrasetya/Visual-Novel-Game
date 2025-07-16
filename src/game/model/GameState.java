@@ -5,10 +5,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Stack;
 
+/**
+ * Kelas GameState merepresentasikan state/progres game yang akan disimpan atau dimuat.
+ */
 public class GameState {
-    // Data utama yang perlu disimpan
+    /** ID scene saat ini */
     public String currentSceneId;
+    /** Index dialog saat ini */
     public int currentDialogIndex;
+    /** Stack riwayat dialog untuk fitur undo */
     public Stack<Integer> dialogStack;
 
     // Data tambahan untuk ditampilkan di UI

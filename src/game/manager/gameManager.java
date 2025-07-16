@@ -2,7 +2,7 @@ package game.manager;
 
 import com.google.gson.Gson;
 import game.model.GameState;
-import game.model.sceneData;
+import game.model.SceneData;
 import game.model.DialogNode;
 
 import java.io.FileReader;
@@ -11,17 +11,21 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 
-public class gameManager {
+/**
+ * Kelas GameManager bertanggung jawab untuk mengelola progres game,
+ * navigasi antar scene, dan undo dialog.
+ */
+public class GameManager {
 
-    private sceneData currentScene;
+    private SceneData currentScene;
     private int currentDialogIndex;
     private Stack<Integer> dialogStack = new Stack<>();
-    private final Map<String, sceneData> sceneIndex = new HashMap<>();
+    private final Map<String, SceneData> sceneIndex = new HashMap<>();
 
     /**
-     * Constructor akan memuat semua data cerita dan menyiapkan game di scene awal.
+     * Konstruktor GameManager, memuat data cerita dan mengatur scene awal.
      */
-    public gameManager() {
+    public GameManager() {
         loadStory();
         // Jika data cerita berhasil dimuat, langsung pergi ke scene awal.
         // Ini akan ditimpa jika pemain memuat game dari save file.
@@ -39,10 +43,10 @@ public class gameManager {
         System.out.println("Mencoba membaca file dari: " + filePath);
 
         try (Reader reader = new FileReader(filePath)) {
-            sceneData[] scenes = gson.fromJson(reader, sceneData[].class);
+            SceneData[] scenes = gson.fromJson(reader, SceneData[].class);
             if (scenes != null) {
-                for (sceneData s : scenes) {
-                    sceneIndex.put(s.id, s);
+                for (SceneData s : scenes) {
+                sceneIndex.put(s.id, s);
                 }
                 System.out.println("Berhasil memuat " + sceneIndex.size() + " scene.");
             }
@@ -56,7 +60,7 @@ public class gameManager {
      * Mendapatkan scene yang sedang aktif.
      * @return Objek SceneData saat ini.
      */
-    public sceneData getCurrentScene() {
+    public SceneData getCurrentScene() {
         return this.currentScene;
     }
 
@@ -76,7 +80,11 @@ public class gameManager {
      * @param sceneId ID dari scene tujuan.
      */
     public void goToScene(String sceneId) {
-        sceneData next = sceneIndex.get(sceneId);
+        if (sceneId == null) {
+            System.err.println("Peringatan: goToScene dipanggil dengan sceneId null. Tidak ada transisi scene.");
+            return;
+        }
+        SceneData next = sceneIndex.get(sceneId);
         if (next != null) {
             currentScene = next;
             currentDialogIndex = 0;
@@ -109,9 +117,9 @@ public class gameManager {
         if (dialogStack.isEmpty()) {
             return false;
         }
-        currentDialogIndex = dialogStack.pop();
-        return true;
-    }
+            currentDialogIndex = dialogStack.pop();
+            return true;
+        }
 
     /**
      * Memeriksa apakah fitur undo bisa digunakan.
