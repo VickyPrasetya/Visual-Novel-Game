@@ -40,7 +40,7 @@ public class Main extends Application implements GameAppCallback {
     private TransitionSystem transitionSystem;
     private CreditsSystem creditsSystem;
 
-    private static final String DEFAULT_MUSIC_PATH = "assets/music/Music Page Menu.mp3";
+    private static final String DEFAULT_MUSIC_PATH = "assets/music/chill.mp3";
 
     @Override
     public void start(Stage primaryStage) {

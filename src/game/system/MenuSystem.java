@@ -33,7 +33,7 @@ public class MenuSystem {
         StackPane menuLayout = new StackPane();
         // Gunakan background blur dari Main
         ImageView menuBg = Style.createBlurredBackground(Style.MENU_BACKGROUND_PATH);
-        Text gameTitle = new Text("24 Hours");
+        Text gameTitle = new Text("24 𝓗𝓸𝓾𝓻𝓼");
         gameTitle.setFont(Font.font(Style.MAIN_FONT_BOLD, FontWeight.BOLD, Style.TITLE_FONT_SIZE));
         gameTitle.setFill(Color.WHITE);
         gameTitle.setStroke(Color.BLACK);

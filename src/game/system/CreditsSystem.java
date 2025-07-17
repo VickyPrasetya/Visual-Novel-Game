@@ -20,12 +20,7 @@ public class CreditsSystem {
         title.setFont(Font.font(Style.MAIN_FONT_BOLD, FontWeight.BOLD, Style.TITLE_FONT_SIZE));
         title.setTextFill(Color.WHITE);
         Label creditsText = new Label(
-            "Game Visual Novel 24 Hours\n\n" +
-            "Programmer: Nama Kamu\n" +
-            "Art: Nama Artis\n" +
-            "Music: Nama Musisi\n" +
-            "Special Thanks: ...\n\n" +
-            "Terima kasih telah bermain!"
+            "Game Visual Novel 24 Hours\n\nProgrammer: \nKelompok 5\nArt:\nhttps://noranekogames.itch.io/ \nhttps://potat0master.itch.io/ \nhttps://kawaiisayian.itch.io \nhttps://leonardo.ai/\n Music:\nhttps://freetouse.com/music/category/timelapse \nSpecial Thanks:\nBpk.Suhendra\nIbu.Raden Rara Kartika Kusuma Winahyu\nKak.Afni Tazkiyatul Misky\nTerima kasih telah bermain!"
         );
         creditsText.setFont(Font.font(Style.MAIN_FONT, 24));
         creditsText.setTextFill(Color.LIGHTGRAY);

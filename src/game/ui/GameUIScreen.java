@@ -279,6 +279,14 @@ public class GameUIScreen {
         if (currentScene == null) {
             return;
         }
+           if (currentScene.music != null) {
+        if (currentScene.music.trim().isEmpty()) {
+            AudioSystem.getInstance().stopMusic();
+        } 
+        else {    
+            AudioSystem.getInstance().playMusic(currentScene.music, true);
+        }
+    }
         updateImage(backgroundView, currentScene.backgroundImage, "assets/bg/black.jpg");
         updateCharacters(currentScene);
         dialogueUIGroup.setVisible(false);

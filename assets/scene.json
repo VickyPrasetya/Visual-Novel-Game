@@ -2,7 +2,7 @@
   {
     "id": "prolog_scene_1",
     "backgroundImage": "assets/bg/black.jpg",
-    "music": "assets/music/Music Page Menu.mp3",
+    "music": "assets/music/NostaligMemoriesBack.mp3",
     "dialogs": [
       {
         "character": "Narator",
@@ -116,6 +116,7 @@
   },
   {
     "id": "adegan1_scene_2",
+    "music": "assets/music/chill.mp3",
     "backgroundImage": "assets/bg/TamanBelakang/smallpark.jpg",
     "characters": [
       {
@@ -545,6 +546,7 @@
   },
   {
     "id": "adegan3_1",
+    "music": "assets/music/SadMusic1.mp3",
     "backgroundImage": "assets/bg/LakeSidePinggirSungai/SampingSungaiEvening.jpg",
     "dialogs": [
       {
@@ -822,6 +824,7 @@
 
   {
     "id": "path_seek_truth_1",
+    "music": "assets/music/nostalgic.mp3",
     "backgroundImage": "assets/bg/black.jpg",
     "dialogs": [
       {
@@ -1120,11 +1123,12 @@
   },
   {
     "id": "credits",
+    "music": " ",
     "backgroundImage": "assets/bg/black.jpg",
     "dialogs": [
       {
         "character": "Credits",
-        "text": "Game Visual Novel 24 Hours\n\nProgrammer: Nama Kamu\nArt: Nama Artis\nMusic: Nama Musisi\nSpecial Thanks: ...\n\nTerima kasih telah bermain!"
+        "text": "Game Visual Novel 24 Hours\n\nProgrammer: \nKelompok 5\nArt:\nhttps://noranekogames.itch.io/ \nhttps://potat0master.itch.io/ \nhttps://kawaiisayian.itch.io \nhttps://leonardo.ai/\n Music:\nhttps://freetouse.com/music/category/timelapse \nSpecial Thanks:\nBpk.Suhendra\nIbu.Raden Rara Kartika Kusuma Winahyu\nKak.Afni Tazkiyatul Misky\nTerima kasih telah bermain!"
       },
       {
         "choices": [
