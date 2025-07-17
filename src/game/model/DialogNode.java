@@ -7,13 +7,21 @@ import java.util.*;
  */
 public class DialogNode {
 
-      // Properti untuk dialog biasa
-    /** Nama karakter yang berbicara */
+    // Properti untuk dialog biasa
+    /**
+     * Nama karakter yang berbicara
+     */
     public String character;
-    /** Teks dialog */
+    /**
+     * Teks dialog
+     */
     public String text;
-    /** Pilihan yang tersedia pada dialog ini */
+    /**
+     * Pilihan yang tersedia pada dialog ini
+     */
     public List<ChoiceData> choices;
-    /** ID dialog berikutnya (opsional) */
+    /**
+     * ID dialog berikutnya (opsional)
+     */
     public String next;
 }
