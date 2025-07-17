@@ -239,10 +239,11 @@ public class GameUIScreen {
         rootPane.getChildren().addAll(
             backgroundView, 
             characterContainer,
+            topLeftButtonBar,
             dialogueUIGroup, 
             centeredChoicesContainer, 
-            letterContainer, 
-            topLeftButtonBar
+            letterContainer
+            
         );
         StackPane.setAlignment(dialogueUIGroup, Pos.BOTTOM_CENTER);
         rootPane.setPadding(new Insets(15));
