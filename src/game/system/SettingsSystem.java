@@ -26,6 +26,18 @@ public class SettingsSystem {
     private String resolution = "1280x720";
     private boolean fullscreen = false;
     private int textSpeed = 1;
+    // Tambahan: referensi ke slider text speed agar bisa diupdate dari luar
+    private Slider textSpeedSliderRef = null;
+
+    // Tambahan: Listener untuk perubahan settings
+    public interface SettingsListener {
+        void onTextSpeedChanged(int newSpeed);
+        void onMuteChanged(boolean muted);
+    }
+    private SettingsListener listener;
+    public void setSettingsListener(SettingsListener listener) {
+        this.listener = listener;
+    }
 
     /**
      * Menyimpan preferensi user ke file/config.
@@ -68,6 +80,7 @@ public class SettingsSystem {
         muteCheck.selectedProperty().addListener((obs, oldVal, newVal) -> {
             setMuted(newVal);
             AudioSystem.getInstance().setMute(newVal);
+            if (listener != null) listener.onMuteChanged(newVal);
         });
         // Resolusi
         Label resLabel = new Label("Resolusi");
@@ -119,9 +132,12 @@ public class SettingsSystem {
             }
             @Override public Double fromString(String s) { return 1.0; }
         });
+        // Simpan referensi ke slider agar bisa diupdate dari luar
+        this.textSpeedSliderRef = speedSlider;
         speedSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
             setTextSpeed(newVal.intValue());
             // Implement text speed callback if needed
+            if (listener != null) listener.onTextSpeedChanged(newVal.intValue());
         });
         // Back button
         Button backButton = new Button("Back");
@@ -152,4 +168,15 @@ public class SettingsSystem {
     public void setFullscreen(boolean fullscreen) { this.fullscreen = fullscreen; }
     public int getTextSpeed() { return textSpeed; }
     public void setTextSpeed(int textSpeed) { this.textSpeed = textSpeed; }
+
+    // Method untuk update slider dari luar (misal dari GameUIScreen)
+    public void updateTextSpeedSlider(int mode) {
+        if (textSpeedSliderRef != null) {
+            textSpeedSliderRef.setValue(mode);
+        }
+    }
+    // Method publik untuk notifikasi perubahan text speed ke listener
+    public void notifyTextSpeedChanged(int mode) {
+        if (listener != null) listener.onTextSpeedChanged(mode);
+    }
 } 

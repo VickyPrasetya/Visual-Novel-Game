@@ -59,8 +59,8 @@ public class SaveLoadSystem {
         int[] currentPage = {0};
         HBox paginationBox = new HBox(20);
         paginationBox.setAlignment(Pos.CENTER);
-        Button prevButton = new Button("\u2190 Previous");
-        Button nextButton = new Button("Next \u2192");
+        Button prevButton = new Button("\u2190");
+        Button nextButton = new Button("\u2192");
         Label pageLabel = new Label();
         pageLabel.setFont(Font.font("Segoe UI", 16));
         pageLabel.setTextFill(Color.WHITE);

@@ -24,7 +24,7 @@ import javafx.stage.Stage;
  * Bertanggung jawab untuk inisialisasi semua sistem, manajemen layar,
  * dan menjadi jembatan komunikasi antar modul.
  */
-public class Main extends Application implements GameAppCallback {
+public class Main extends Application implements GameAppCallback, game.system.SettingsSystem.SettingsListener {
 
     private Stage primaryStage;
     private StackPane rootLayout; // Panggung utama untuk semua layar
@@ -92,6 +92,11 @@ public class Main extends Application implements GameAppCallback {
             @Override public void onRequestCredits() { showCreditsScreen(); } // Jika ada
             @Override public void onRequestExit() { exitGame(); }
         });
+        // Set SettingsSystem ke GameUIScreen agar bisa sinkronisasi dua arah
+        gameUIScreen.setSettingsSystem(settingsSystem);
+
+        // Set listener agar sinkronisasi settings <-> UI
+        settingsSystem.setSettingsListener(this);
     }
 
     /**
@@ -114,6 +119,9 @@ public class Main extends Application implements GameAppCallback {
     public void showGameScreen() {
         switchScreen(gameUIScreen.getGamePane());
         // Musik akan di-handle oleh updateUI di dalam GameUIScreen berdasarkan data scene
+        // Sinkronisasi text speed dan mute icon
+        gameUIScreen.setTextSpeedMode(settingsSystem.getTextSpeed());
+        gameUIScreen.updateMuteIcon();
     }
     
    
@@ -131,7 +139,8 @@ public class Main extends Application implements GameAppCallback {
         } else { // Jika tidak, kembali ke Main Menu
             onBackAction = this::showMainMenu;
         }
-        
+        // Sinkronisasi nilai awal slider dan checkbox dengan status terbaru
+        // (Sudah otomatis di SettingsSystem saat showSettingsUI dipanggil)
         switchScreen(settingsSystem.showSettingsUI(primaryStage, this, onBackAction));
     }
 
@@ -195,4 +204,18 @@ public void loadGame(GameState gameState) {
     showGameScreen();
     gameUIScreen.updateUI(); // Tampilkan UI untuk state yang di-load
 }
+
+    // Implementasi SettingsListener
+    @Override
+    public void onTextSpeedChanged(int newSpeed) {
+        if (gameUIScreen != null) {
+            gameUIScreen.setTextSpeedMode(newSpeed);
+        }
+    }
+    @Override
+    public void onMuteChanged(boolean muted) {
+        if (gameUIScreen != null) {
+            gameUIScreen.updateMuteIcon();
+        }
+    }
 }
