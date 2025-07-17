@@ -19,7 +19,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.Cursor;
-import game.manager.GameManager;
+import game.manager.gameManager;
 import game.manager.SaveLoadService;
 import java.io.File;
 
@@ -31,7 +31,7 @@ public class SaveLoadSystem {
      * Menampilkan UI save game.
      * @return Pane UI save game.
      */
-    public StackPane showSaveUI(GameAppCallback callback, GameManager gameManager, SaveLoadService saveLoadService, Pane gamePane, Runnable onBack) {
+    public StackPane showSaveUI(GameAppCallback callback, gameManager gameManager, SaveLoadService saveLoadService, Pane gamePane, Runnable onBack) {
         return buildSaveLoadUI(callback, gameManager, saveLoadService, true, gamePane, onBack);
     }
 
@@ -39,11 +39,11 @@ public class SaveLoadSystem {
      * Menampilkan UI load game.
      * @return Pane UI load game.
      */
-    public StackPane showLoadUI(GameAppCallback callback, GameManager gameManager, SaveLoadService saveLoadService, Runnable onBack) {
+    public StackPane showLoadUI(GameAppCallback callback, gameManager gameManager, SaveLoadService saveLoadService, Runnable onBack) {
         return buildSaveLoadUI(callback, gameManager, saveLoadService, false, null, onBack);
     }
 
-    private StackPane buildSaveLoadUI(GameAppCallback callback, GameManager gameManager, SaveLoadService saveLoadService, boolean isSave, Pane gamePane, Runnable onBack) {
+    private StackPane buildSaveLoadUI(GameAppCallback callback, gameManager gameManager, SaveLoadService saveLoadService, boolean isSave, Pane gamePane, Runnable onBack) {
         StackPane layout = new StackPane();
         layout.setStyle("-fx-background-color: #222;");
         Label titleLabel = new Label(isSave ? "Simpan Game" : "Muat Game");

@@ -1,11 +1,12 @@
 package game.ui;
 
-import game.manager.GameManager;
-import game.model.SceneData;
+import game.manager.gameManager;
+import game.model.sceneData;
 import game.model.DialogNode;
-import game.model.ChoiceData;
+import game.model.choiceData;
 import game.system.HistorySystem;
 import game.system.TransitionSystem;
+import javafx.scene.layout.Priority;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Insets;
@@ -38,7 +39,7 @@ import javafx.scene.layout.Region;
  * GameUIScreen: Modular class for all dialog/gameplay UI logic.
  */
 public class GameUIScreen {
-    private final GameManager gameManager;
+    private final gameManager gameManager;
     private final HistorySystem historySystem;
     private final TransitionSystem transitionSystem;
     private final GameUICallback callback;
@@ -85,13 +86,18 @@ public class GameUIScreen {
     private StackPane inGameMenuOverlay;
     private boolean isInGameMenuVisible = false;
 
-    public GameUIScreen(GameManager gameManager, HistorySystem historySystem, TransitionSystem transitionSystem, GameUICallback callback) {
+    public GameUIScreen(gameManager gameManager, HistorySystem historySystem, TransitionSystem transitionSystem,
+            GameUICallback callback) {
+        
         this.gameManager = gameManager;
         this.historySystem = historySystem;
         this.transitionSystem = transitionSystem;
         this.callback = callback;
         // Build UI
         rootPane = new StackPane();
+        rootPane.setMinWidth(320);
+rootPane.setMinHeight(240);
+
         backgroundView = new ImageView();
         backgroundView.setPreserveRatio(false);
         rootPane.widthProperty().addListener((obs, oldVal, newVal) -> backgroundView.setFitWidth(newVal.doubleValue()));
@@ -110,11 +116,18 @@ public class GameUIScreen {
         // Dialogue UI
         dialogueUIGroup = new VBox();
         dialogueUIGroup.setAlignment(Pos.BOTTOM_CENTER);
-        dialogueUIGroup.setPadding(new Insets(80, 30, 30, 30));
+        rootPane.heightProperty().addListener((obs, oldVal, newVal) -> {
+    double pad = newVal.doubleValue() * 0.05;
+    dialogueUIGroup.setPadding(new Insets(0, 0, pad, 0));
+});
         dialogueUIGroup.setPickOnBounds(true);
-        dialogueUIGroup.maxWidthProperty().bind(rootPane.widthProperty().subtract(80));
-        dialogueUIGroup.prefWidthProperty().bind(rootPane.widthProperty().subtract(80));
-        rootPane.heightProperty().addListener((obs, oldVal, newVal) -> dialogueUIGroup.setPrefHeight(newVal.doubleValue() * 0.35));
+        dialogueUIGroup.prefWidthProperty().bind(rootPane.widthProperty().multiply(0.9));
+       dialogueUIGroup.maxHeightProperty().bind(rootPane.heightProperty().multiply(0.35));
+ ScrollPane wrapper = new ScrollPane(dialogueUIGroup);
+wrapper.setFitToWidth(true);
+wrapper.setFitToHeight(true);
+
+
         nameLabel = new Text();
         nameLabel.setFont(Font.font(MAIN_FONT_BOLD, FontWeight.BOLD, NAME_FONT_SIZE));
         nameLabel.setFill(Color.WHITE);
@@ -134,21 +147,40 @@ public class GameUIScreen {
         VBox dialogueContainer = new VBox(15);
         dialogueContainer.setPadding(new Insets(20, 40, 60, 40));
         dialogueContainer.setStyle("-fx-background-color: rgba(255, 183, 197, 0.9); -fx-border-radius:10; -fx-border-color: white; -fx-border-width: 1; -fx-background-radius: 10;");
-        dialogueContainer.setMinHeight(180);
+        dialogueContainer.setMinHeight(Region.USE_COMPUTED_SIZE);
+        dialogueContainer.setMaxWidth(Region.USE_PREF_SIZE);
+dialogueContainer.setMinWidth(200); // Lebih kecil agar responsive
+dialogueContainer.setMaxWidth(Double.MAX_VALUE);
+
+
+dialogueContainer.prefHeightProperty().bind(rootPane.heightProperty().multiply(0.22));
+
+dialogueContainer.setMaxHeight(Region.USE_PREF_SIZE); // atau bisa bind jika kamu ingin tetap maksimal 22%
+
         dialogueContainer.setPickOnBounds(true);
-        dialogueContainer.maxWidthProperty().bind(rootPane.widthProperty().subtract(120));
-        dialogueContainer.prefWidthProperty().bind(rootPane.widthProperty().subtract(120));
+       dialogueContainer.prefWidthProperty().bind(dialogueUIGroup.widthProperty().subtract(60)); // padding
+dialogueContainer.maxHeightProperty().bind(dialogueUIGroup.heightProperty().subtract(40));
+
         dialogueLabel = new Text();
         dialogueLabel.setFont(Font.font(MAIN_FONT, FontWeight.BOLD, DIALOG_FONT_SIZE));
         dialogueLabel.setFill(Color.WHITE);
         dialogueLabel.setStroke(Color.BLACK);
         dialogueLabel.setStrokeWidth(0.5);
+        
         TextFlow dialogueFlow = new TextFlow(dialogueLabel);
-        dialogueFlow.setMaxWidth(900);
+       dialogueFlow.maxWidthProperty().bind(dialogueContainer.widthProperty().multiply(0.9));
+
+dialogueLabel.wrappingWidthProperty().bind(dialogueFlow.maxWidthProperty());
         dialogueFlow.setLineSpacing(5);
-        choicesBox = new VBox(10);
+        ScrollPane scroll = new ScrollPane(dialogueFlow);
+scroll.setFitToWidth(true);
+scroll.setStyle("-fx-background: transparent;");
+VBox.setVgrow(scroll, Priority.ALWAYS);
+ choicesBox = new VBox(10);
         choicesBox.setAlignment(Pos.CENTER);
-        dialogueContainer.getChildren().addAll(dialogueFlow, choicesBox);
+dialogueContainer.getChildren().setAll(scroll, choicesBox);
+       
+        
         nextIndicator = new Label("▼");
         nextIndicator.setFont(Font.font(MAIN_FONT, 24));
         nextIndicator.setTextFill(Color.web("#4e342e"));
@@ -158,8 +190,13 @@ public class GameUIScreen {
         dialogueUIGroup.getChildren().addAll(nameBoxWrapper, dialogueSystemStack);
         // dialogueUIGroup.setMaxWidth(1000);
         // dialogueUIGroup.setPrefWidth(1000);
-        StackPane.setAlignment(dialogueUIGroup, Pos.BOTTOM_CENTER);
-        StackPane.setMargin(dialogueUIGroup, new Insets(0, 30, 30, 30));
+        StackPane.setAlignment(dialogueUIGroup, Pos.BOTTOM_CENTER); // agar nempel bawah
+
+       rootPane.widthProperty().addListener((obs, oldVal, newVal) -> {
+    double dynamicMargin = Math.min(30, newVal.doubleValue() * 0.03);
+    StackPane.setMargin(dialogueUIGroup, new Insets(0, dynamicMargin, dynamicMargin, dynamicMargin));
+});
+
         // Choices & Letter
         centeredChoicesContainer = new VBox(15);
         centeredChoicesContainer.setAlignment(Pos.CENTER);
@@ -215,18 +252,25 @@ public class GameUIScreen {
         dialogBoxButtonBar.setStyle("-fx-background-color: transparent;");
         dialogueSystemStack.getChildren().add(dialogBoxButtonBar);
         StackPane.setAlignment(dialogBoxButtonBar, Pos.BOTTOM_RIGHT);
-        StackPane.setMargin(dialogBoxButtonBar, new Insets(0, 80, 10, 0));
+        // Responsifkan margin kanan dialogBoxButtonBar
+rootPane.widthProperty().addListener((obs, oldVal, newVal) -> {
+    double marginRight = newVal.doubleValue() * 0.05; // 5% dari lebar layar
+    StackPane.setMargin(dialogBoxButtonBar, new Insets(0, marginRight, 10, 0));
+});
+
         // Menu (hamburger) button
-        menuButton = new Button("\u2630");
-        menuButton.setTooltip(new Tooltip("Menu"));
-        Style.styleMainMenuButton(menuButton);
-        menuButton.setPrefSize(50, 50);
-        menuButton.setOnAction(e -> toggleInGameMenuOverlay());
+       menuButton = new Button("☰"); // Langsung gunakan karakter Unicode
+    menuButton.setTooltip(new Tooltip("Menu"));
+    // Font system default
+   Style.styleIconButton(menuButton);
+    
+    menuButton.setOnAction(e -> toggleInGameMenuOverlay());
+
         // Mute button
         muteButton = new Button(AudioSystem.getInstance().isMuted() ? "\uD83D\uDD07" : "\uD83D\uDD0A");
         muteButton.setTooltip(new Tooltip("Mute/Unmute Music"));
-        Style.styleMainMenuButton(muteButton);
-        muteButton.setPrefSize(50, 50);
+        Style.styleIconButton(muteButton);
+        muteButton.setFont(Font.font("Segoe UI Emoji", 22));
         muteButton.setOnAction(e -> {
             boolean newMute = !AudioSystem.getInstance().isMuted();
             AudioSystem.getInstance().setMute(newMute);
@@ -237,19 +281,18 @@ public class GameUIScreen {
         topLeftButtonBar.setAlignment(Pos.TOP_LEFT);
         topLeftButtonBar.setPadding(new Insets(20, 0, 0, 20));
         topLeftButtonBar.setMaxWidth(120);
-        topLeftButtonBar.setPrefWidth(120);
+        topLeftButtonBar.prefWidthProperty().bind(rootPane.widthProperty().multiply(0.1));
         topLeftButtonBar.setMouseTransparent(false);
         StackPane.setAlignment(topLeftButtonBar, Pos.TOP_LEFT);
         StackPane.setMargin(topLeftButtonBar, new Insets(20, 0, 0, 20));
         topLeftButtonBar.setStyle("");
-        topLeftButtonBar.maxWidthProperty().set(120);
-        topLeftButtonBar.prefWidthProperty().set(120);
+       
         // DEBUG: Add semi-transparent green background to dialogueUIGroup
-        dialogueUIGroup.setStyle("-fx-background-color: rgba(0,255,0,0.1);"); // DEBUG: semi-transparent green
+     // merah transparan
+ // DEBUG: semi-transparent green
         dialogueUIGroup.setMouseTransparent(false);
         // Paksa font icon agar Unicode muncul
-        menuButton.setFont(Font.font("Segoe UI Symbol", 28));
-        muteButton.setFont(Font.font("Segoe UI Emoji", 28));
+        
         // Root pane
         rootPane.getChildren().addAll(backgroundView, characterContainer, dialogueUIGroup, centeredChoicesContainer, letterContainer, topLeftButtonBar);
         // Initial UI update
@@ -267,13 +310,18 @@ public class GameUIScreen {
         Style.styleBottomBarButton(historyButton);
     }
 
-    public StackPane getGamePane() {
-        return rootPane;
-    }
+  public ScrollPane getGamePane() {
+    ScrollPane scrollableRoot = new ScrollPane(rootPane);
+    scrollableRoot.setFitToWidth(true);
+    scrollableRoot.setFitToHeight(true);
+    return scrollableRoot;
+}
+
+
 
     public void updateUI() {
         if (gameManager == null) return;
-        SceneData currentScene = gameManager.getCurrentScene();
+        sceneData currentScene = gameManager.getCurrentScene();
         if (currentScene == null) return;
         updateImage(backgroundView, currentScene.backgroundImage);
         leftCharacterView.setImage(null);
@@ -316,7 +364,7 @@ public class GameUIScreen {
         undoButton.setVisible(canUndo && dialogBoxButtonBar.isVisible());
     }
 
-    private void showNormalDialogue(SceneData currentScene, DialogNode currentDialog) {
+    private void showNormalDialogue(sceneData currentScene, DialogNode currentDialog) {
         if (typewriterTimeline != null) typewriterTimeline.stop();
         fullDialogText = currentDialog.text;
         dialogueLabel.setText("");
@@ -340,43 +388,51 @@ public class GameUIScreen {
             nameBox.setVisible(true);
         }
         nextIndicator.setVisible(true);
-        dialogueUIGroup.setCursor(Cursor.HAND);
+        rootPane.setCursor(Cursor.HAND);
         String historyEntry = (currentDialog.character != null ? currentDialog.character + ": " : "") + currentDialog.text;
         historySystem.addHistory(historyEntry);
-        dialogueUIGroup.setOnMouseClicked(event -> {
-            if (isTypewriterRunning) {
-                if (typewriterTimeline != null) typewriterTimeline.stop();
-                dialogueLabel.setText(fullDialogText);
-                isTypewriterRunning = false;
-                return;
+        rootPane.setOnMouseClicked(event -> {
+           Node target = (Node) event.getTarget();
+    
+    // Hanya lanjut dialog jika bukan klik di tombol atau container input
+    if (target instanceof Button || target.getStyleClass().contains("no-next")) {
+        return;
+    }
+
+    if (isTypewriterRunning) {
+        if (typewriterTimeline != null) typewriterTimeline.stop();
+        dialogueLabel.setText(fullDialogText);
+        isTypewriterRunning = false;
+        return;
+    }
+
+    if (event.getButton() == MouseButton.PRIMARY) {
+        boolean movedToNextDialog = gameManager.nextDialog();
+        if (!movedToNextDialog) {
+            String nextSceneId = (currentDialog.next != null) ? currentDialog.next : currentScene.nextScene;
+            if (nextSceneId != null) {
+                historySystem.addHistory("[Pindah ke scene: " + nextSceneId + "]");
+                transitionSystem.fadeTransition(backgroundView, 400);
             }
-            if (event.getButton() == MouseButton.PRIMARY) {
-                boolean movedToNextDialog = gameManager.nextDialog();
-                if (!movedToNextDialog) {
-                    String nextSceneId = (currentDialog.next != null) ? currentDialog.next : currentScene.nextScene;
-                    if (nextSceneId != null) {
-                        historySystem.addHistory("[Pindah ke scene: " + nextSceneId + "]");
-                        transitionSystem.fadeTransition(backgroundView, 400);
-                    }
-                    gameManager.goToScene(nextSceneId);
-                }
-                updateUI();
-            } else if (event.getButton() == MouseButton.SECONDARY) {
-                if (gameManager.undoDialog()) updateUI();
-            }
+            gameManager.goToScene(nextSceneId);
+        }
+        updateUI();
+    } else if (event.getButton() == MouseButton.SECONDARY) {
+        if (gameManager.undoDialog()) updateUI();
+    }
         });
         centeredChoicesContainer.setVisible(false);
         dialogueUIGroup.setVisible(true);
         letterContainer.setVisible(false);
     }
 
-    private void showChoices(SceneData currentScene, DialogNode currentDialog) {
+    private void showChoices(sceneData currentScene, DialogNode currentDialog) {
         dialogueUIGroup.setVisible(false);
         centeredChoicesContainer.setVisible(true);
         centeredChoicesContainer.getChildren().clear();
         undoButton.setDisable(true);
         undoButton.setVisible(false);
-        for (ChoiceData choice : currentDialog.choices) {
+        for (choiceData choice : currentDialog.choices) {
             Button choiceButton = new Button(choice.text);
             Style.styleChoiceButtonLarge(choiceButton);
             choiceButton.setOnAction(_ -> {
@@ -404,7 +460,7 @@ public class GameUIScreen {
         letterContainer.setVisible(false);
     }
 
-    private void showLetter(SceneData currentScene) {
+    private void showLetter(sceneData currentScene) {
         dialogueUIGroup.setVisible(false);
         letterContainer.setVisible(true);
         letterContainer.getChildren().clear();
@@ -616,7 +672,11 @@ public class GameUIScreen {
         Style.styleMainMenuButton(confirmBtn);
         cancelBtn.setOnAction(e -> rootPane.getChildren().remove(confirmOverlay));
         confirmBtn.setOnAction(e -> { rootPane.getChildren().remove(confirmOverlay); onConfirm.run(); });
-        box.getChildren().addAll(title, msg, new HBox(20, cancelBtn, confirmBtn));
+         HBox buttonContainer = new HBox(20, cancelBtn, confirmBtn);
+    buttonContainer.setAlignment(Pos.CENTER); // TAMBAHKAN BARIS INI
+    
+    box.getChildren().addAll(title, msg, buttonContainer); // Gunakan variabel buttonContainer
+    
         confirmOverlay.getChildren().add(box);
         StackPane.setAlignment(confirmOverlay, Pos.CENTER);
         StackPane.setAlignment(box, Pos.CENTER);

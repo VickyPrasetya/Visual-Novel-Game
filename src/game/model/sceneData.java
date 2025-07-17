@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Kelas SceneData merepresentasikan satu scene dalam game visual novel.
  */
-public class SceneData {
+public class sceneData {
 
     /** ID unik scene */
     public String id;
@@ -21,8 +21,8 @@ public class SceneData {
     public String nextScene;
     /** Tipe scene (misal: letter) */
     public String type;
-    public List<ChoiceData> choices; // Pilihan ke scene berikutnya
-    public List<SceneData> children;
+    public List<choiceData> choices; // Pilihan ke scene berikutnya
+    public List<sceneData> children;
 
     public List<CharacterData> getCharacters() {
         return characters;

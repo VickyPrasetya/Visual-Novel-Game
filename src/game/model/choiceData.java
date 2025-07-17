@@ -3,7 +3,7 @@ package game.model;
 /**
  * Kelas ChoiceData merepresentasikan satu pilihan yang bisa diambil oleh pemain.
  */
-public class ChoiceData {
+public class choiceData {
 
     /** Teks yang muncul di tombol pilihan */
     public String text;
