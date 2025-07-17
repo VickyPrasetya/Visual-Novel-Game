@@ -15,7 +15,7 @@ import java.util.Stack;
  * Kelas GameManager bertanggung jawab untuk mengelola progres game,
  * navigasi antar scene, dan undo dialog.
  */
-public class gameManager {
+public class GameManager {
 
     private sceneData currentScene;
     private int currentDialogIndex;
@@ -25,7 +25,7 @@ public class gameManager {
     /**
      * Konstruktor GameManager, memuat data cerita dan mengatur scene awal.
      */
-    public gameManager() {
+    public GameManager() {
         loadStory();
         // Jika data cerita berhasil dimuat, langsung pergi ke scene awal.
         // Ini akan ditimpa jika pemain memuat game dari save file.
