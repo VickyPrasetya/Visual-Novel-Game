@@ -287,6 +287,14 @@ public class GameUIScreen {
         if (currentScene == null) {
             return;
         }
+        // Tambahan: clear history jika sudah sampai ending
+        if ("ending_screen".equals(currentScene.id)) {
+            historySystem.clearHistory();
+        }
+        // Tambahan: clear history jika baru mulai game (scene pertama)
+        if ("prolog_scene_1".equals(currentScene.id) && historySystem.getHistory().size() > 0) {
+            historySystem.clearHistory();
+        }
         updateImage(backgroundView, currentScene.backgroundImage, "assets/bg/black.jpg");
         updateCharacters(currentScene);
         dialogueUIGroup.setVisible(false);
@@ -300,7 +308,26 @@ public class GameUIScreen {
                 if (currentDialog.choices != null && !currentDialog.choices.isEmpty()) {
                     showChoices(currentDialog);
                 } else {
-                    showNormalDialogue(currentScene, currentDialog);
+                    // Tambahan: hanya simpan history jika bukan scene pertama
+                    if (!"prolog_scene_1".equals(currentScene.id)) {
+                        showNormalDialogue(currentScene, currentDialog);
+                    } else {
+                        // Tampilkan dialog tanpa menyimpan ke history
+                        dialogueUIGroup.setVisible(true);
+                        rootPane.setCursor(Cursor.HAND);
+                        if (currentDialog.character != null && !currentDialog.character.isEmpty()) {
+                            nameLabel.setText(currentDialog.character);
+                            nameBox.setVisible(true);
+                        } else {
+                            nameBox.setVisible(false);
+                        }
+                        if (typewriterTimeline != null) typewriterTimeline.stop();
+                        fullDialogText = currentDialog.text;
+                        dialogueLabel.setText(fullDialogText);
+                        isTypewriterRunning = false;
+                        dialogBoxButtonBar.setVisible(true);
+                        undoButton.setDisable(!gameManager.canUndoDialog());
+                    }
                 }
             }
         }
