@@ -1,5 +1,6 @@
 package game;
 
+import game.manager.GameManager;
 import game.manager.SaveLoadService;
 import game.manager.gameManager;
 import game.model.CharacterData;
@@ -7,6 +8,7 @@ import game.model.DialogNode;
 import game.model.GameState;
 import game.model.choiceData;
 import game.model.sceneData;
+import game.ui.GameUIScreen;
 
 import java.io.File;
 import javafx.application.Application;
@@ -608,5 +610,22 @@ public class Main extends Application {
         background.fitHeightProperty().bind(primaryStage.heightProperty());
         background.setPreserveRatio(false);
         return background;
+    }
+        public void startNewGame() {
+        gameManager = new GameManager();
+        gameUIScreen = new GameUIScreen(gameManager, historySystem, transitionSystem, new GameUIScreen.GameUICallback() {
+            @Override public void onRequestMenu() { showMainMenu(); }
+            @Override public void onRequestSave(boolean fromInGameMenu) { showSaveLoadScreen(true, fromInGameMenu); }
+            @Override public void onRequestLoad(boolean fromInGameMenu) { showSaveLoadScreen(false, fromInGameMenu); }
+            @Override public void onRequestSettings() { showSettingsScreen(); }
+            @Override public void onRequestCredits() { showCreditsScreen(); }
+            @Override public void onRequestExit() { exitGame(); }
+        });
+        showGameScreen();
+        gameUIScreen.updateUI();
+    }
+
+    public GameUIScreen getGameUIScreen() {
+        return gameUIScreen;
     }
 }
