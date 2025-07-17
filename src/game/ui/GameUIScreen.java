@@ -74,6 +74,11 @@ public class GameUIScreen {
     private String fullDialogText = "";
     private boolean isTypewriterRunning = false;
     private int textSpeedMode = 1; // 0=lambat, 1=normal, 2=cepat
+    // Tambahan: referensi ke SettingsSystem untuk sinkronisasi dua arah
+    private game.system.SettingsSystem settingsSystem;
+    public void setSettingsSystem(game.system.SettingsSystem settingsSystem) {
+        this.settingsSystem = settingsSystem;
+    }
     private boolean isInGameMenuVisible = false;
     private VBox historyOverlay;
     private boolean isHistoryVisible = false;
@@ -340,6 +345,12 @@ public class GameUIScreen {
         textSpeedButton.setOnAction(e -> {
             textSpeedMode = (textSpeedMode + 1) % 3;
             textSpeedButton.setText(TEXT_SPEED_LABELS[textSpeedMode]);
+            // Sinkronkan ke SettingsSystem jika tersedia
+            if (settingsSystem != null) {
+                settingsSystem.setTextSpeed(textSpeedMode);
+                settingsSystem.updateTextSpeedSlider(textSpeedMode);
+                settingsSystem.notifyTextSpeedChanged(textSpeedMode);
+            }
         });
     }
 
@@ -637,5 +648,17 @@ public class GameUIScreen {
         void onRequestSettings();
         void onRequestCredits();
         void onRequestExit();
+    }
+
+    // Tambahan: Sinkronisasi dari SettingsSystem
+    public void setTextSpeedMode(int mode) {
+        this.textSpeedMode = mode;
+        textSpeedButton.setText(TEXT_SPEED_LABELS[mode]);
+    }
+    public int getTextSpeedMode() {
+        return this.textSpeedMode;
+    }
+    public void updateMuteIcon() {
+        muteButton.setText(AudioSystem.getInstance().isMuted() ? "\uD83D\uDD07" : "\uD83D\uDD0A");
     }
 }

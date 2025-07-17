@@ -1,0 +1,16 @@
+Cara Compile:
+
+1. Simpan JavaFX di folder sesuai preferensi anda(bisa disimpan di C atau Disatukan dalam folder proyek)
+2. Salin Compile_jes.bat dan ganti nama compile_me.bat
+3. Buka compile_me.bat
+4. Bagian JAVA_LIB (Cari comment "Path folder yang perlu diganti dan disesuaikan"), bisa lihat contoh di comment dalam source code / script bat.
+5. Save
+5. Jalankan di terminal VSCode dengan mengetikkan compile_me.bat atau .\compile_me.bat
+
+Cara Run:
+
+1. Salin run_jes.bat dan ganti nama run_me.bat
+2. Buka run_me.bat
+3. Bagian module-path ganti path folder sesuai anda menyimpan JavaFX tadi. (Cari comment "Path folder yang perlu diganti dan disesuaikan"), bisa lihat contoh di comment dalam source code / script bat.
+4. Save
+5. Jalankan di terminal VSCode dengan mengetikkan run_me.bat atau .\run_me.bat
