@@ -279,6 +279,10 @@ public class GameUIScreen {
         if (currentScene == null) {
             return;
         }
+        // Tambahan: clear history jika sudah sampai ending
+        if ("ending_screen".equals(currentScene.id)) {
+            historySystem.clearHistory();
+        }
         updateImage(backgroundView, currentScene.backgroundImage, "assets/bg/black.jpg");
         updateCharacters(currentScene);
         dialogueUIGroup.setVisible(false);
