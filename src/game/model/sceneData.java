@@ -7,19 +7,31 @@ import java.util.List;
  */
 public class SceneData {
 
-    /** ID unik scene */
+    /**
+     * ID unik scene
+     */
     public String id;
-    /** Path gambar background */
+
     public String backgroundImage;
-    /** Path musik background */
+    /**
+     * Path musik background
+     */
     public String music;
-    /** Daftar karakter yang tampil di scene */
+    /**
+     * Daftar karakter yang tampil di scene
+     */
     public List<CharacterData> characters;
-    /** Daftar dialog dalam scene */
+    /**
+     * Daftar dialog dalam scene
+     */
     public List<DialogNode> dialogs; // Ubah dari String dialog ke List<String>
-    /** ID scene berikutnya */
+    /**
+     * ID scene berikutnya
+     */
     public String nextScene;
-    /** Tipe scene (misal: letter) */
+    /**
+     * Tipe scene (misal: letter)
+     */
     public String type;
     public List<ChoiceData> choices; // Pilihan ke scene berikutnya
     public List<SceneData> children;
