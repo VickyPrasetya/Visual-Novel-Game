@@ -13,7 +13,7 @@ public class DialogNode {
     /** Teks dialog */
     public String text;
     /** Pilihan yang tersedia pada dialog ini */
-    public List<ChoiceData> choices;
+    public List<choiceData> choices;
     /** ID dialog berikutnya (opsional) */
     public String next;
 }

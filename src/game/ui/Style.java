@@ -20,15 +20,25 @@ public class Style {
         button.setOnMouseEntered(e -> button.setStyle(hoverStyle));
         button.setOnMouseExited(e -> button.setStyle(baseStyle));
     }
+
+    public static void styleIconButton(Button button) {
+        button.setPrefWidth(300);
+        button.setPrefHeight(50);
+        String baseStyle = "-fx-font-size: 16px; -fx-background-color: rgba(0, 0, 0, 0.5); -fx-text-fill: white; -fx-border-color: white; -fx-border-width: 2px; -fx-background-radius: 5; -fx-border-radius: 5;";
+        String hoverStyle = "-fx-font-size: 16px; -fx-background-color: rgba(255, 255, 255, 0.3); -fx-text-fill: white; -fx-border-color: white; -fx-border-width: 2px; -fx-background-radius: 5; -fx-border-radius: 5;";
+        button.setStyle(baseStyle);
+        button.setOnMouseEntered(e -> button.setStyle(hoverStyle));
+        button.setOnMouseExited(e -> button.setStyle(baseStyle));
+    }
     /**
      * Styling untuk tombol submenu.
      * @param button Button yang akan distyling.
      */
     public static void styleSubMenuButton(Button button) {
-        button.setPrefWidth(250);
-        String baseStyle = "-fx-font-size: 16px; -fx-background-color: #444; -fx-text-fill: white; -fx-background-radius: 5;";
-        String hoverStyle = "-fx-font-size: 16px; -fx-background-color: #666; -fx-text-fill: white; -fx-background-radius: 5;";
+        String baseStyle = "-fx-font-family: 'Segoe UI Symbol'; -fx-font-size: 16px; -fx-background-color: #444; -fx-text-fill: white; -fx-background-radius: 5;";
+        String hoverStyle = "-fx-font-family: 'Segoe UI Symbol'; -fx-font-size: 16px; -fx-background-color: #666; -fx-text-fill: white; -fx-background-radius: 5;";
         button.setStyle(baseStyle);
+        button.setPrefSize(50, 50);
         button.setOnMouseEntered(e -> button.setStyle(hoverStyle));
         button.setOnMouseExited(e -> button.setStyle(baseStyle));
     }

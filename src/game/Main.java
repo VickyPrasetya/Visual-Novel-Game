@@ -1,12 +1,12 @@
 package game;
 
-import game.manager.GameManager;
+import game.manager.gameManager;
 import game.manager.SaveLoadService;
 import game.model.CharacterData;
 import game.model.DialogNode;
 import game.model.GameState;
-import game.model.ChoiceData;
-import game.model.SceneData;
+import game.model.choiceData;
+import game.model.sceneData;
 import game.system.ScreenshotSystem;
 import game.ui.Style;
 import game.util.FileUtil;
@@ -71,7 +71,7 @@ public class Main extends Application implements GameAppCallback {
     private SettingsSystem settingsSystem;
     private SaveLoadSystem saveLoadSystem;
     private SaveLoadService saveLoadService;
-    private GameManager gameManager;
+    private gameManager gameManager;
     private GameUIScreen gameUIScreen;
     private HistorySystem historySystem = new HistorySystem();
     private TransitionSystem transitionSystem = new TransitionSystem();
@@ -88,7 +88,7 @@ public class Main extends Application implements GameAppCallback {
         saveLoadSystem = new SaveLoadSystem();
         saveLoadService = new SaveLoadService();
         creditsSystem = new CreditsSystem();
-        gameManager = new GameManager();
+        gameManager = new gameManager();
         gameUIScreen = new GameUIScreen(gameManager, historySystem, transitionSystem, new GameUIScreen.GameUICallback() {
             @Override public void onRequestMenu() { showMainMenu(); }
             @Override public void onRequestSave(boolean fromInGameMenu) { showSaveLoadScreen(true, fromInGameMenu); }
@@ -98,8 +98,11 @@ public class Main extends Application implements GameAppCallback {
             @Override public void onRequestExit() { exitGame(); }
         });
         showMainMenu();
-        Scene scene = new Scene(rootLayout, 1280, 720);
-        primaryStage.setScene(scene);
+  
+
+// Lalu set scene-nya
+Scene scene = new Scene(gameUIScreen.getGamePane(), 1280, 720);
+primaryStage.setScene(scene);
         primaryStage.show();
         AudioSystem.getInstance().playMusic(DEFAULT_MUSIC_PATH, true);
     }
@@ -149,7 +152,7 @@ public class Main extends Application implements GameAppCallback {
     }
 
     public void startNewGame() {
-        gameManager = new GameManager();
+        gameManager = new gameManager();
         gameUIScreen = new GameUIScreen(gameManager, historySystem, transitionSystem, new GameUIScreen.GameUICallback() {
             @Override public void onRequestMenu() { showMainMenu(); }
             @Override public void onRequestSave(boolean fromInGameMenu) { showSaveLoadScreen(true, fromInGameMenu); }
