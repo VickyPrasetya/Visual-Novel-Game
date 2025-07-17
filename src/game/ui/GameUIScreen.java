@@ -36,6 +36,7 @@ import game.system.AudioSystem;
 import javafx.scene.layout.Region;
 
 public class GameUIScreen {
+
     // --- DEPENDENSI & CALLBACK ---
     private final gameManager gameManager;
     private final HistorySystem historySystem;
@@ -76,6 +77,7 @@ public class GameUIScreen {
     private int textSpeedMode = 1; // 0=lambat, 1=normal, 2=cepat
     // Tambahan: referensi ke SettingsSystem untuk sinkronisasi dua arah
     private game.system.SettingsSystem settingsSystem;
+
     public void setSettingsSystem(game.system.SettingsSystem settingsSystem) {
         this.settingsSystem = settingsSystem;
     }
@@ -125,7 +127,6 @@ public class GameUIScreen {
         // ==================================================================
         // [FIX] URUTAN PEMBUATAN KOMPONEN DIALOG SUDAH DIPERBAIKI DI SINI
         // ==================================================================
-
         // LANGKAH A: BUAT BAGIAN DALAM KOTAK DIALOG (dialogueContainer)
         final VBox dialogueContainer;
         {
@@ -134,10 +135,10 @@ public class GameUIScreen {
             dialogueLabel.setFill(Color.WHITE);
             dialogueLabel.setStroke(Color.BLACK);
             dialogueLabel.setStrokeWidth(0.5);
-            
+
             TextFlow dialogueFlow = new TextFlow(dialogueLabel);
             dialogueFlow.setLineSpacing(5);
-            
+
             ScrollPane scroll = new ScrollPane(dialogueFlow);
             scroll.setFitToWidth(true);
             scroll.setFitToHeight(true);
@@ -148,7 +149,7 @@ public class GameUIScreen {
 
             choicesBox = new VBox(10);
             choicesBox.setAlignment(Pos.CENTER);
-            
+
             dialogueContainer = new VBox(15, scroll, choicesBox);
             dialogueContainer.setPadding(new Insets(20, 40, 60, 40));
             dialogueContainer.setStyle("-fx-background-color: rgba(255, 183, 197, 0.9); -fx-border-radius:10; -fx-border-color: white; -fx-border-width: 1; -fx-background-radius: 10;");
@@ -179,7 +180,7 @@ public class GameUIScreen {
             nameLabel.setFill(Color.WHITE);
             nameLabel.setStroke(Color.BLACK);
             nameLabel.setStrokeWidth(0.5);
-            
+
             nameBox = new StackPane(new TextFlow(nameLabel));
             nameBox.setStyle("-fx-background-color: #ffb7c5; -fx-background-radius: 15 15 0 0; -fx-border-color: white; -fx-border-width: 1; -fx-border-radius: 15 15 0 0;");
             nameBox.setPadding(new Insets(5, 20, 5, 20));
@@ -216,7 +217,6 @@ public class GameUIScreen {
         // ==================================================================
         // AKHIR DARI PERBAIKAN URUTAN
         // ==================================================================
-        
         // 4. Setup Centered Choices Container
         centeredChoicesContainer = new VBox(15);
         centeredChoicesContainer.setAlignment(Pos.CENTER);
@@ -242,24 +242,23 @@ public class GameUIScreen {
 
         // 7. Assemble All Layers into Root Pane
         rootPane.getChildren().addAll(
-            backgroundView, 
-            characterContainer,
-            topLeftButtonBar,
-            dialogueUIGroup, 
-            centeredChoicesContainer, 
-            letterContainer
-            
+                backgroundView,
+                characterContainer,
+                topLeftButtonBar,
+                dialogueUIGroup,
+                centeredChoicesContainer,
+                letterContainer
         );
         StackPane.setAlignment(dialogueUIGroup, Pos.BOTTOM_CENTER);
         rootPane.setPadding(new Insets(15));
 
         // 8. Setup Event Handlers & Actions
         setupEventHandlers();
-        
+
         // 9. Initial UI State
         updateUI();
     }
-    
+
     // METHOD UNTUK MENDAPATKAN NODE UTAMA
     public Node getGamePane() {
         return rootPane;
@@ -267,7 +266,9 @@ public class GameUIScreen {
 
     // METHOD UNTUK MENUNJUKKAN MENU OVERLAY (DIPANGGIL DARI LUAR)
     public void showInGameMenuOverlay() {
-        if (isInGameMenuVisible) return;
+        if (isInGameMenuVisible) {
+            return;
+        }
         if (inGameMenuOverlay == null) {
             inGameMenuOverlay = createInGameMenuOverlay();
         }
@@ -279,7 +280,9 @@ public class GameUIScreen {
 
     // --- LOGIKA UTAMA UNTUK UPDATE UI ---
     public void updateUI() {
-        if (gameManager == null) return;
+        if (gameManager == null) {
+            return;
+        }
         sceneData currentScene = gameManager.getCurrentScene();
         if (currentScene == null) {
             return;
@@ -304,11 +307,12 @@ public class GameUIScreen {
     }
 
     // --- PRIVATE HELPER METHODS ---
-
     private void setupEventHandlers() {
         rootPane.setOnMouseClicked(event -> {
-            if (isInGameMenuVisible || isHistoryVisible || letterContainer.isVisible()) return;
-            if (event.getTarget() instanceof Button || (event.getTarget() instanceof Node && ((Node)event.getTarget()).getParent() instanceof Button)) {
+            if (isInGameMenuVisible || isHistoryVisible || letterContainer.isVisible()) {
+                return;
+            }
+            if (event.getTarget() instanceof Button || (event.getTarget() instanceof Node && ((Node) event.getTarget()).getParent() instanceof Button)) {
                 return;
             }
             if (event.getButton() == MouseButton.PRIMARY) {
@@ -317,7 +321,7 @@ public class GameUIScreen {
                 handleSecondaryClick();
             }
         });
-        
+
         rootPane.setOnKeyPressed(event -> {
             if (event.getCode() == javafx.scene.input.KeyCode.H) {
                 toggleHistoryOverlay();
@@ -333,11 +337,15 @@ public class GameUIScreen {
         historyButton.setOnAction(e -> toggleHistoryOverlay());
         undoButton.setOnAction(e -> handleSecondaryClick());
         skipButton.setOnAction(e -> {
-             if (gameManager != null) {
+            if (gameManager != null) {
                 while (true) {
                     DialogNode currentDialog = gameManager.getCurrentDialog();
-                    if (currentDialog == null || (currentDialog.choices != null && !currentDialog.choices.isEmpty())) break;
-                    if (!gameManager.nextDialog()) break;
+                    if (currentDialog == null || (currentDialog.choices != null && !currentDialog.choices.isEmpty())) {
+                        break;
+                    }
+                    if (!gameManager.nextDialog()) {
+                        break;
+                    }
                 }
                 updateUI();
             }
@@ -356,7 +364,9 @@ public class GameUIScreen {
 
     private void handlePrimaryClick() {
         if (isTypewriterRunning) {
-            if (typewriterTimeline != null) typewriterTimeline.stop();
+            if (typewriterTimeline != null) {
+                typewriterTimeline.stop();
+            }
             dialogueLabel.setText(fullDialogText);
             isTypewriterRunning = false;
             return;
@@ -386,7 +396,7 @@ public class GameUIScreen {
     private void showNormalDialogue(sceneData currentScene, DialogNode currentDialog) {
         dialogueUIGroup.setVisible(true);
         rootPane.setCursor(Cursor.HAND);
-        
+
         if (currentDialog.character != null && !currentDialog.character.isEmpty()) {
             nameLabel.setText(currentDialog.character);
             nameBox.setVisible(true);
@@ -394,21 +404,28 @@ public class GameUIScreen {
             nameBox.setVisible(false);
         }
 
-        if (typewriterTimeline != null) typewriterTimeline.stop();
+        if (typewriterTimeline != null) {
+            typewriterTimeline.stop();
+        }
         fullDialogText = currentDialog.text;
         dialogueLabel.setText("");
         isTypewriterRunning = true;
         int speed = switch (textSpeedMode) {
-            case 0 -> 60;
-            case 2 -> 10;
-            default -> 30;
+            case 0 ->
+                60;
+            case 2 ->
+                10;
+            default ->
+                30;
         };
         typewriterTimeline = new Timeline();
         for (int i = 0; i <= fullDialogText.length(); i++) {
             final int idx = i;
             typewriterTimeline.getKeyFrames().add(new KeyFrame(Duration.millis(i * speed), e -> {
                 dialogueLabel.setText(fullDialogText.substring(0, idx));
-                if (idx == fullDialogText.length()) isTypewriterRunning = false;
+                if (idx == fullDialogText.length()) {
+                    isTypewriterRunning = false;
+                }
             }));
         }
         typewriterTimeline.play();
@@ -439,31 +456,33 @@ public class GameUIScreen {
                     return;
                 }
                 if (choice.nextScene != null && !choice.nextScene.isEmpty()) {
-                     transitionSystem.fadeTransition(backgroundView, 400);
-                     gameManager.goToScene(choice.nextScene);
-                     updateUI();
+                    transitionSystem.fadeTransition(backgroundView, 400);
+                    gameManager.goToScene(choice.nextScene);
+                    updateUI();
                 } else {
-                     System.err.println("ERROR: nextScene untuk choice '" + choice.text + "' null atau kosong!");
+                    System.err.println("ERROR: nextScene untuk choice '" + choice.text + "' null atau kosong!");
                 }
             });
             centeredChoicesContainer.getChildren().add(choiceButton);
         }
     }
-    
+
     private void showLetter(sceneData currentScene) {
         letterContainer.setVisible(true);
         letterContainer.getChildren().clear();
         rootPane.setCursor(Cursor.DEFAULT);
-        
+
         DialogNode letterDialog = gameManager.getCurrentDialog();
-        if (letterDialog == null) return;
+        if (letterDialog == null) {
+            return;
+        }
 
         Label letterTextLabel = new Label(letterDialog.text);
         letterTextLabel.setWrapText(true);
         letterTextLabel.setFont(Font.font("Courier New", 22));
         letterTextLabel.setTextFill(Color.BLACK);
         letterTextLabel.setPadding(new Insets(50));
-        
+
         ScrollPane scrollPane = new ScrollPane(letterTextLabel);
         scrollPane.setFitToWidth(true);
         scrollPane.setStyle("-fx-background: transparent; -fx-background-color: transparent;");
@@ -472,13 +491,13 @@ public class GameUIScreen {
         paper.setStyle("-fx-background-color: #faf0e6; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 0, 5);");
         paper.maxWidthProperty().bind(rootPane.widthProperty().multiply(0.8));
         paper.maxHeightProperty().bind(rootPane.heightProperty().multiply(0.8));
-        
+
         letterContainer.getChildren().add(paper);
-        
+
         letterContainer.setOnMouseClicked(e -> {
             if (currentScene.nextScene != null) {
-                 gameManager.goToScene(currentScene.nextScene);
-                 updateUI();
+                gameManager.goToScene(currentScene.nextScene);
+                updateUI();
             }
         });
     }
@@ -514,9 +533,8 @@ public class GameUIScreen {
             view.setImage(null);
         }
     }
-    
-    // --- OVERLAY LOGIC ---
 
+    // --- OVERLAY LOGIC ---
     private void toggleInGameMenuOverlay() {
         if (isInGameMenuVisible) {
             hideInGameMenuOverlay();
@@ -552,14 +570,26 @@ public class GameUIScreen {
         Style.styleMainMenuButton(quitBtn);
 
         resumeBtn.setOnAction(e -> hideInGameMenuOverlay());
-        saveBtn.setOnAction(e -> { hideInGameMenuOverlay(); callback.onRequestSave(true); });
-        loadBtn.setOnAction(e -> { hideInGameMenuOverlay(); callback.onRequestLoad(true); });
-        settingsBtn.setOnAction(e -> { hideInGameMenuOverlay(); callback.onRequestSettings(); });
-        mainMenuBtn.setOnAction(e -> showConfirmDialog("Kembali ke Main Menu?", "Progres yang belum disimpan akan hilang.", () -> { hideInGameMenuOverlay(); callback.onRequestMenu(); }));
+        saveBtn.setOnAction(e -> {
+            hideInGameMenuOverlay();
+            callback.onRequestSave(true);
+        });
+        loadBtn.setOnAction(e -> {
+            hideInGameMenuOverlay();
+            callback.onRequestLoad(true);
+        });
+        settingsBtn.setOnAction(e -> {
+            hideInGameMenuOverlay();
+            callback.onRequestSettings();
+        });
+        mainMenuBtn.setOnAction(e -> showConfirmDialog("Kembali ke Main Menu?", "Progres yang belum disimpan akan hilang.", () -> {
+            hideInGameMenuOverlay();
+            callback.onRequestMenu();
+        }));
         quitBtn.setOnAction(e -> showConfirmDialog("Keluar dari Game?", "Progres yang belum disimpan akan hilang.", () -> callback.onRequestExit()));
-        
+
         menuBox.getChildren().addAll(resumeBtn, saveBtn, loadBtn, settingsBtn, mainMenuBtn, quitBtn);
-        
+
         StackPane overlay = new StackPane(menuBox);
         overlay.setStyle("-fx-background-color: rgba(0,0,0,0.8);");
         overlay.setOnMouseClicked(e -> e.consume());
@@ -587,7 +617,7 @@ public class GameUIScreen {
             isHistoryVisible = true;
         }
     }
-    
+
     private VBox createHistoryOverlay() {
         VBox overlay = new VBox(10);
         Style.styleHistoryOverlay(overlay);
@@ -600,7 +630,7 @@ public class GameUIScreen {
         ScrollPane scroll = new ScrollPane();
         scroll.setContent(new VBox(8));
         scroll.setFitToWidth(true);
-        
+
         Button closeBtn = new Button("Tutup");
         Style.styleMainMenuButton(closeBtn);
         closeBtn.setOnAction(e -> toggleHistoryOverlay());
@@ -613,15 +643,15 @@ public class GameUIScreen {
         VBox box = new VBox(20);
         box.setAlignment(Pos.CENTER);
         box.setPadding(new Insets(40));
-        
+
         Label title = new Label(titleText);
         title.setFont(Font.font(MAIN_FONT_BOLD, FontWeight.BOLD, 28));
         title.setTextFill(Color.WHITE);
-        
+
         Label msg = new Label(message);
         msg.setFont(Font.font(MAIN_FONT, 20));
         msg.setTextFill(Color.LIGHTGRAY);
-        
+
         Button cancelBtn = new Button("Batal");
         Button confirmBtn = new Button("Ya, Lanjutkan");
         Style.styleMainMenuButton(cancelBtn);
@@ -630,23 +660,32 @@ public class GameUIScreen {
         HBox buttonContainer = new HBox(20, cancelBtn, confirmBtn);
         buttonContainer.setAlignment(Pos.CENTER);
         box.getChildren().addAll(title, msg, buttonContainer);
-        
+
         StackPane confirmOverlay = new StackPane(box);
         confirmOverlay.setStyle("-fx-background-color: rgba(0,0,0,0.9);");
-        
+
         cancelBtn.setOnAction(e -> rootPane.getChildren().remove(confirmOverlay));
-        confirmBtn.setOnAction(e -> { rootPane.getChildren().remove(confirmOverlay); onConfirm.run(); });
+        confirmBtn.setOnAction(e -> {
+            rootPane.getChildren().remove(confirmOverlay);
+            onConfirm.run();
+        });
 
         rootPane.getChildren().add(confirmOverlay);
     }
-    
+
     // Callback interface untuk komunikasi ke Main.java
     public interface GameUICallback {
+
         void onRequestMenu();
+
         void onRequestSave(boolean fromInGameMenu);
+
         void onRequestLoad(boolean fromInGameMenu);
+
         void onRequestSettings();
+
         void onRequestCredits();
+
         void onRequestExit();
     }
 
@@ -655,9 +694,11 @@ public class GameUIScreen {
         this.textSpeedMode = mode;
         textSpeedButton.setText(TEXT_SPEED_LABELS[mode]);
     }
+
     public int getTextSpeedMode() {
         return this.textSpeedMode;
     }
+
     public void updateMuteIcon() {
         muteButton.setText(AudioSystem.getInstance().isMuted() ? "\uD83D\uDD07" : "\uD83D\uDD0A");
     }
