@@ -5,6 +5,7 @@ import game.model.GameState;
 import game.model.sceneData;
 import game.model.DialogNode;
 
+
 import java.io.FileReader;
 import java.io.Reader;
 import java.util.HashMap;
@@ -16,11 +17,19 @@ import java.util.Stack;
  * navigasi antar scene, dan undo dialog.
  */
 public class gameManager {
-
+    private String currentSceneId;
     private sceneData currentScene;
     private int currentDialogIndex;
     private Stack<Integer> dialogStack = new Stack<>();
     private final Map<String, sceneData> sceneIndex = new HashMap<>();
+
+
+    public void startNewGame() {
+    
+    goToScene("prolog_scene_1"); // Ganti "prolog_scene_1" dengan ID scene pertama Anda
+    
+    System.out.println("New game started. Current scene: " + this.currentSceneId);
+}
 
     /**
      * Konstruktor GameManager, memuat data cerita dan mengatur scene awal.

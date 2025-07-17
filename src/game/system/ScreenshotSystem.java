@@ -6,6 +6,7 @@ import javafx.embed.swing.SwingFXUtils;
 import javax.imageio.ImageIO;
 import javafx.scene.layout.Pane;
 import java.io.File;
+import javafx.scene.Node;
 
 /**
  * Kelas ScreenshotSystem menyediakan utilitas untuk mengambil screenshot Pane dan menyimpannya ke file PNG.
@@ -16,9 +17,9 @@ public class ScreenshotSystem {
      * @param pane Pane yang akan di-screenshot.
      * @param path Path file output PNG.
      */
-    public static void savePaneScreenshot(Pane pane, String path) {
+    public static void savePaneScreenshot(Node node, String path) {
         try {
-            WritableImage snapshot = pane.snapshot(new SnapshotParameters(), null);
+            WritableImage snapshot = node.snapshot(new SnapshotParameters(), null);
             File file = new File(path);
             ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), "png", file);
         } catch (Exception e) {
