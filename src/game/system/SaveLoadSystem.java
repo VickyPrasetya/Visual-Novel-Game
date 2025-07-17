@@ -1,5 +1,6 @@
 package game.system;
 
+import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.GridPane;
@@ -19,7 +20,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.Cursor;
-import game.manager.GameManager;
+import game.manager.gameManager;
 import game.manager.SaveLoadService;
 import java.io.File;
 
@@ -31,7 +32,7 @@ public class SaveLoadSystem {
      * Menampilkan UI save game.
      * @return Pane UI save game.
      */
-    public StackPane showSaveUI(GameAppCallback callback, GameManager gameManager, SaveLoadService saveLoadService, Pane gamePane, Runnable onBack) {
+    public Node showSaveUI(GameAppCallback callback, gameManager gameManager, SaveLoadService saveLoadService, Node gamePane, Runnable onBack) {
         return buildSaveLoadUI(callback, gameManager, saveLoadService, true, gamePane, onBack);
     }
 
@@ -39,11 +40,11 @@ public class SaveLoadSystem {
      * Menampilkan UI load game.
      * @return Pane UI load game.
      */
-    public StackPane showLoadUI(GameAppCallback callback, GameManager gameManager, SaveLoadService saveLoadService, Runnable onBack) {
+    public StackPane showLoadUI(GameAppCallback callback, gameManager gameManager, SaveLoadService saveLoadService, Runnable onBack) {
         return buildSaveLoadUI(callback, gameManager, saveLoadService, false, null, onBack);
     }
 
-    private StackPane buildSaveLoadUI(GameAppCallback callback, GameManager gameManager, SaveLoadService saveLoadService, boolean isSave, Pane gamePane, Runnable onBack) {
+    private StackPane buildSaveLoadUI(GameAppCallback callback, gameManager gameManager, SaveLoadService saveLoadService, boolean isSave, Node gamePane, Runnable onBack) {
         StackPane layout = new StackPane();
         layout.setStyle("-fx-background-color: #222;");
         Label titleLabel = new Label(isSave ? "Simpan Game" : "Muat Game");
@@ -132,10 +133,10 @@ public class SaveLoadSystem {
                             } else {
                                 if (state != null) {
                                     System.out.println("Mencoba load slot " + slotNumber + " (file: saves/save_slot_" + slotNumber + ".json)");
-                                    gameManager.applyGameState(state);
+                                    
                                     System.out.println("Game berhasil dimuat dari slot " + slotNumber);
                                     callback.showGameScreen();
-                                    ((game.Main)callback).getGameUIScreen().updateUI();
+                                    callback.loadGame(state);
                                 } else {
                                     System.err.println("Slot " + slotNumber + " kosong atau gagal load.");
                                 }

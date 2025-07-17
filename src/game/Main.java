@@ -1,173 +1,198 @@
 package game;
 
-import game.manager.GameManager;
-import game.manager.SaveLoadService;
-import game.model.CharacterData;
-import game.model.DialogNode;
+import game.manager.gameManager;
 import game.model.GameState;
-import game.model.ChoiceData;
-import game.model.SceneData;
-import game.system.ScreenshotSystem;
-import game.ui.Style;
-import game.util.FileUtil;
-import game.system.HistorySystem;
-import game.system.TransitionSystem;
-import game.system.MenuSystem;
-import game.system.SettingsSystem;
-import game.system.SaveLoadSystem;
-import game.ui.GameUIScreen;
+import game.manager.SaveLoadService;
 import game.system.AudioSystem;
 import game.system.CreditsSystem;
+import game.system.HistorySystem;
+import game.system.MenuSystem;
+import game.system.SaveLoadSystem;
+import game.system.SettingsSystem;
+import game.system.TransitionSystem;
+import game.ui.GameUIScreen;
+import game.ui.GameUIScreen.GameUICallback;
 
-import java.io.File;
 import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.layout.Region;
-import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Tooltip;
-import javafx.scene.effect.GaussianBlur;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.util.Duration;
-import javafx.scene.SnapshotParameters;
-import javafx.scene.image.WritableImage;
-import javax.imageio.ImageIO;
-import javafx.stage.Screen;
-import java.awt.Rectangle;
-import java.awt.AWTException;
-import java.awt.Robot;
-import javafx.embed.swing.SwingFXUtils;
 
 /**
- * Kelas Main adalah entry point utama aplikasi Visual Novel 24 Hours.
- * Bertanggung jawab untuk inisialisasi UI, navigasi layar, dan integrasi sistem modular.
+ * Kelas Main adalah entry point dan "sutradara" utama aplikasi.
+ * Bertanggung jawab untuk inisialisasi semua sistem, manajemen layar,
+ * dan menjadi jembatan komunikasi antar modul.
  */
 public class Main extends Application implements GameAppCallback {
 
     private Stage primaryStage;
-    private StackPane rootLayout;
+    private StackPane rootLayout; // Panggung utama untuk semua layar
+
+    // Deklarasi semua sistem/aktor modular
     private MenuSystem menuSystem;
     private SettingsSystem settingsSystem;
     private SaveLoadSystem saveLoadSystem;
     private SaveLoadService saveLoadService;
-    private GameManager gameManager;
+    private gameManager gameManager;
     private GameUIScreen gameUIScreen;
-    private HistorySystem historySystem = new HistorySystem();
-    private TransitionSystem transitionSystem = new TransitionSystem();
-    private static final String DEFAULT_MUSIC_PATH = "assets/music/Music Page Menu.mp3";
+    private HistorySystem historySystem;
+    private TransitionSystem transitionSystem;
     private CreditsSystem creditsSystem;
+
+    private static final String DEFAULT_MUSIC_PATH = "assets/music/Music Page Menu.mp3";
 
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         primaryStage.setTitle("Visual Novel - 24 Hours");
+
+        // 1. Siapkan panggung utama
         rootLayout = new StackPane();
+        rootLayout.setStyle("-fx-background-color: black;");
+
+        // 2. Inisialisasi semua sistem (para aktor)
+        initializeSystems();
+        
+        // 3. Tampilkan layar pertama (Main Menu)
+        showMainMenu();
+
+        // 4. Atur Scene dan tampilkan Stage
+        Scene scene = new Scene(rootLayout, 1280, 720);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+        
+        // Putar musik default
+        AudioSystem.getInstance().playMusic(DEFAULT_MUSIC_PATH, true);
+    }
+
+    /**
+     * Menginisialisasi semua kelas sistem dan UI.
+     */
+    private void initializeSystems() {
+        // Inisialisasi sistem non-UI
+        historySystem = new HistorySystem();
+        transitionSystem = new TransitionSystem();
+        saveLoadService = new SaveLoadService();
+        gameManager = new gameManager();
+
+        // Inisialisasi sistem UI (layar)
+        // Kita berikan 'this' sebagai callback agar mereka bisa "melapor" kembali ke Main
         menuSystem = new MenuSystem(this);
         settingsSystem = new SettingsSystem();
         saveLoadSystem = new SaveLoadSystem();
-        saveLoadService = new SaveLoadService();
         creditsSystem = new CreditsSystem();
-        gameManager = new GameManager();
-        gameUIScreen = new GameUIScreen(gameManager, historySystem, transitionSystem, new GameUIScreen.GameUICallback() {
+        
+        // GameUIScreen butuh lebih banyak dependensi
+        gameUIScreen = new GameUIScreen(gameManager, historySystem, transitionSystem, new GameUICallback() {
             @Override public void onRequestMenu() { showMainMenu(); }
             @Override public void onRequestSave(boolean fromInGameMenu) { showSaveLoadScreen(true, fromInGameMenu); }
             @Override public void onRequestLoad(boolean fromInGameMenu) { showSaveLoadScreen(false, fromInGameMenu); }
             @Override public void onRequestSettings() { showSettingsScreen(); }
-            @Override public void onRequestCredits() { showCreditsScreen(); }
+            @Override public void onRequestCredits() { showCreditsScreen(); } // Jika ada
             @Override public void onRequestExit() { exitGame(); }
         });
-        showMainMenu();
-        Scene scene = new Scene(rootLayout, 1280, 720);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+    }
+
+    /**
+     * Method helper untuk mengganti layar yang sedang aktif di panggung utama.
+     * @param screen Node (layar) yang ingin ditampilkan.
+     */
+    private void switchScreen(Node screen) {
+        rootLayout.getChildren().setAll(screen);
+    }
+
+    // --- Implementasi Callback & Navigasi Layar ---
+
+    @Override
+    public void showMainMenu() {
+        switchScreen(menuSystem.showMainMenu());
         AudioSystem.getInstance().playMusic(DEFAULT_MUSIC_PATH, true);
     }
 
-    // --- Callback untuk transisi antar layar ---
-    public void showMainMenu() {
-        rootLayout.getChildren().setAll(menuSystem.showMainMenu());
-        AudioSystem.getInstance().playMusic(DEFAULT_MUSIC_PATH, true);
-    }
+    @Override
     public void showGameScreen() {
-        rootLayout.getChildren().setAll(gameUIScreen.getGamePane());
-        // Optionally: play scene music here if needed
+        switchScreen(gameUIScreen.getGamePane());
+        // Musik akan di-handle oleh updateUI di dalam GameUIScreen berdasarkan data scene
     }
+    
+   
+
+    @Override
     public void showSettingsScreen() {
-        Runnable onBack = null;
+        // Tentukan apa yang harus dilakukan saat tombol "Back" di settings ditekan
+        Runnable onBackAction;
+        // Jika layar sebelumnya adalah Game, kembali ke Game dengan overlay menu
         if (rootLayout.getChildren().contains(gameUIScreen.getGamePane())) {
-            onBack = () -> {
-                rootLayout.getChildren().setAll(gameUIScreen.getGamePane());
+            onBackAction = () -> {
+                showGameScreen();
                 gameUIScreen.showInGameMenuOverlay();
             };
+        } else { // Jika tidak, kembali ke Main Menu
+            onBackAction = this::showMainMenu;
         }
-        rootLayout.getChildren().setAll(settingsSystem.showSettingsUI(primaryStage, this, onBack));
+        
+        switchScreen(settingsSystem.showSettingsUI(primaryStage, this, onBackAction));
     }
+
+    @Override
     public void showSaveLoadScreen(boolean isSave, boolean fromInGameMenu) {
-        Runnable onBack = () -> {
+        // Tentukan apa yang harus dilakukan saat tombol "Back" di save/load ditekan
+        Runnable onBackAction = () -> {
             if (fromInGameMenu) {
-                rootLayout.getChildren().setAll(gameUIScreen.getGamePane());
+                showGameScreen();
                 gameUIScreen.showInGameMenuOverlay();
             } else {
                 showMainMenu();
             }
         };
+
         if (isSave) {
-            rootLayout.getChildren().setAll(saveLoadSystem.showSaveUI(this, gameManager, saveLoadService, gameUIScreen.getGamePane(), onBack));
+            // Kita butuh screenshot game screen, jadi kita panggil getGamePane()
+            Node gamePaneForScreenshot = gameUIScreen.getGamePane();
+            switchScreen(saveLoadSystem.showSaveUI(this, gameManager, saveLoadService, gamePaneForScreenshot, onBackAction));
         } else {
-            rootLayout.getChildren().setAll(saveLoadSystem.showLoadUI(this, gameManager, saveLoadService, onBack));
+            switchScreen(saveLoadSystem.showLoadUI(this, gameManager, saveLoadService, onBackAction));
         }
     }
+
+    @Override
     public void showCreditsScreen() {
-        rootLayout.getChildren().setAll(creditsSystem.showCreditsScreen(this));
+        switchScreen(creditsSystem.showCreditsScreen(this));
     }
-    public void exitGame() { primaryStage.close(); }
-
-    public void showGameScreenAndUpdate() {
-        showGameScreen();
-        gameUIScreen.updateUI();
-    }
-
-    public void startNewGame() {
-        gameManager = new GameManager();
-        gameUIScreen = new GameUIScreen(gameManager, historySystem, transitionSystem, new GameUIScreen.GameUICallback() {
-            @Override public void onRequestMenu() { showMainMenu(); }
-            @Override public void onRequestSave(boolean fromInGameMenu) { showSaveLoadScreen(true, fromInGameMenu); }
-            @Override public void onRequestLoad(boolean fromInGameMenu) { showSaveLoadScreen(false, fromInGameMenu); }
-            @Override public void onRequestSettings() { showSettingsScreen(); }
-            @Override public void onRequestCredits() { showCreditsScreen(); }
-            @Override public void onRequestExit() { exitGame(); }
-        });
-        showGameScreen();
-        gameUIScreen.updateUI();
-    }
-
-    public GameUIScreen getGameUIScreen() {
-        return gameUIScreen;
-    }
+    
+  
 
     @Override
-    public void onRequestSave(boolean fromInGameMenu) { showSaveLoadScreen(true, fromInGameMenu); }
+    public void exitGame() {
+        primaryStage.close();
+    }
     @Override
-    public void onRequestLoad(boolean fromInGameMenu) { showSaveLoadScreen(false, fromInGameMenu); }
+    public void onRequestLoad(boolean fromInGameMenu) {
+    showSaveLoadScreen(false, fromInGameMenu);
+}
+
+@Override
+public void onRequestSave(boolean fromInGameMenu) {
+    showSaveLoadScreen(true, fromInGameMenu);
+}
+@Override
+public void startNewGame() {
+    if (gameManager == null) {
+        gameManager = new gameManager();
+    }
+    gameManager.startNewGame(); // Panggil method di GameManager untuk reset
+    showGameScreen();
+    gameUIScreen.updateUI(); // Tampilkan UI untuk scene pertama
+}
+
+@Override
+public void loadGame(GameState gameState) {
+    if (gameManager == null) {
+        gameManager = new gameManager();
+    }
+    gameManager.applyGameState(gameState);
+    showGameScreen();
+    gameUIScreen.updateUI(); // Tampilkan UI untuk state yang di-load
+}
 }

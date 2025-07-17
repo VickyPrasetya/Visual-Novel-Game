@@ -2,8 +2,9 @@ package game.manager;
 
 import com.google.gson.Gson;
 import game.model.GameState;
-import game.model.SceneData;
+import game.model.sceneData;
 import game.model.DialogNode;
+
 
 import java.io.FileReader;
 import java.io.Reader;
@@ -15,17 +16,25 @@ import java.util.Stack;
  * Kelas GameManager bertanggung jawab untuk mengelola progres game,
  * navigasi antar scene, dan undo dialog.
  */
-public class GameManager {
-
-    private SceneData currentScene;
+public class gameManager {
+    private String currentSceneId;
+    private sceneData currentScene;
     private int currentDialogIndex;
     private Stack<Integer> dialogStack = new Stack<>();
-    private final Map<String, SceneData> sceneIndex = new HashMap<>();
+    private final Map<String, sceneData> sceneIndex = new HashMap<>();
+
+
+    public void startNewGame() {
+    
+    goToScene("prolog_scene_1"); // Ganti "prolog_scene_1" dengan ID scene pertama Anda
+    
+    System.out.println("New game started. Current scene: " + this.currentSceneId);
+}
 
     /**
      * Konstruktor GameManager, memuat data cerita dan mengatur scene awal.
      */
-    public GameManager() {
+    public gameManager() {
         loadStory();
         // Jika data cerita berhasil dimuat, langsung pergi ke scene awal.
         // Ini akan ditimpa jika pemain memuat game dari save file.
@@ -43,9 +52,9 @@ public class GameManager {
         System.out.println("Mencoba membaca file dari: " + filePath);
 
         try (Reader reader = new FileReader(filePath)) {
-            SceneData[] scenes = gson.fromJson(reader, SceneData[].class);
+            sceneData[] scenes = gson.fromJson(reader, sceneData[].class);
             if (scenes != null) {
-                for (SceneData s : scenes) {
+                for (sceneData s : scenes) {
                 sceneIndex.put(s.id, s);
                 }
                 System.out.println("Berhasil memuat " + sceneIndex.size() + " scene.");
@@ -58,9 +67,9 @@ public class GameManager {
 
     /**
      * Mendapatkan scene yang sedang aktif.
-     * @return Objek SceneData saat ini.
+     * @return Objek sceneData saat ini.
      */
-    public SceneData getCurrentScene() {
+    public sceneData getCurrentScene() {
         return this.currentScene;
     }
 
@@ -84,7 +93,7 @@ public class GameManager {
             System.err.println("Peringatan: goToScene dipanggil dengan sceneId null. Tidak ada transisi scene.");
             return;
         }
-        SceneData next = sceneIndex.get(sceneId);
+        sceneData next = sceneIndex.get(sceneId);
         if (next != null) {
             currentScene = next;
             currentDialogIndex = 0;
