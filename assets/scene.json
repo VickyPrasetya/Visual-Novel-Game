@@ -2,7 +2,7 @@
   {
     "id": "prolog_scene_1",
     "backgroundImage": "assets/bg/black.jpg",
-    "music": "assets/music/Music Page Menu.mp3",
+    "music": "assets/music/NostaligMemoriesBack.mp3",
     "dialogs": [
       {
         "character": "Narator",
@@ -116,6 +116,7 @@
   },
   {
     "id": "adegan1_scene_2",
+    "music": "assets/music/chill.mp3",
     "backgroundImage": "assets/bg/TamanBelakang/smallpark.jpg",
     "characters": [
       {
@@ -545,6 +546,7 @@
   },
   {
     "id": "adegan3_1",
+    "music": "assets/music/SadMusic1.mp3",
     "backgroundImage": "assets/bg/LakeSidePinggirSungai/SampingSungaiEvening.jpg",
     "dialogs": [
       {
@@ -822,6 +824,7 @@
 
   {
     "id": "path_seek_truth_1",
+    "music": "assets/music/nostalgic.mp3",
     "backgroundImage": "assets/bg/black.jpg",
     "dialogs": [
       {
@@ -937,7 +940,7 @@
     "dialogs": [
       {
         "character": "Aira (Surat)",
-        "text": "Untuk Zia-ku yang tersayang,\n\nJika kamu membaca surat ini, artinya aku sudah tidak ada di dunia ini lagi. Maaf, ya. Aku tidak pandai berpamitan.\n\nKamu mungkin tidak ingat, tapi aku sudah mengenalmu sejak lama. Aku adalah gadis kecil yang selalu bersembunyi di balik pohon, mengagumi setiap goresan kuasmu di taman. Bagiku, kamu adalah penyihir yang bisa menciptakan keajaiban di atas kanvas. Lukisanmu adalah duniaku.\n\nBertemu denganmu lagi di kampus adalah sebuah keajaiban. Sejujurnya, saat itu dokter bilang waktuku sudah tidak banyak. Tapi melihatmu lagi, meskipun kamu terlihat muram, memberiku kekuatan untuk bertahan lebih lama. Aku ingin melihatmu tersenyum. Aku ingin melihatmu melukis lagi. Itu menjadi tujuanku, alasanku untuk bangun setiap pagi.\n\nSetiap candaan, setiap perhatian yang kuberikan, semuanya tulus dari hatiku. Aku benar-benar jatuh cinta padamu, Zia.\n\nLalu, hari itu tiba. Saat dokter berkata waktuku hanya tersisa 24 jam. Di saat yang bersamaan, kamu datang dengan tatapan penuh cinta itu. Hatiku hancur, Zia. Bagaimana mungkin aku membiarkanmu masuk lebih dalam, hanya untuk meninggalkanmu sendirian?\n\nAku memilih menjadi pengecut. Aku menyakitimu. Aku mendorongmu menjauh karena aku pikir... mungkin jika kamu membenciku, rasa sakit saat aku pergi tidak akan terlalu dalam. Maafkan aku. Aku sangat bodoh dan egois.\n\nAku tidak ingin kamu bersedih terlalu lama karenaku. Aku ingin kamu bahagia. Kembali melukis ya? Warnai duniamu lagi, seperti yang dulu kamu lakukan.\n\nDan satu permintaan terakhirku...\n\nTolong, jangan membenciku. Ingatlah aku sebagai Aira yang usil, yang selalu mengagumi lukisanmu, dan yang akan selalu mencintaimu, bahkan dari tempat yang berbeda.\n\nSelalu milikmu,\nAira."
+        "text":"Untuk Zia-ku yang tersayang,\n\nJika kamu membaca surat ini, mungkin aku sudah memulai perjalananku ke tempat di mana kanvas terbentang seluas langit, dan catnya terbuat dari cahaya bintang. Maaf, ya. Aku tidak pernah pandai berpamitan.\n\nKamu mungkin tidak ingat, tapi aku ingat semuanya. Aku adalah gadis kecil dengan pita di rambut yang selalu bersembunyi di balik pohon Flamboyan tua di taman, menahan napas setiap kali kuasmu menari di atas kanvas. Bagiku, kamu bukan sekadar anak laki-laki yang melukis; kamu adalah seorang penyihir. Dengan warna biru, kamu bisa menangkap kesedihan langit sebelum hujan. Dengan warna jingga, kamu bisa mengunci kehangatan senja selamanya. Lukisanmu adalah duniaku yang sebenarnya, jauh lebih nyata daripada duniaku sendiri.\n\nBertemu denganmu lagi di kampus adalah sebuah keajaiban yang tidak pernah berani kuminta. Sejujurnya, saat itu, duniaku sudah mulai memudar. Dokter bilang waktuku tidak banyak lagi. Tapi melihatmu, meskipun wajahmu muram dan warnamu seolah hilang, entah kenapa memberiku kekuatan untuk mencuri beberapa hari lagi dari takdir. Aku ingin melihatmu tersenyum lagi. Aku ingin melihat keajaiban itu kembali ke ujung jarimu. Itu menjadi tujuanku, alasanku yang egois untuk bangun setiap pagi.\n\nSetiap candaan garing yang kulontarkan, setiap kali aku 'tidak sengaja' menabrakmu di perpustakaan, setiap sapaan di koridor... semua itu tulus, Zia. Aku berusaha melukis ulang senyum di wajahmu dengan caraku yang kikuk. Dan di tengah usahaku itu, aku sadar, aku tidak hanya mengagumi seniman dalam dirimu. Aku benar-benar jatuh cinta pada Zia.\n\nHingga hari itu tiba. Hari di mana dokter memberiku vonis terakhir: 24 jam. Langit seolah runtuh. Dan di saat yang bersamaan, kamu datang ke tepi danau, dengan tatapan penuh cinta yang selama ini aku impikan. Hatiku hancur, Zia. Rasanya seperti semesta sedang menertawakanku. Bagaimana mungkin aku membiarkanmu memelukku, hanya untuk kemudian berubah menjadi debu di pelukanmu?\n\nJadi, aku memilih menjadi pengecut. Aku memilih menjadi penjahat dalam ceritamu sendiri. Aku menyakitimu dengan kata-kata yang bahkan membakar lidahku saat mengucapkannya. Aku mendorongmu menjauh karena aku pikir... mungkin jika kamu membenciku, rasa sakitnya akan lebih mudah ditanggung daripada rasa kehilangan. Maafkan aku. Aku sangat bodoh dan egois. Seharusnya aku memberimu satu hari terakhir yang penuh warna, bukan malam yang paling kelam.\n\nAku tidak ingin kamu bersedih terlalu lama karenaku. Tidak boleh. Jika kamu bersedih, maka semua usahaku menjadi sia-sia. Aku ingin kamu bahagia, Zia. Kembali melukis, ya? Ambil kuas itu lagi. Jangan melukis untuk pameran, jangan untuk orang lain. Melukislah untuk dirimu sendiri. Lukislah kemarahanmu, kesedihanmu, kebahagiaanmu. Warnai duniamu lagi, seperti yang dulu kamu lakukan, karena dunia tanpamu yang melukis adalah dunia yang sedikit lebih abu-abu.\n\nDan satu permintaan terakhirku...\n\nTolong, jangan membenciku. Ingatlah aku sebagai Aira yang usil, yang selalu mencuri pandang, yang percaya pada sihirmu lebih dari siapapun. Ingatlah aku sebagai warna yang pernah singgah sejenak di kanvas hidupmu.\n\nAku akan menunggumu di suatu tempat di antara bintang-bintang, dengan kanvas dan kuas di tangan. Sampai saat itu tiba, hiduplah dengan indah untuk kita berdua.\n\nSelalu milikmu,\nAira."
       }
     ],
     "nextScene": "epilog_13"
@@ -1120,11 +1123,12 @@
   },
   {
     "id": "credits",
+    "music": " ",
     "backgroundImage": "assets/bg/black.jpg",
     "dialogs": [
       {
         "character": "Credits",
-        "text": "Game Visual Novel 24 Hours\n\nProgrammer: Nama Kamu\nArt: Nama Artis\nMusic: Nama Musisi\nSpecial Thanks: ...\n\nTerima kasih telah bermain!"
+        "text": "Game Visual Novel 24 Hours\n\nProgrammer: \nKelompok 5\nArt:\nhttps://noranekogames.itch.io/ \nhttps://potat0master.itch.io/ \nhttps://kawaiisayian.itch.io \nhttps://leonardo.ai/\n Music:\nhttps://freetouse.com/music/category/timelapse \nSpecial Thanks:\nBpk.Suhendra\nIbu.Raden Rara Kartika Kusuma Winahyu\nKak.Afni Tazkiyatul Misky\nTerima kasih telah bermain!"
       },
       {
         "choices": [

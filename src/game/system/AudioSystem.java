@@ -26,15 +26,23 @@ public class AudioSystem {
         }
         stopMusic();
         try {
+            System.out.println("Mencoba memutar musik: " + path);
             Media media = new Media(new File(path).toURI().toString());
             mediaPlayer = new MediaPlayer(media);
             mediaPlayer.setCycleCount(loop ? MediaPlayer.INDEFINITE : 1);
             mediaPlayer.setVolume(muted ? 0.0 : volume);
             mediaPlayer.setOnError(() -> System.err.println("Audio error: " + mediaPlayer.getError()));
+                mediaPlayer.setOnError(() -> {
+            System.err.println("=== KESALAHAN AUDIO SYSTEM ===");
+            System.err.println("File: " + path);
+            System.err.println("Error: " + mediaPlayer.getError());
+            System.err.println("=============================");
+            });
             mediaPlayer.play();
             currentMusicPath = path;
         } catch (Exception e) {
             System.err.println("Gagal memutar musik: " + path);
+             e.printStackTrace();
             currentMusicPath = null;
         }
     }

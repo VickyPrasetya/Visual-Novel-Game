@@ -141,11 +141,10 @@ public class GameUIScreen {
 
             ScrollPane scroll = new ScrollPane(dialogueFlow);
             scroll.setFitToWidth(true);
-            scroll.setFitToHeight(true);
+            scroll.setFitToHeight(false);
             scroll.setStyle("-fx-background: transparent; -fx-background-color: transparent;");
             scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
             scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-            VBox.setVgrow(scroll, Priority.ALWAYS);
 
             choicesBox = new VBox(10);
             choicesBox.setAlignment(Pos.CENTER);
@@ -154,6 +153,7 @@ public class GameUIScreen {
             dialogueContainer.setPadding(new Insets(20, 40, 60, 40));
             dialogueContainer.setStyle("-fx-background-color: rgba(255, 183, 197, 0.9); -fx-border-radius:10; -fx-border-color: white; -fx-border-width: 1; -fx-background-radius: 10;");
             dialogueContainer.minHeightProperty().bind(rootPane.heightProperty().multiply(0.25));
+            dialogueContainer.maxHeightProperty().bind(rootPane.heightProperty().multiply(0.60));
             dialogueContainer.minWidthProperty().bind(rootPane.widthProperty().multiply(0.95));
         }
 
@@ -287,6 +287,14 @@ public class GameUIScreen {
         if (currentScene == null) {
             return;
         }
+           if (currentScene.music != null) {
+        if (currentScene.music.trim().isEmpty()) {
+            AudioSystem.getInstance().stopMusic();
+        } 
+        else {    
+            AudioSystem.getInstance().playMusic(currentScene.music, true);
+        }
+    }
         // Tambahan: clear history jika sudah sampai ending
         if ("ending_screen".equals(currentScene.id)) {
             historySystem.clearHistory();
@@ -636,7 +644,7 @@ public class GameUIScreen {
             for (String entry : historySystem.getHistory()) {
                 Label l = new Label(entry);
                 l.setFont(Font.font(MAIN_FONT, 18));
-                l.setTextFill(Color.LIGHTGRAY);
+                l.setTextFill(Color.BLACK);
                 l.setWrapText(true);
                 logBox.getChildren().add(l);
             }

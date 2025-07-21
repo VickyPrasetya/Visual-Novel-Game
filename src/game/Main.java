@@ -40,7 +40,7 @@ public class Main extends Application implements GameAppCallback, game.system.Se
     private TransitionSystem transitionSystem;
     private CreditsSystem creditsSystem;
 
-    private static final String DEFAULT_MUSIC_PATH = "assets/music/Music Page Menu.mp3";
+    private static final String DEFAULT_MUSIC_PATH = "assets/music/chill.mp3";
 
     @Override
     public void start(Stage primaryStage) {
@@ -59,6 +59,26 @@ public class Main extends Application implements GameAppCallback, game.system.Se
 
         // 4. Atur Scene dan tampilkan Stage
         Scene scene = new Scene(rootLayout, 1280, 720);
+         System.out.println("=============================================");
+    System.out.println("           MEMULAI DIAGNOSTIK LOKASI FILE");
+    System.out.println("=============================================");
+    
+    // Mencetak direktori kerja saat ini
+    String workingDir = System.getProperty("user.dir");
+    System.out.println("Direktori Kerja Program (user.dir): " + workingDir);
+    
+    // Mencoba mendapatkan URL resource
+    java.net.URL resourceUrl = getClass().getResource("/game/ui/style.css");
+    System.out.println("Mencoba mencari resource di path: /game/ui/style.css");
+    if (resourceUrl != null) {
+        System.out.println("--> SUKSES! Resource ditemukan di URL: " + resourceUrl.toExternalForm());
+        scene.getStylesheets().add(resourceUrl.toExternalForm());
+    } else {
+        System.out.println("--> GAGAL! Resource TIDAK ditemukan dengan getResource().");
+        System.err.println("Error: Tidak dapat menemukan file style.css. Periksa output kompilasi dan direktori kerja.");
+    }
+    System.out.println("=============================================");
+    
         primaryStage.setScene(scene);
         primaryStage.show();
         
