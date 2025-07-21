@@ -14,6 +14,7 @@ public class Style {
     public static void styleMainMenuButton(Button button) {
         button.setPrefWidth(300);
         button.setPrefHeight(50);
+        button.setWrapText(true);
         String baseStyle = "-fx-font-size: 22px; -fx-background-color: rgba(0, 0, 0, 0.5); -fx-text-fill: white; -fx-border-color: white; -fx-border-width: 2px; -fx-background-radius: 5; -fx-border-radius: 5;";
         String hoverStyle = "-fx-font-size: 22px; -fx-background-color: rgba(255, 255, 255, 0.3); -fx-text-fill: white; -fx-border-color: white; -fx-border-width: 2px; -fx-background-radius: 5; -fx-border-radius: 5;";
         button.setStyle(baseStyle);
@@ -24,6 +25,7 @@ public class Style {
     public static void styleIconButton(Button button) {
         button.setPrefWidth(300);
         button.setPrefHeight(50);
+        button.setWrapText(true);
         String baseStyle = "-fx-font-size: 16px; -fx-background-color: rgba(0, 0, 0, 0.5); -fx-text-fill: white; -fx-border-color: white; -fx-border-width: 2px; -fx-background-radius: 5; -fx-border-radius: 5;";
         String hoverStyle = "-fx-font-size: 16px; -fx-background-color: rgba(255, 255, 255, 0.3); -fx-text-fill: white; -fx-border-color: white; -fx-border-width: 2px; -fx-background-radius: 5; -fx-border-radius: 5;";
         button.setStyle(baseStyle);
@@ -39,6 +41,7 @@ public class Style {
         String hoverStyle = "-fx-font-family: 'Segoe UI Symbol'; -fx-font-size: 16px; -fx-background-color: #666; -fx-text-fill: white; -fx-background-radius: 5;";
         button.setStyle(baseStyle);
         button.setPrefSize(50, 50);
+        button.setWrapText(true);
         button.setOnMouseEntered(e -> button.setStyle(hoverStyle));
         button.setOnMouseExited(e -> button.setStyle(baseStyle));
     }
@@ -61,6 +64,7 @@ public class Style {
     public static void styleBottomBarButton(Button button) {
         button.setPrefWidth(110);
         button.setPrefHeight(44);
+        button.setWrapText(true);
         String baseStyle = "-fx-font-size: 18px; -fx-background-color: #222; -fx-text-fill: white; -fx-border-color: #fff; -fx-border-width: 2px; -fx-background-radius: 20; -fx-border-radius: 20;";
         String hoverStyle = "-fx-font-size: 18px; -fx-background-color: #444; -fx-text-fill: white; -fx-border-color: #fff; -fx-border-width: 2px; -fx-background-radius: 20; -fx-border-radius: 20;";
         button.setStyle(baseStyle);
