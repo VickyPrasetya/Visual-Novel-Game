@@ -150,7 +150,7 @@ public class GameUIScreen {
             dialogueContainer = new VBox(15, dialogueFlow, choicesBox);
             dialogueContainer.setPadding(new Insets(20, 40, 60, 40));
             dialogueContainer.setStyle("-fx-background-color: rgba(255, 183, 197, 0.9); -fx-border-radius:10; -fx-border-color: white; -fx-border-width: 1; -fx-background-radius: 10;");
-            dialogueContainer.minHeightProperty().bind(rootPane.heightProperty().multiply(0.10));
+            dialogueContainer.minHeightProperty().bind(rootPane.heightProperty().multiply(0.25));
             dialogueContainer.minWidthProperty().bind(rootPane.widthProperty().multiply(0.95));
         }
 
