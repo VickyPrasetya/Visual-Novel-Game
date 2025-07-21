@@ -8,6 +8,7 @@ import java.util.List;
  */
 public class HistorySystem {
     private final List<String> historyLog = new ArrayList<>();
+   
 
     /**
      * Menambahkan entri ke riwayat.
