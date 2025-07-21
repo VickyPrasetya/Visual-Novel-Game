@@ -641,7 +641,7 @@ public class GameUIScreen {
             for (String entry : historySystem.getHistory()) {
                 Label l = new Label(entry);
                 l.setFont(Font.font(MAIN_FONT, 18));
-                l.setTextFill(Color.LIGHTGRAY);
+                l.setTextFill(Color.BLACK);
                 l.setWrapText(true);
                 logBox.getChildren().add(l);
             }
