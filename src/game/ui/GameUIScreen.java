@@ -138,22 +138,19 @@ public class GameUIScreen {
 
             TextFlow dialogueFlow = new TextFlow(dialogueLabel);
             dialogueFlow.setLineSpacing(5);
-
-            ScrollPane scroll = new ScrollPane(dialogueFlow);
-            scroll.setFitToWidth(true);
-            scroll.setFitToHeight(false);
-            scroll.setStyle("-fx-background: transparent; -fx-background-color: transparent;");
-            scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-            scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+            dialogueFlow.setMaxWidth(Double.MAX_VALUE);
+            // Bind wrapping width to ScrollPane width minus padding
+            dialogueFlow.widthProperty().addListener((obs, oldVal, newVal) -> {
+                dialogueLabel.setWrappingWidth(newVal.doubleValue());
+            });
 
             choicesBox = new VBox(10);
             choicesBox.setAlignment(Pos.CENTER);
 
-            dialogueContainer = new VBox(15, scroll, choicesBox);
+            dialogueContainer = new VBox(15, dialogueFlow, choicesBox);
             dialogueContainer.setPadding(new Insets(20, 40, 60, 40));
             dialogueContainer.setStyle("-fx-background-color: rgba(255, 183, 197, 0.9); -fx-border-radius:10; -fx-border-color: white; -fx-border-width: 1; -fx-background-radius: 10;");
-            dialogueContainer.minHeightProperty().bind(rootPane.heightProperty().multiply(0.25));
-            dialogueContainer.maxHeightProperty().bind(rootPane.heightProperty().multiply(0.60));
+            dialogueContainer.minHeightProperty().bind(rootPane.heightProperty().multiply(0.10));
             dialogueContainer.minWidthProperty().bind(rootPane.widthProperty().multiply(0.95));
         }
 
