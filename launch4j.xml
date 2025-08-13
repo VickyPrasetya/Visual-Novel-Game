@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch4jConfig>
+  <dontWrapJar>false</dontWrapJar>
+  <headerType>gui</headerType>
+  <jar>E:\A Kuliah COy\OneDrive - Politeknik Astra\A Semester II 24-25\Struktur Data\Proyek-VisualNovel-24Hours\Visual-Novel-Game\VisualNovelGame.jar</jar>
+  <outfile>24Hours.exe</outfile>
+  <errTitle></errTitle>
+  <cmdLine></cmdLine>
+  <chdir>.</chdir>
+  <priority>normal</priority>
+  <downloadUrl></downloadUrl>
+  <supportUrl></supportUrl>
+  <stayAlive>false</stayAlive>
+  <restartOnCrash>false</restartOnCrash>
+  <manifest></manifest>
+  <icon>E:\A Kuliah COy\OneDrive - Politeknik Astra\A Semester II 24-25\Struktur Data\Proyek-VisualNovel-24Hours\Visual-Novel-Game\assets\favicon.ico</icon>
+  <jre>
+    <path>E:\A Kuliah COy\OneDrive - Politeknik Astra\A Semester II 24-25\Struktur Data\Proyek-VisualNovel-24Hours\Visual-Novel-Game\custom-runtime</path>
+    <requiresJdk>false</requiresJdk>
+    <requires64Bit>false</requires64Bit>
+    <minVersion>1.8</minVersion>
+    <maxVersion>24</maxVersion>
+    <initialHeapSize>64</initialHeapSize>
+    <maxHeapSize>256</maxHeapSize>
+  </jre>
+  <versionInfo>
+    <fileVersion>1.0.0.0</fileVersion>
+    <txtFileVersion>v1.0</txtFileVersion>
+    <fileDescription>24 Hours - Visual Novel Game</fileDescription>
+    <copyright>Public Domain &amp; Credits</copyright>
+    <productVersion>1.0.0.0</productVersion>
+    <txtProductVersion>v1.0</txtProductVersion>
+    <productName>24 Hours - Visual Novel Game</productName>
+    <companyName></companyName>
+    <internalName>VisualNovelGame-SrukturData</internalName>
+    <originalFilename>24Hours.exe</originalFilename>
+    <trademarks></trademarks>
+    <language>ENGLISH_US</language>
+  </versionInfo>
+</launch4jConfig>

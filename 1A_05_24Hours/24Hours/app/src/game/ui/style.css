@@ -1,0 +1,20 @@
+/* Style untuk menyembunyikan scroll bar tanpa menghilangkan fungsinya */
+.hidden-scrollbar .scroll-bar:vertical,
+.hidden-scrollbar .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+}
+
+.hidden-scrollbar .increment-button,
+.hidden-scrollbar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-border-color: transparent;
+}
+
+.hidden-scrollbar .thumb {
+    -fx-background-color: transparent;
+}
+
+.hidden-scrollbar .corner {
+    -fx-background-color: transparent;
+}
